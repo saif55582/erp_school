@@ -161,7 +161,7 @@
                                         <h7 class='text-danger'><?=form_error('mother_name')?></h7>
                                     </div>
                                 </div>
-                                <label class="col-md-2 label-on-left">Mobile: <?=requiredStar()?></label>
+                                <label class="col-md-2 label-on-left">Mobile: </label>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
