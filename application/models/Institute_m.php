@@ -24,4 +24,8 @@ class Institute_m extends MY_Model {
 		return parent::get_single($array);
 	}
 
+	function updateInstitute($array=NULL,$id=NULL) {
+		parent::update($array,$id);
+	}
+
 }

@@ -19,17 +19,6 @@ class MY_Model extends CI_Model {
 		if ($id != NULL) {
 			$filter = $this->_primary_filter;	
 			$id = $filter($id);
-
-			// if($this->_primary_key == 'instituteID' || $this->_primary_key == 'usertypeID')
-			// 	$this->db->where($this->_primary_key, $id);
-			// else {
-			// 	$where = array(
-			// 		'instituteID'=>$this->session->userdata('instituteID'),
-			// 		$this->_primary_key=>$id
-			// 	);
-			// 	$this->db->where($where);
-			// }
-			
 			$this->db->where($this->_primary_key, $id);
 			$method = 'row';
 		}
@@ -37,17 +26,7 @@ class MY_Model extends CI_Model {
 			$method = 'row';
 		}
 		else {
-			// if($this->_primary_key == 'instituteID') {
-			// 	$this->db->where($this->_primary_key, $id);
-			// }
-			// else {
-			// 	$where = array(
-			// 		'instituteID'=>$this->session->userdata('instituteID'),
-			// 	);
-			// 	$this->db->where($where);
-			// }
 			$method = 'result';
-
 		}
 		if(!count($this->db->order_by($this->_order_by))) {
 			$this->db->order_by($this->_order_by);
@@ -151,6 +130,8 @@ class MY_Model extends CI_Model {
 		return hash("sha512", $string . config_item("encryption_key"));
 
 	}
+
+	
 
 }
 

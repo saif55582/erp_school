@@ -1,3 +1,10 @@
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #b11919 !important;
+    outline: 0;
+}
+
 .label-on-left {
     text-align:left !important;
 }

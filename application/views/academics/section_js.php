@@ -35,7 +35,7 @@ $(document).ready(function() {
         //echo "demo.showNotification('top','center','error',4,'Error');";
     }
     if($this->session->flashdata('reply_insert') == 'success') {
-        echo "demo.showNotification('top','center','check',2,'Section Added.');";
+        //echo "demo.showNotification('top','center','check',2,'Section Added.');";
     }
 
         $c = $this->session->flashdata('classesID');

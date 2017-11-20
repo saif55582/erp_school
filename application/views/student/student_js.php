@@ -24,13 +24,11 @@
         });
     });
 
-    $(document).ready(function(){
-        $("#doc_id").click(function(){
-            $(".entry").toggle();
-        });
+$(document).ready(function(){
+    $("#doc_id").click(function(){
+        $(".entry").toggle();
     });
-
-
+});
     
 $(document).ready(function() {
     $('#datatables').DataTable({
@@ -47,7 +45,6 @@ $(document).ready(function() {
 
     });
 
-
     var table = $('#datatables').DataTable();
     $('.card .material-datatables label').addClass('form-group');
     demo.initFormExtendedDatetimepickers();
@@ -57,8 +54,7 @@ $(document).ready(function() {
 
 
 
-function del(id)
-{
+function del(id) {
     //alert(id+added_date);
     //var id = $(this).parent().parent().attr('id');
      var id= id;
@@ -101,4 +97,5 @@ function del(id)
         }
     );
 }
+
 </script>

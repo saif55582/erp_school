@@ -35,4 +35,10 @@ class Classes_m extends MY_Model {
 	function update_class($array=NULL,$id=NULL) {
 		parent::update($array,$id);
 	}
+
+	function getLimit($array=NULL) {
+		$res = parent::get_order_by($array);
+		return count($res);
+
+	}
 }

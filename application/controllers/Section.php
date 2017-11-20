@@ -295,6 +295,7 @@ class Section extends MY_Controller {
             <div class='form-group label-floating'>
                 <label class='control-labe'>Teacher: <span class='text-danger'>*</span></label>
                 <select name='teacherID'  data-live-search='true' class='selectpicker' data-style='select-with-transition' title=' '>";
+                $instituteID = $this->session->userdata('instituteID');
                 	$teachers = $this->teacher_m->get_order_by_teacher(array('instituteID'=>$instituteID));
                     foreach ($teachers as $teacher) {
                     	if($teacher->teacherID == $section->teacherID) {
@@ -321,5 +322,19 @@ class Section extends MY_Controller {
             <button type='submit' class='btn btn-success btn-sm'>Add</button>
         </form>";
         echo $result;
+	}
+
+	function gS() {
+		$classesID =  $this->input->post('ci');
+		$instituteID = $this->session->userdata('instituteID');
+		$sections = $this->section_m->get_section_by(array('classesID'=>$classesID,'instituteID'=>$instituteID));
+		$section = array();
+		foreach ($sections as $sec) {
+			$section[] = array(
+				'section_name'=>$sec->section_name,
+				'sectionID'=>$sec->sectionID
+			);
+		}
+		echo json_encode($section);
 	}
 }

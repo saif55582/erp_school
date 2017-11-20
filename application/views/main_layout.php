@@ -127,6 +127,8 @@
 </body>
 <?php 
     $this->load->view('script'); 
+    $src = base_url('main_asset/assets/app_js/').$app_script;
+    echo "<script src='".$src."'></script>";
     if($script)
         $this->load->view($script);
 ?>

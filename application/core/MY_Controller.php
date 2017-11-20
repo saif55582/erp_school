@@ -27,6 +27,7 @@ class MY_Controller extends CI_Controller {
 
 		$this->data['subactive'] = '';
 		$this->data['script'] = '';
+		$this->data['app_script'] = '';
 		
 	}
 

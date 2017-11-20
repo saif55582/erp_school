@@ -35,5 +35,10 @@ class Section_m extends MY_Model {
 		parent::update($array,$id);
 	}
 
+	function getLimit($array=NULL) {
+		$res = parent::get_order_by($array);
+		return count($res);
+
+	}
 	
 }

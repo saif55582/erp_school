@@ -16,20 +16,134 @@ class Student extends MY_Controller {
 			array(
 				'field'=>'f_name',
 				'label'=>'First Name',
-				'rules'=>'required'
+				'rules'=>'required|trim|xss_clean|alpha_numeric'
 			),
 			array(
 				'field'=>'l_name',
 				'label'=>'Last Name',
-				'rules'=>'required'
+				'rules'=>'required|trim|xss_clean|alpha_numeric'
 			),
 			array(
 				'field'=>'photo',
 				'label'=>'Student Photo',
 				'rules'=>'callback_upload'
+			),
+			array(
+				'field'=>'dob',
+				'label'=>'Date Of Birth',
+				'rules'=>'required|trim|xss_clean|callback_checkdate'
+			),
+			array(
+				'field'=>'gender',
+				'label'=>'Gender',
+				'rules'=>'required'
+			),
+			array(
+				'field'=>'blood',
+				'label'=>'Blood',
+				'rules'=>'required|xss_clean|trim'
+			),
+			array(
+				'field'=>'age',
+				'label'=>'Age',
+				'rules'=>'required|trim|xss_clean|numeric'
+			),
+			array(
+				'field'=>'address',
+				'label'=>'Address ',
+				'rules'=>'required|trim|xss_clean'
+			),
+			array(
+				'field'=>'father_name',
+				'label'=>"Father's Name",
+				'rules'=>'required|xss_clean|trim|alpha_numeric_spaces'
+			),
+			array(
+				'field'=>'father_phone',
+				'label'=>"Father's Phone",
+				'rules'=>'required|xss_clean|trim|numeric|exact_length[10]'
+			),
+			array(
+				'field'=>'father_job',
+				'label'=>"Father's Job",
+				'rules'=>'trim|xss_clean|alpha_numeric_spaces'
+			),
+			array(
+				'field'=>'father_aadhar',
+				'label'=>"Father's Aadhar",
+				'rules'=>'trim|xss_clean|numeric|exact_length[12]'
+			),
+			array(
+				'field'=>'mother_name',
+				'label'=>"Mother's Name",
+				'rules'=>'required|xss_clean|trim|alpha_numeric_spaces'
+			),
+			array(
+				'field'=>'mother_phone',
+				'label'=>"Mother's Phone",
+				'rules'=>'xss_clean|trim|numeric|exact_length[10]'
+			),
+			array(
+				'field'=>'mother_job',
+				'label'=>"Mother's Job",
+				'rules'=>'trim|xss_clean|alpha_numeric_spaces'
+			),
+			array(
+				'field'=>'mother_aadhar',
+				'label'=>"Mother's Aadhar",
+				'rules'=>'trim|xss_clean|numeric|exact_length[12]'
+			),
+			array(
+				'field'=>'reg_no',
+				'label'=>'Registration Number',
+				'rules'=>'required|trim|xss_clean'
+			),
+			array(
+				'field'=>'roll_no',
+				'label'=>'Roll No ',
+				'rules'=>'xss_clean|trim'
+			),
+			array(
+				'field'=>'sectionID',
+				'label'=>'Section',
+				'rules'=>'required|trim|xss_clean|callback_checkLimit[section_m]'
+			),
+			array(
+				'field'=>'classesID',
+				'label'=>'Class',
+				'rules'=>'required|trim|xss_clean|callback_checkLimit[classes_m]'
+			),
+			array(
+				'field'=>'doj',
+				'label'=>'Joining Date',
+				'rules'=>'required|trim|xss_clean|callback_checkdate'
 			)
 		);
 		return $rules;
+	}
+
+	function checkLimit($param, $model) {
+		//$class = $this->$model->getLimit(array(''));
+		return true;
+	}
+
+
+	function checkdate($date) {
+		if(!$date) {
+			$this->form_validation->set_message('checkdate','The %s field is required');
+			return false;
+		}
+		else {
+			echo $date;
+			if(date('Y-m-d', strtotime($date)) == $date) {
+				return true;
+			}
+			else {
+				$this->form_validation->set_message('checkdate','The %s must be in format "yyyy-mm-dd"');
+				return false;
+			}
+		}
+		
 	}
 
 	function index() {
@@ -44,11 +158,15 @@ class Student extends MY_Controller {
 	}
 
 	function renderAdd() {
+		$instituteID = $this->session->userdata('instituteID');
+		$rn = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+		$this->data['registration_no'] = $rn->registration_no;
 		$this->data['classes'] = $this->classes_m->get_order_by_classes(array('instituteID'=>$this->session->userdata('instituteID')));
 		$this->data['sections'] = $this->section_m->get_section_by(array('instituteID'=>$this->session->userdata('instituteID')));
 		$this->data['title'] = 'Add Student';
 		$this->data['subview'] = 'student/student_add';
 		$this->data['script'] = 'student/student_js';
+		$this->data['app_script'] = 'student.js';
 		$this->data['active'] = 'student';
 		$this->load->view('main_layout', $this->data);
 	}
@@ -126,10 +244,14 @@ class Student extends MY_Controller {
 			$this->form_validation->set_rules($rules);
 			if($this->form_validation->run() == FALSE) {
 				 $path =  "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student/'.$this->upload_data['file']['file_name'];
-				 unlink($path);
+				 if($_FILES["photo"]['name'] !="")
+				 	unlink($path);
 				$this->renderAdd();
 			}
 			else {
+				$instituteID = $this->session->userdata('instituteID');
+				$res = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+				$registration_no = $res->registration_no;
 				$array = array(
 					'f_name'=>$this->input->post('f_name'),
 					'l_name'=>$this->input->post('l_name'),
@@ -146,7 +268,7 @@ class Student extends MY_Controller {
 					'mother_phone'=>$this->input->post('mother_phone'),
 					'mother_job'=>$this->input->post('mother_job'),
 					'mother_aadhar'=>$this->input->post('mother_aadhar'),
-					'reg_no'=>$this->input->post('reg_no'),
+					'reg_no'=>$registration_no,
 					'roll_no'=>$this->input->post('roll_no'),
 					'sectionID'=>$this->input->post('sectionID'),
 					'classesID'=>$this->input->post('classesID'),
@@ -169,6 +291,8 @@ class Student extends MY_Controller {
 				//print_r($array);die();
 				
 				$this->student_m->insertStudent($array);
+				$reg = array('registration_no'=>$registration_no+1);
+				$this->institute_m->updateInstitute($reg, $instituteID);
 				redirect('student');
 
 			}
