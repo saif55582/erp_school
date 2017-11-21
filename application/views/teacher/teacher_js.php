@@ -1,7 +1,4 @@
 <script>
-    
- 
-
     $(function()
     {
         $(document).on('click', '.btn-add', function(e)
@@ -85,11 +82,11 @@ function del(id)
                         error();
                     }
                     else{
-                        //alert(msg);
+                        alert(msg);
                         datatableDestroy();
                         row.parentNode.removeChild(row);
                         datatableSet();
-                        demo.showNotification('top','center', 'done',2, 'Class Deleted..');
+                        //demo.showNotification('top','center', 'done',2, 'Teacher Deleted..');
                     }
                     
                  }

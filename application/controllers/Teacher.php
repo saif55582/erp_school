@@ -62,7 +62,7 @@ class Teacher extends MY_Controller {
 			array(
 				'field'=>'photo',
 				'label'=>'Teacher Image',
-				'rules'=>'trim|xss_clean|callback_upload'
+				'rules'=>'callback_upload'
 			)
 		);
 		return $rules;
@@ -83,8 +83,7 @@ class Teacher extends MY_Controller {
 	}
 
 	function upload($param) {
-		if($_FILES["photo"]['name'] !="") 
-		{
+		if($_FILES["photo"]['name'] !="") {
 			$file_name = $_FILES["photo"]['name'];
             $explode = explode('.', $file_name);
             $file_name_rename = random_string('alpha',15);
@@ -109,8 +108,8 @@ class Teacher extends MY_Controller {
 	     		return FALSE;
 			}
 		} else {
-			$this->form_validation->set_message('upload','Image is required.');
-			return false;
+			$this->upload_data['file']['file_name'] = 'default.png';
+			return true;
 			
 		}
 	}
@@ -154,6 +153,10 @@ class Teacher extends MY_Controller {
 
 	function deleteTeacher($id=NULL) {
 		$teacherID = $this->input->post('id');
+		// $instituteID = $this->session->userdata('instituteID');
+		// $teacher = $this->teacher_m->get_teacher_single(array('teacherID'=>$teacherID,'instituteID'=>$instituteID));
+		// echo $teacher->photo;
+		// echo $teacherID;die();
 		$this->teacher_m->delete($teacherID);
 	}
 
