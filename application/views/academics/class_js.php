@@ -49,7 +49,7 @@
         //echo "demo.showNotification('top','center','error',4,'Error');";
     }
     if($this->session->flashdata('reply') == 'success')
-        echo "demo.showNotification('top','center','check',2,'Class Added.');";
+        // echo "demo.showNotification('top','center','check',2,'Class Added.');";
 ?>
 <?php 
     if($this->session->flashdata('reply_edit') == 'error') {

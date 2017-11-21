@@ -1,5 +1,4 @@
 <script>
-
     $(function()
     {
         $(document).on('click', '.btn-add', function(e)
@@ -50,10 +49,6 @@ $(document).ready(function() {
     demo.initFormExtendedDatetimepickers();
 });
 
-
-
-
-
 function del(id) {
     //alert(id+added_date);
     //var id = $(this).parent().parent().attr('id');
@@ -98,4 +93,14 @@ function del(id) {
     );
 }
 
+</script>
+<script>
+<?php 
+    $classesID = $this->session->flashdata('getSection');
+    $sectionID = $this->session->flashdata('sectionID');
+    if($classesID && $sectionID) { ?>
+        getSection(<?=$classesID?>,'<?=base_url()?>',<?=$sectionID?>);
+    <?php }
+    
+?>
 </script>

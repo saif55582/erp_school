@@ -332,7 +332,8 @@ class Section extends MY_Controller {
 		foreach ($sections as $sec) {
 			$section[] = array(
 				'section_name'=>$sec->section_name,
-				'sectionID'=>$sec->sectionID
+				'sectionID'=>$sec->sectionID,
+				'classesID'=>$sec->classesID
 			);
 		}
 		echo json_encode($section);

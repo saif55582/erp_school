@@ -41,7 +41,7 @@ class Student extends MY_Controller {
 			array(
 				'field'=>'blood',
 				'label'=>'Blood',
-				'rules'=>'required|xss_clean|trim'
+				'rules'=>'xss_clean|trim'
 			),
 			array(
 				'field'=>'age',
@@ -70,7 +70,7 @@ class Student extends MY_Controller {
 			),
 			array(
 				'field'=>'father_aadhar',
-				'label'=>"Father's Aadhar",
+				'label'=>"Aadhar",
 				'rules'=>'trim|xss_clean|numeric|exact_length[12]'
 			),
 			array(
@@ -90,7 +90,7 @@ class Student extends MY_Controller {
 			),
 			array(
 				'field'=>'mother_aadhar',
-				'label'=>"Mother's Aadhar",
+				'label'=>"Aadhar",
 				'rules'=>'trim|xss_clean|numeric|exact_length[12]'
 			),
 			array(
@@ -134,7 +134,6 @@ class Student extends MY_Controller {
 			return false;
 		}
 		else {
-			echo $date;
 			if(date('Y-m-d', strtotime($date)) == $date) {
 				return true;
 			}
@@ -246,6 +245,15 @@ class Student extends MY_Controller {
 				 $path =  "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student/'.$this->upload_data['file']['file_name'];
 				 if($_FILES["photo"]['name'] !="")
 				 	unlink($path);
+				 $classesID =  $this->input->post('classesID');
+				 $sectionID = $this->input->post('sectionID');
+				 if($classesID) {
+				 	$this->session->set_flashdata('getSection',$classesID);
+				 }
+				 if($sectionID) {
+				 	$this->session->set_flashdata('sectionID',$sectionID);
+				 }
+
 				$this->renderAdd();
 			}
 			else {

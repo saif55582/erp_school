@@ -91,7 +91,7 @@ class Teacher extends MY_Controller {
             if(count($explode) >= 2) {
 	            $new_file = $file_name_rename.'.'.end($explode);
 				$config['upload_path'] = "./main_asset/school_docs/".$this->session->userdata('instituteID').'/teacher';
-				$config['allowed_types'] = "gif|png|jpeg";
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
 				$config['file_name'] = date('Y-m-d-H-i-s').$new_file;
 				$config['max_size'] = '2048';
 				$config['max_width'] = '3000';
