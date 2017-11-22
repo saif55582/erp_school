@@ -62,12 +62,6 @@ $(document).ready(function() {
 });
 
 
-function setFocus() {
-    setTimeout(function(){
-        $('#mychange').focus();
-    },250);
-}
-
 
 
 function selectClass(classesID) {

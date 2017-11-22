@@ -1,8 +1,7 @@
 <script>
     $(function()
     {
-        $(document).on('click', '.btn-add', function(e)
-        {
+        $(document).on('click', '.btn-add', function(e){
             e.preventDefault();
 
             var controlForm = $('.controls form:first'),
@@ -40,12 +39,24 @@ $(document).ready(function() {
         language: {
             search: "_INPUT_",
             searchPlaceholder: "Search records",
-        }
+        },
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        } ],
+        "order": [[ 1, 'asc' ]]
 
     });
 
 
     var table = $('#datatables').DataTable();
+    table.on('order.dt search.dt', function() {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function(cell, i){
+            cell.innerHTML = i+1;
+        });
+    }).draw();
+
     $('.card .material-datatables label').addClass('form-group');
     demo.initFormExtendedDatetimepickers();
 });
@@ -77,17 +88,10 @@ function del(id)
                  cache: false,
                  success: function(msg)
                  { 
-                    if(msg=='fail'){
-                        //alert(msg);
-                        error();
-                    }
-                    else{
-                        alert(msg);
-                        datatableDestroy();
-                        row.parentNode.removeChild(row);
-                        datatableSet();
-                        //demo.showNotification('top','center', 'done',2, 'Teacher Deleted..');
-                    }
+                    datatableDestroy();
+                    row.parentNode.removeChild(row);
+                    datatableSet();
+                    //demo.showNotification('top','center', 'done',2, 'Teacher Deleted..');
                     
                  }
            });

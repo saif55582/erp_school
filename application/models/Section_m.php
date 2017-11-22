@@ -22,6 +22,11 @@ class Section_m extends MY_Model {
 		return $query;
 	}
 
+	function get_single_section($array=NULL) {
+		$query = parent::get_single($array);
+		return $query;
+	}
+
 	function insertSection($array=NULL) {
 		parent::insert($array);
 	}

@@ -61,7 +61,7 @@
                 },50);";
     }
     if($this->session->flashdata('reply_edit') == 'success')
-        echo "demo.showNotification('top','center','check',2,'Class Updated.');";
+        //echo "demo.showNotification('top','center','check',2,'Class Updated.');";
 ?>
 });
 
@@ -101,7 +101,7 @@ function del(id)
                         datatableDestroy();
                         row.parentNode.removeChild(row);
                         datatableSet();
-                        demo.showNotification('top','center', 'done',2, 'Class Deleted..');
+                        //demo.showNotification('top','center', 'done',2, 'Class Deleted..');
                     }
                     
                  }

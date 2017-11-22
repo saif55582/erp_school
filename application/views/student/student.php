@@ -64,8 +64,30 @@
                                         <td><?= strtoupper($student->f_name.' '.$student->l_name) ?></td>
                                         <td><?=$student->roll_no?></td>
                                         <td><?=$student->reg_no?></td>
-                                        <td><?=$student->classesID?></td>
-                                        <td><?=$student->sectionID?></td>
+                                        <td>
+                                            <?php
+                                                $classesID = $student->classesID;
+                                                $where = array(
+                                                    'instituteID'=>$this->session->userdata('instituteID'),
+                                                    'classesID'=>$classesID
+                                                );
+                                                $classes = $this->classes_m->get_single_class($where);
+                                                echo $classes->class_name;
+
+                                            ?>
+                                        </td>
+                                        <td>
+                                             <?php
+                                                $sectionID = $student->sectionID;
+                                                $where = array(
+                                                    'instituteID'=>$this->session->userdata('instituteID'),
+                                                    'sectionID'=>$sectionID
+                                                );
+                                                $section = $this->section_m->get_single_section($where);
+                                                echo $section->section_name;
+
+                                            ?>
+                                        </td>
                                         <td class="text-center td-actions">
                                             <a href="<?= base_url(); ?>student/edit/<?=$student->studentID?>">
                                                 <button type="button" rel="tooltip" class="btn btn-info">

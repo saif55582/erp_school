@@ -205,41 +205,50 @@
                 </ul>
             </div>
         </li>
-        <li>
-            <a data-toggle="collapse" href="#attendance">
-                <i class="material-icons">apps</i>
+        <?php
+        if($active == 'attendance') {
+            echo '<li class="active">'; 
+            echo '<a data-toggle="collapse" href="#attendance" aria-expanded="true">';
+        }
+        else {
+            echo '<li>';
+            echo '<a data-toggle="collapse" href="#attendance">';
+        }
+        ?>
+            
+                <i class="material-icons">date_range</i>
                 <p>Attendance<b class="caret"></b></p>
             </a>
-            <div class="collapse" id="attendance">
+            <?php
+                if($active == 'attendance') {
+                    echo '<div class="collapse in" id="attendance">';
+                }
+                else {
+                     echo '<div class="collapse" id="attendance">';
+                }
+                ?>
+            
                 <ul class="nav">
-                    <li>
-                        <a data-toggle="collapse" href="#students_attendance">
-                            <p>Students Attendance<b class="caret"></b></p>
-                        </a>
-                        <div class="collapse" id="students_attendance">
-                            <ul class="nav">
-                                <li><a href="#">Attendace Section wise</a></li>
-                                <li><a href="#">Class Wise</a></li>
-                            </ul>
-                        </div>
+                <?php
+                    if($subactive == 'attendance_stud')
+                        echo '<li class="active">';
+                    else
+                        echo '<li>';
+                ?>
+                        <a href="<?= base_url('attendance/student'); ?>">Students Attendance</a>
                     </li>
-                    <li>
-                        <a href="">Employee Attendance</a>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#attendance_reports">
-                            <p>Attendance Reports<b class="caret"></b></p>
-                        </a>
-                        <div class="collapse" id="attendance_reports">
-                            <ul class="nav">
-                                <li><a href="#">Students</a></li>
-                                <li><a href="#">Employee</a></li>
-                            </ul>
-                        </div>
+                <?php   
+                    if($subactive == 'attendance_tech') 
+                        echo '<li class="active">';
+                    else
+                        echo '<li>';
+                ?>
+                        <a href="<?= base_url('attendance/teacher'); ?>">Employee Attendance</a>
                     </li>
                 </ul>
             </div>
         </li>
+        
         <li>
             <a data-toggle="collapse" href="#exam">
                 <i class="material-icons">apps</i>

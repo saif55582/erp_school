@@ -99,7 +99,7 @@ function del(id) {
     $classesID = $this->session->flashdata('getSection');
     $sectionID = $this->session->flashdata('sectionID');
     if($classesID && $sectionID) { ?>
-        getSection(<?=$classesID?>,'<?=base_url()?>',<?=$sectionID?>);
+        getSection('<?=$classesID?>','<?=base_url()?>','<?=$sectionID?>');
     <?php }
     
 ?>

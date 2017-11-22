@@ -21,6 +21,7 @@
                                 <thead class="text-rose">
                                     <tr>    
                                         <th>#</th>
+                                        <th>Photo</th>
                                         <th>Name</th>
                                         <th>Designation</th>
                                         <th>Email</th>
@@ -31,6 +32,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
+                                        <th>Photo</th>
                                         <th>Name</th>
                                         <th>Designation</th>
                                         <th>Email</th>
@@ -45,7 +47,18 @@
                                         foreach ($teachers as $teacher) :
                                     ?>
                                         <tr id="<?= $teacher->teacherID;?>">
-                                        <td><?= $index++; ?></td>
+                                        <td></td>
+                                        <td>
+                                            <?php
+
+                                                if($teacher->photo == 'default.png') {
+                                                    echo "<img src='".base_url()."/main_asset/assets/img/default.png' alt='' class='img img-' style='width:50px'>";
+                                                }
+                                                else {
+                                                    echo "<img src='".base_url()."/main_asset/school_docs/".$this->session->userdata('instituteID')."/teacher/".$teacher->photo."' alt='' class='img' style='width:60px'>";
+                                                }
+                                            ?>                                                
+                                        </td>
                                         <td><?= strtoupper($teacher->name) ?></td>
                                         <td><?= strtoupper($teacher->designation) ?></td>
                                         <td><?=$teacher->email?></td>

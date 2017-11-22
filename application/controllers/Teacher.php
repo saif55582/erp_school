@@ -153,10 +153,21 @@ class Teacher extends MY_Controller {
 
 	function deleteTeacher($id=NULL) {
 		$teacherID = $this->input->post('id');
-		// $instituteID = $this->session->userdata('instituteID');
-		// $teacher = $this->teacher_m->get_teacher_single(array('teacherID'=>$teacherID,'instituteID'=>$instituteID));
-		// echo $teacher->photo;
-		// echo $teacherID;die();
+		$instituteID = $this->session->userdata('instituteID');
+		$teacher = $this->teacher_m->get_teacher_single(array('teacherID'=>$teacherID,'instituteID'=>$instituteID));
+		
+		$path = 'main_asset/school_docs/'.$this->session->userdata('instituteID').'/teacher/';
+		if($teacher->photo != 'default.png') {
+			unlink($path.$teacher->photo);
+		}
+		if($teacher->documents) {
+			$documents = unserialize($teacher->documents);
+			foreach($documents as $docs) {
+				foreach($docs as $name=>$file) {
+					unlink($path.$file);
+				}
+			}
+		}
 		$this->teacher_m->delete($teacherID);
 	}
 
@@ -256,7 +267,7 @@ class Teacher extends MY_Controller {
 				$array['address'] = $this->input->post('address');
 				//print_r($array);echo $id;die();
 				$this->teacher_m->updateTeacher($array,$id);
-				redirect('teacher');
+				redirect('teacher/edit/'.$id);
 			}
 		}
 		else {

@@ -1,4 +1,4 @@
-function getSection(ci,base,si) {
+function getSection(ci, base, si) {
 	var csi = 'ci=' +ci;
 	$.ajax({
          type: "POST",
@@ -7,7 +7,6 @@ function getSection(ci,base,si) {
          success: function(msg)
          { 
             if(msg=='fail'){
-                //alert(msg);
             }
             else{
                 
@@ -39,11 +38,15 @@ function getSection(ci,base,si) {
    });
 }
 
+function setFocus() {
+    setTimeout(function(){
+        $('#mychange').focus();
+    },250);
+}
+
 function getAge(dob) {
     var d = new Date(dob);
     var c = new Date();
-    console.log(d);
-    console.log(c);
     var age = new Date(c-d).getFullYear()-1970;
     $('#age').val(age);
 }

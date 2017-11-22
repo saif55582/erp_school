@@ -165,13 +165,16 @@ class Student extends MY_Controller {
 		$this->data['title'] = 'Add Student';
 		$this->data['subview'] = 'student/student_add';
 		$this->data['script'] = 'student/student_js';
-		$this->data['app_script'] = 'student.js';
+		$this->data['app_script'] = 'general.js';
 		$this->data['active'] = 'student';
 		$this->load->view('main_layout', $this->data);
 	}
 
 	function deleteStudent($id=NULL) {
 		$teacherID = $this->input->post('id');
+		$instituteID = $this->session->userdata('instituteID');
+		$student = $this->student_m->get_single_student($where);
+
 		$this->student_m->delete($teacherID);
 	}
 
@@ -245,8 +248,8 @@ class Student extends MY_Controller {
 				 $path =  "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student/'.$this->upload_data['file']['file_name'];
 				 if($_FILES["photo"]['name'] !="")
 				 	unlink($path);
-				 $classesID =  $this->input->post('classesID');
-				 $sectionID = $this->input->post('sectionID');
+				  $classesID =  ($this->input->post('classesID'));
+				  $sectionID = ($this->input->post('sectionID'));
 				 if($classesID) {
 				 	$this->session->set_flashdata('getSection',$classesID);
 				 }

@@ -6,7 +6,7 @@ class Classes_m extends MY_Model {
 	protected $_table_name = 'classes';
 	protected $_primary_key = 'classesID';
 	protected $_primary_filter = 'intval';
-	protected $_order_by = '';
+	protected $_order_by = 'class_name';
 
 	function __construct() {
 		parent::__construct();
@@ -19,6 +19,11 @@ class Classes_m extends MY_Model {
 
 	function get_order_by_classes($array=NULL) {
 		$query = parent::get_order_by($array);
+		return $query;
+	}
+
+	function get_single_class($array=NULL) {
+		$query = parent::get_single($array);
 		return $query;
 	}
 

@@ -38,7 +38,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="text" value="<?=set_value('f_name')?>" name="f_name" class="form-control up_case">
+                                                <input type="text" name="f_name" class="form-control">
                                                 <h7 class='text-danger'><?=form_error('f_name')?></h7>
                                             </div>
                                         </div>
@@ -46,26 +46,29 @@
                                         <div class="col-md-4">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="text" value="<?=set_value('l_name')?>" name="l_name" class="form-control up_case">
+                                                <input type="text" name="l_name" class="form-control">
                                                 <span class="text-danger"><?=form_error('l_name')?></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <label class="col-md-2 label-on-left">Dater Of Birth: <?=requiredStar()?></label>
+                                        <label class="col-md-2 label-on-left">DOB: <?=requiredStar()?></label>
                                         <div class="col-md-4">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input onfocusout="getAge(this.value)" value="<?=set_value('dob')?>" type="text" name="dob" class="form-control datepicker"/>
+                                                <input type="text" name="dob" class="form-control datepicker"/>
                                                 <span class='text-danger'><?=form_error('dob')?></span>
                                             </div>
                                         </div>
-                                        <label class="col-md-2 label-on-left">Age:  <?=requiredStar()?></label>
+                                        <label class="col-md-2 label-on-left">Gender:  <?=requiredStar()?></label>
                                         <div class="col-md-4">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="text" value="<?=set_value('age')?>" name="age" id="age" class="form-control" readonly>
-                                                <span class='text-danger'><?=form_error('age')?></span>
+                                                <select name='gender' class='selectpicker' data-style='select-with-transition' title=' '>
+                                                    <option  value='MALE'>MALE</option>
+                                                    <option  value='FEMALE'>FEMALE</option>
+                                                </select>
+                                                <span class='text-danger'><?=form_error('gender')?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -74,29 +77,16 @@
                                         <div class="col-md-4">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <input type="text" name="blood" value="<?=set_value('blood')?>" class="form-control up_case">
+                                                <input type="text" name="blood" class="form-control up_case">
                                                 <span class='text-danger'><?=form_error('blood')?></span>
                                             </div>
                                         </div>
-                                        <label class="col-md-2 label-on-left">Gender:  <?=requiredStar()?></label>
+                                        <label class="col-md-2 label-on-left">Age:  <?=requiredStar()?></label>
                                         <div class="col-md-4">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <select name='gender' class='selectpicker' data-style='select-with-transition' title=' '>
-                                                    <?php
-                                                        $gen = set_value('gender');
-                                                        if($gen == 'MALE') {
-                                                            maleSelected();
-                                                        }
-                                                        elseif($gen =='FEMALE') {
-                                                           femaleSelected();
-                                                        }
-                                                        else {
-                                                           gender();
-                                                        }
-                                                    ?>
-                                                </select>
-                                                <span class='text-danger'><?=form_error('gender')?></span>
+                                                <input type="text" name="age" class="form-control ">
+                                                <span class='text-danger'><?=form_error('age')?></span>
                                             </div>
                                         </div>
                                     </div> 
@@ -105,7 +95,7 @@
                                         <div class="col-md-10">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
-                                                <textarea name="address" rows="5" class="form-control up_case"><?=set_value('address')?></textarea>
+                                                <textarea name="address" id="" rows="5" class="form-control"></textarea>
                                                 <h7 class='text-danger'><?=form_error('address')?></h7>
                                             </div>
                                         </div>
@@ -126,7 +116,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('father_name')?>" name="father_name" class="form-control up_case">
+                                        <input type="text" name="father_name" class="form-control">
                                         <h7 class='text-danger'><?=form_error('father_name')?></h7>
                                     </div>
                                 </div>
@@ -134,7 +124,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('father_phone')?>" name="father_phone" class="form-control">
+                                        <input type="text" name="father_phone" class="form-control">
                                         <h7 class='text-danger'><?=form_error('father_phone')?></h7>
                                     </div>
                                 </div>
@@ -144,7 +134,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('father_job')?>" name="father_job" class="form-control up_case">
+                                        <input type="text" name="father_job" class="form-control">
                                         <span class="text-danger"><?=form_error('father_job')?></span>
                                     </div>
                                 </div>
@@ -152,7 +142,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('father_aadhar')?>" name="father_aadhar" class="form-control">
+                                        <input type="text" name="father_aadhar" class="form-control">
                                         <span class="text-danger"><?=form_error('father_aadhar')?></span>
                                     </div>
                                 </div>
@@ -167,15 +157,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('mother_name')?>" name="mother_name" class="form-control up_case">
+                                        <input type="text" name="mother_name" class="form-control">
                                         <h7 class='text-danger'><?=form_error('mother_name')?></h7>
                                     </div>
                                 </div>
-                                <label class="col-md-2 label-on-left">Mobile: </label>
+                                <label class="col-md-2 label-on-left">Mobile: <?=requiredStar()?></label>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('mother_phone')?>" name="mother_phone" class="form-control">
+                                        <input type="text" name="mother_phone" class="form-control">
                                         <h7 class='text-danger'><?=form_error('mother_phone')?></h7>
                                     </div>
                                 </div>
@@ -185,7 +175,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('mother_job')?>"  name="mother_job" class="form-control up_case">
+                                        <input type="text" name="mother_job" class="form-control">
                                         <span class="text-danger"><?=form_error('mother_job')?></span>
                                     </div>
                                 </div>
@@ -193,7 +183,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('mother_aadhar')?>" name="mother_aadhar" class="form-control">
+                                        <input type="text" name="mother_aadhar" class="form-control">
                                         <span class="text-danger"><?=form_error('mother_aadhar')?></span>
                                     </div>
                                 </div>
@@ -207,7 +197,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" name="reg_no" value="<?=$registration_no?>" class="form-control" readonly>
+                                        <input type="text" name="reg_no" class="form-control">
                                         <h7 class='text-danger'><?=form_error('reg_no')?></h7>
                                     </div>
                                 </div>
@@ -215,42 +205,38 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('roll_no')?>" name="roll_no" class="form-control">
+                                        <input type="text" name="roll_no" class="form-control">
                                         <h7 class='text-danger'><?=form_error('roll_no')?></h7>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                
-                                <label class="col-md-2 label-on-left">Class: <?=requiredStar()?></label>
-                                <div class="col-md-4">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label"></label>
-                                        <select name="classesID" onchange="getSection(this.value,'<?=base_url()?>',null)" id="teacherID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title=" ">
-                                            <?php
-                                            foreach ($classes as $class) {
-                                                $classesID = (set_value('classesID'));
-                                                if($classesID == base64_encode($class->classesID)) {
-                                                    echo "<option selected value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
-                                                }
-                                                else {
-                                                    echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
-                                                }
-                                                
-                                            }
-                                            ?>
-                                        </select>
-                                        <h7 class='text-danger'><?=form_error('classesID')?></h7>
-                                    </div>
-                                </div>
                                 <label class="col-md-2 label-on-left">Section: <?=requiredStar()?></label>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <select name="sectionID" id="sec" class="selectpicker" data-style="select-with-transition" title=" ">
-                                           <option value="">Select</option>
+                                        <select name="sectionID" id="teacherID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title=" ">
+                                            <?php
+                                            foreach ($sections as $section) {
+                                                echo "<option value='".$section->sectionID."'>".strtoupper($section->section_name)."</option>";
+                                            }
+                                            ?>
                                         </select>
-                                        <h7 class='text-danger'><?=form_error('sectionID')?></h7>
+                                        <h7 class='text-danger'><?=form_error('batch')?></h7>
+                                    </div>
+                                </div>
+                                <label class="col-md-2 label-on-left">Class: <?=requiredStar()?></label>
+                                <div class="col-md-4">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <select name="classesID" id="teacherID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title=" ">
+                                            <?php
+                                            foreach ($classes as $class) {
+                                                echo "<option value='".$class->classesID."'>".strtoupper($class->class_name)."</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                        <h7 class='text-danger'><?=form_error('course')?></h7>
                                     </div>
                                 </div>
                             </div>
@@ -259,12 +245,12 @@
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('doj')?>" name="doj" class="form-control datepicker"/>
+                                        <input type="text" name="doj" class="form-control datepicker"/>
                                         <h7 class='text-danger'><?=form_error('doj')?></h7>
                                     </div>
                                 </div>
                             </div>
-                            <br>
+
                             <div class="row">
                                 <label class="col-md-3">Documents</label>
                                 <div class="col-md-9">

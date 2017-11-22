@@ -29,7 +29,6 @@ function set_loader(tmodal,base_url) {
   var loader = "<center><div id='load'><img src='"+base_url+"/main_asset/assets/img/load.gif'></div></center>";
     $('#'+tmodal).find('#modal-body')[0].innerHTML = loader;
     $('#'+tmodal).modal('hide');
-   
 }
 
 jQuery(document).ready(function($) {
