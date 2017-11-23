@@ -53,6 +53,12 @@
 <div class="sidebar-wrapper">
     <ul class="nav">
         <li <?=$_li1['dashboard']?> >
+        <?php 
+        if($active == 'dashboardd') 
+            echo '<li class="active">'; 
+        else
+            echo '<li>'; 
+        ?>
             <a href="<?=base_url('dashboard');?>">
                 <i class="material-icons">dashboard</i>
                 <p>Dashboard</p>
