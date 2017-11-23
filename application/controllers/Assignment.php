@@ -20,8 +20,10 @@ class Assignment extends MY_Controller {
 		$this->data['title'] = 'Assignment';
 		$this->data['subview'] = 'academics/assignment';
 		$this->data['script'] = 'academics/assignment_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive'] = 'assignment';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'assignment';
 		$this->load->view('main_layout', $this->data);
 
 	}
@@ -30,8 +32,10 @@ class Assignment extends MY_Controller {
 		$this->data['title'] = 'Add Assignment';
 		$this->data['subview'] = 'academics/assignment_add';
 		$this->data['script'] = 'academics/assignment_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive']='assignment';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'assignment';
 		$this->load->view('main_layout', $this->data);
 	}
 

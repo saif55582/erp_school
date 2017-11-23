@@ -19,8 +19,10 @@ class Attendance extends MY_Controller {
 		$this->data['title'] = 'Student Attendance';
 		$this->data['subview'] = 'attendance/student';
 		$this->data['script'] = 'attendance/attendance_js';
-		$this->data['active'] = 'attendance';
-		$this->data['subactive'] = 'attendance_stud';
+		$this->data['li1'] = 'attendance';
+		$this->data['a1'] = 'attendance';
+		$this->data['div1'] = 'attendance';
+		$this->data['li2'] = 'student';
 		$this->load->view('main_layout', $this->data);
 
 	}
@@ -34,8 +36,10 @@ class Attendance extends MY_Controller {
 		$this->data['subview'] = 'attendance/student_add';
 		$this->data['script'] = 'attendance/attendance_js';
 		$this->data['app_script'] = 'general.js';
-		$this->data['active'] = 'attendance';
-		$this->data['subactive'] = 'attendance_stud';
+		$this->data['li1'] = 'attendance';
+		$this->data['a1'] = 'attendance';
+		$this->data['div1'] = 'attendance';
+		$this->data['li2'] = 'employee';
 		$this->load->view('main_layout', $this->data);
 	}
 

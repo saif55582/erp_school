@@ -22,8 +22,10 @@ class Section extends MY_Controller {
 		$this->data['title'] = 'Section';
 		$this->data['subview'] = 'academics/section';
 		$this->data['script'] = 'academics/section_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive'] = 'section';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'section';
 		$this->load->view('main_layout', $this->data);
 	}
 
@@ -67,7 +69,6 @@ class Section extends MY_Controller {
 		}
 		else {
 			if(!$classesID){
-				echo 'not found';
 				$this->form_validation->set_message('check_unique','');
 				return false;
 			}
@@ -299,10 +300,10 @@ class Section extends MY_Controller {
                 	$teachers = $this->teacher_m->get_order_by_teacher(array('instituteID'=>$instituteID));
                     foreach ($teachers as $teacher) {
                     	if($teacher->teacherID == $section->teacherID) {
-	                        $result .="<option selected value='".$teacher->teacherID."'>".strtoupper($teacher->name)."</option>";
+	                        $result .= "<option selected value='".$teacher->teacherID."'>".$teacher->name." (".$teacher->teacherID.")</option>";
 	                    }
 	                    else {
-	                    	$result .="<option value='".$teacher->teacherID."'>".strtoupper($teacher->name)."</option>";
+	                    	$result .= "<option  value='".$teacher->teacherID."'>".$teacher->name." (".$teacher->teacherID.")</option>";
 	                    }
                     }
                $result .= "</select>

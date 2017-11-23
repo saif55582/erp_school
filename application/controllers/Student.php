@@ -146,12 +146,15 @@ class Student extends MY_Controller {
 	}
 
 	function index() {
-		$this->data['students'] = $this->student_m->get_order_by_student();
+		
+		$where = array(
+			'instituteID'=>$this->session->userdata('instituteID')
+		);
+		$this->data['students'] = $this->student_m->get_order_by_student($where);
 		$this->data['title'] = 'Student';
 		$this->data['subview'] = 'student/student';
 		$this->data['script'] = 'student/student_js';
-		$this->data['active'] = 'student';
-		$this->data['subactive'] = '';
+		$this->data['li1'] = 'student';
 		$this->load->view('main_layout', $this->data);
 
 	}
@@ -166,7 +169,7 @@ class Student extends MY_Controller {
 		$this->data['subview'] = 'student/student_add';
 		$this->data['script'] = 'student/student_js';
 		$this->data['app_script'] = 'general.js';
-		$this->data['active'] = 'student';
+		$this->data['li1'] = 'student';
 		$this->load->view('main_layout', $this->data);
 	}
 

@@ -20,8 +20,10 @@ class Subject extends MY_Controller {
 		$this->data['title'] = 'Subject';
 		$this->data['subview'] = 'academics/subject';
 		$this->data['script'] = 'academics/subject_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive'] = 'subject';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'subject';
 		$this->load->view('main_layout', $this->data);
 
 	}
@@ -30,8 +32,10 @@ class Subject extends MY_Controller {
 		$this->data['title'] = 'Add Subject';
 		$this->data['subview'] = 'academics/subject_add';
 		$this->data['script'] = 'academics/subject_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive']='subject';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'section';
 		$this->load->view('main_layout', $this->data);
 	}
 

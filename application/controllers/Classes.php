@@ -113,8 +113,10 @@ class Classes extends MY_Controller {
 		$this->data['title'] = 'Class';
 		$this->data['subview'] = 'academics/class';
 		$this->data['script'] = 'academics/class_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive'] = 'class';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'class';
 		$this->load->view('main_layout', $this->data);
 	}
 
@@ -207,10 +209,10 @@ class Classes extends MY_Controller {
                         	$teachers = $this->teacher_m->get_order_by_teacher(array('instituteID'=>$this->session->userdata('instituteID')));
                             foreach ($teachers as $teacher) {
                             	if($teacher->teacherID == $row->teacherID) {
-                            		$result .= "<option selected value='".$teacher->teacherID."'>".$teacher->name."</option>";
+                            		$result .= "<option selected value='".$teacher->teacherID."'>".$teacher->name." (".$teacher->teacherID.")</option>";
                             	}
                             	else {
-                            		$result .= "<option value='".$teacher->teacherID."'>".$teacher->name."</option>";
+                            		$result .= "<option value='".$teacher->teacherID."'>".$teacher->name." (".$teacher->teacherID.")</option>";
                             	}
                         		
                             }

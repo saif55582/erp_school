@@ -26,9 +26,18 @@ class MY_Controller extends CI_Controller {
 		// print_r($institute_details)
 		// $this->data['institute_details'] = $institute_details;
 
-		$this->data['subactive'] = '';
-		$this->data['script'] = '';
-		$this->data['app_script'] = '';
+		$this->data = array(
+			'active'=>'',
+			'app_script'=>'',
+			'subactive'=>'',
+			'li1'=>'',	
+			'a1'=>'',
+			'div1'=>'',
+			'li2'=>'',
+			'a2'=>'',
+			'div2'=>'',
+			'li3'=>''
+		);
 		
 	}
 
@@ -38,6 +47,8 @@ class MY_Controller extends CI_Controller {
 		$this->data['subview'] = 'not_found';
 		$this->load->view('main_layout', $this->data);
 	}
+
+
 
 }
 

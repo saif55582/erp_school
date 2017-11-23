@@ -20,8 +20,10 @@ class Syllabus extends MY_Controller {
 		$this->data['title'] = 'Syllabus';
 		$this->data['subview'] = 'academics/syllabus';
 		$this->data['script'] = 'academics/syllabus_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive'] = 'syllabus';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'syllabus';
 		$this->load->view('main_layout', $this->data);
 
 	}
@@ -30,8 +32,10 @@ class Syllabus extends MY_Controller {
 		$this->data['title'] = 'Add Syllabus';
 		$this->data['subview'] = 'academics/syllabus_add';
 		$this->data['script'] = 'academics/syllabus_js';
-		$this->data['active'] = 'academics';
-		$this->data['subactive']='syllabus';
+		$this->data['li1'] = 'academics';
+		$this->data['a1'] = 'academics';
+		$this->data['div1'] = 'academics';
+		$this->data['li2'] = 'syllabus';
 		$this->load->view('main_layout', $this->data);
 	}
 

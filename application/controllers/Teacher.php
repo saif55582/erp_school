@@ -120,8 +120,7 @@ class Teacher extends MY_Controller {
 		$this->data['title'] = 'Teacher';
 		$this->data['subview'] = 'teacher/teacher';
 		$this->data['script'] = 'teacher/teacher_js';
-		$this->data['active'] = 'teacher';
-		$this->data['subactive'] = '';
+		$this->data['li1'] = 'teacher';
 		$this->load->view('main_layout', $this->data);
 	}
 
@@ -129,7 +128,7 @@ class Teacher extends MY_Controller {
 		$this->data['title'] = 'Add Teacher';
 		$this->data['subview'] = 'teacher/teacher_add';
 		$this->data['script'] = 'teacher/teacher_js';
-		$this->data['active'] = 'teacher';
+		$this->data['li1'] = 'teacher';
 
 		$this->load->view('main_layout', $this->data);
 	}

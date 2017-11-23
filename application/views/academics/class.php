@@ -112,7 +112,7 @@
                             <option value="">---</option>
                             <?php
                             foreach ($teachers as $teacher) {
-                                echo "<option value='".$teacher->teacherID."'>".$teacher->name." (".$teacher->teacherID.")</option>";
+                                echo "<option value='".$teacher->teacherID."'>".strtoupper($teacher->name)." (".$teacher->teacherID.")</option>";
                             }
                             ?>
                         </select>
