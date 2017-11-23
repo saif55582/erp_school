@@ -54,7 +54,7 @@
     <ul class="nav">
         <li <?=$_li1['dashboard']?> >
         <?php 
-        if($active == 'dashboardd') 
+        if($active == 'dashboard') 
             echo '<li class="active">'; 
         else
             echo '<li>'; 
