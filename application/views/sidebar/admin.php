@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper">
     <ul class="nav">
         <?php 
-        if($active == 'dashboard') 
+        if($active == 'dashboardd') 
             echo '<li class="active">'; 
         else
             echo '<li>'; 
