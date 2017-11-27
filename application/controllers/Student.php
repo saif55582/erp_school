@@ -150,10 +150,13 @@ class Student extends MY_Controller {
 		$where = array(
 			'instituteID'=>$this->session->userdata('instituteID')
 		);
+		$this->data['classes'] = $this->classes_m->get_order_by_classes($where);
+		$this->data['sections'] = $this->section_m->get_section_by($where);
 		$this->data['students'] = $this->student_m->get_order_by_student($where);
 		$this->data['title'] = 'Student';
 		$this->data['subview'] = 'student/student';
 		$this->data['script'] = 'student/student_js';
+		$this->data['app_script'] = 'general.js';
 		$this->data['li1'] = 'student';
 		$this->load->view('main_layout', $this->data);
 
@@ -173,12 +176,28 @@ class Student extends MY_Controller {
 		$this->load->view('main_layout', $this->data);
 	}
 
-	function deleteStudent($id=NULL) {
-		$teacherID = $this->input->post('id');
+	function dest($id=NULL) {
+		$studentID = $this->input->post('param');
 		$instituteID = $this->session->userdata('instituteID');
+		$where = array(
+			'instituteID'=>$instituteID,
+			'studentID'=>$studentID
+		);
 		$student = $this->student_m->get_single_student($where);
-
-		$this->student_m->delete($teacherID);
+		//Dleting student documents
+		$path = 'main_asset/school_docs/'.$this->session->userdata('instituteID').'/student/';
+		if($student->photo != 'default.png') {
+			unlink($path.$student->photo);
+		}
+		if($student->documents) {
+			$documents = unserialize($student->documents);
+			foreach($documents as $docs) {
+				foreach($docs as $name=>$file) {
+					unlink($path.$file);
+				}
+			}
+		}
+		$this->student_m->delete($studentID);
 	}
 
 	function doc_upload() {
@@ -267,6 +286,7 @@ class Student extends MY_Controller {
 				$res = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 				$registration_no = $res->registration_no;
 				$array = array(
+					'instituteID'=>$instituteID,
 					'f_name'=>$this->input->post('f_name'),
 					'l_name'=>$this->input->post('l_name'),
 					'dob'=>$this->input->post('dob'),
@@ -284,8 +304,8 @@ class Student extends MY_Controller {
 					'mother_aadhar'=>$this->input->post('mother_aadhar'),
 					'reg_no'=>$registration_no,
 					'roll_no'=>$this->input->post('roll_no'),
-					'sectionID'=>$this->input->post('sectionID'),
-					'classesID'=>$this->input->post('classesID'),
+					'sectionID'=>base64_decode($this->input->post('sectionID')),
+					'classesID'=>base64_decode($this->input->post('classesID')),
 					'doj'=>$this->input->post('doj')
 				);
 				$array['photo'] = $this->upload_data['file']['file_name'];
@@ -316,6 +336,84 @@ class Student extends MY_Controller {
 		}
 	}
 
+	function gSt() {
+		$classesID = base64_decode($this->input->post('x'));
+		$instituteID = $this->session->userdata('instituteID');
+		$students = $this->student_m->get_order_by_student(array('instituteID'=>$instituteID,'classesID'=>$classesID));
+		$result = '';
+		if(!$students)
+			echo 'no student';
+		else {
+			foreach ($students as $student) :
+		$result .= "    
+				<tr id='".$student->studentID."'>
+				<td>".$index++."</td>
+				<td>".strtoupper($section->section_name)."</td>
+				<td>";
+				    $teacher = $this->teacher_m->get_teacher_by_id($section->teacherID);
+				    if(($teacher->name)) {
+				        $result .= strtoupper($teacher->name);
+				    }
+				    else
+				        $result .= '----';
+	$result .= "</td>
+				<td>".$section->max_student."</td>
+				<td>".$section->note."</td>
+				<td class='text-center'>
+				<a href='#' onclick='getEdit(".$section->sectionID.");' data-toggle='modal' data-target='#supportModal' class='btn mybtn btn-info btn-icon'><i class='material-icons'>edit</i></a>
+				<a href='#' id='". $section->sectionID."' onclick='del(this.id);;' class='btn mybtn btn-danger btn-icon remove'><i class='material-icons'>close</i></a>
+				</td>
+				</tr>";
+			endforeach;
+
+				echo $result;
+		}
+	}
+
+	function gsa() {
+		$classesID = base64_decode($this->input->post('y'));
+		$sectionID = base64_decode($this->input->post('z'));
+		$instituteID = $this->session->userdata('instituteID');
+		$where = array(
+			'instituteID'=>$instituteID,
+			'classesID'=>$classesID,
+			'sectionID'=>$sectionID
+		);
+		$students = $this->student_m->get_order_by_student($where);
+		$result = '';
+		foreach($students as $student) {
+		$result .= "<tr>
+					    <td>";
+					    if($student->photo == 'default.png') {
+					    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:90px'>";
+					    }
+					    else {
+					    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:100px'>";
+					    }
+
+					    $result .= "</td>
+					    <td>".$student->f_name." ".$student->l_name."</td>
+					    <td>".$student->l_name."</td>
+					    <td>1</td>
+					    <td>A</td>
+					    <td>
+					        <div class='btn-group'>
+					            <button style='background-color:#fff' id='present' base='".base_url()."' si='".$student->studentID."' class='btn btn-round'>
+					            	<div class='text-success'>Present</div></button>
+					            </button>
+					            <button style='background-color:#fff' id='absent' base='".base_url()."' si='".$student->studentID."' class='btn btn-round'>
+					            	<div class='text-danger'>Absent</div>
+					            </button>
+					            <button style='background-color:#fff' id='leave' base='".base_url()."' si='".$student->studentID."' class='btn btn-round'>
+					            	<div class='text-warning'>Leave</div>
+					            </button>
+					        </div>
+					    </td>
+					</tr>";
+		}
+
+		echo $result;
+	}
 
 
 }

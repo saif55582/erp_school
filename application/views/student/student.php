@@ -12,15 +12,32 @@
                             <!--Here you can write extra buttons/actions for the toolbar              -->
                             <a href="<?= base_url(); ?>student/add" <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Students</button></a>
 
-                            <?php
+                            <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
+                                <select name="classesID" id="sec" class="selectpicker" data-style="select-with-transition" title="Select Section">
+                                    <option value="">Select Section</option>
+                                </select>
+                                <?php
+                                ?>
+                            </div>
 
-                            ?>
+
+                            <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
+                                <select name="classesID" onchange="getSection(this.value,'<?=base_url()?>',null);gsbc(this.value,'<?=base_url()?>');" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                                    <?php
+                                    
+                                        foreach($classes as $class):
+                                                echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
+                                        endforeach;
+
+                                    ?>
+                                </select>
+                            </div>
+
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
-                                        <th>#</th>
                                         <th>Photo</th>
                                         <th>Name</th>
                                         <th>Roll</th>
@@ -32,7 +49,6 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>#</th>
                                         <th>Photo</th>
                                         <th>Name</th>
                                         <th>Roll</th>
@@ -42,14 +58,12 @@
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody id="tbody">
                                     <?php 
-                                        $index = 1;
                                         
                                         foreach ($students as $student) :
                                     ?>
                                         <tr id="<?= $student->studentID;?>">
-                                        <td><?= $index++; ?></td>
                                         <td>
                                             <?php
 
@@ -94,7 +108,7 @@
                                                 <i class="material-icons">edit</i>
                                                 </button>
                                             </a>
-                                            <button id="<?= $student->studentID ?>" onclick="del(this.id)" type="button" rel="tooltip" class="btn btn-danger">
+                                            <button id="<?= $student->studentID ?>" onclick="pop(this.id,'<?=base_url()?>','student/dest')" type="button" rel="tooltip" class="btn btn-danger">
                                                 <i class="material-icons">close</i>
                                             </button>
                                             

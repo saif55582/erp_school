@@ -49,50 +49,6 @@ $(document).ready(function() {
     demo.initFormExtendedDatetimepickers();
 });
 
-function del(id) {
-    //alert(id+added_date);
-    //var id = $(this).parent().parent().attr('id');
-     var id= id;
-     var row = document.getElementById(id);
-     var data = 'id=' + id;
-     var parent = $(this).parent().parent();
-
-    swal({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonClass: 'btn btn-success',
-            cancelButtonClass: 'btn btn-danger',
-            confirmButtonText: 'Yes, delete it!',
-            buttonsStyling: false
-        }).then(function() {
-          $.ajax(
-          {
-                 type: "POST",
-                 url: "<?php echo base_url(); ?>student/deleteStudent",
-                 data: data,
-                 cache: false,
-                 success: function(msg)
-                 { 
-                    if(msg=='fail'){
-                        //alert(msg);
-                        error();
-                    }
-                    else{
-                        //alert(msg);
-                        datatableDestroy();
-                        row.parentNode.removeChild(row);
-                        datatableSet();
-                        //demo.showNotification('top','center', 'done',2, 'Student Deleted..');
-                    }
-                    
-                 }
-           });
-        }
-    );
-}
-
 </script>
 <script>
 <?php 

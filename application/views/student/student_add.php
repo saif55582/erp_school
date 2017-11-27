@@ -224,7 +224,7 @@
                                 
                                 <label class="col-md-2 label-on-left">Class: <?=requiredStar()?></label>
                                 <div class="col-md-4">
-                                    <div class="form-group label-floating is-empty">
+                                    <div onclick="setFocus()" class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
                                         <select name="classesID" onchange="getSection(this.value,'<?=base_url()?>',null)" id="teacherID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title=" ">
                                             <?php
@@ -248,7 +248,7 @@
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
                                         <select name="sectionID" id="sec" class="selectpicker" data-style="select-with-transition" title=" ">
-                                           <option value="">Select</option>
+                                           <option value="">Select Section</option>
                                         </select>
                                         <h7 class='text-danger'><?=form_error('sectionID')?></h7>
                                     </div>

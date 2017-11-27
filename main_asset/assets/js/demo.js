@@ -1,3 +1,10 @@
+
+function setFocus(target) {
+    setTimeout(function(){
+        $('#mychange').focus();
+    },250);
+}
+
 //function to destroy datatable
 function datatableDestroy() {
     $('#datatables').dataTable().fnDestroy(); //destroy datatable

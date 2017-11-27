@@ -146,7 +146,7 @@
 
         <li>
             <a data-toggle="collapse" href="#exam">
-                <i class="material-icons">border_color</i>
+                <i class="material-icons">assignment</i>
                 <p>Exam<b class="caret"></b></p>
             </a>
             <div class="collapse" id="exam">
@@ -194,7 +194,7 @@
         
         <li class="">
             <a data-toggle="collapse" href="#leave_application" aria-expanded="false">            
-                <i class="material-icons">assignment</i>
+                <i class="material-icons">border_color</i>
                 <p>Leave Application<b class="caret"></b></p>
             </a>
             <div class="collapse " id="leave_application">

@@ -53,6 +53,12 @@
 <div class="sidebar-wrapper">
     <ul class="nav">
         <li <?=$_li1['dashboard']?> >
+        <?php 
+        if($active == 'dashboard') 
+            echo '<li class="active">'; 
+        else
+            echo '<li>'; 
+        ?>
             <a href="<?=base_url('dashboard');?>">
                 <i class="material-icons">dashboard</i>
                 <p>Dashboard</p>
@@ -140,7 +146,7 @@
 
         <li>
             <a data-toggle="collapse" href="#exam">
-                <i class="material-icons">border_color</i>
+                <i class="material-icons">assignment</i>
                 <p>Exam<b class="caret"></b></p>
             </a>
             <div class="collapse" id="exam">
@@ -188,7 +194,7 @@
         
         <li class="">
             <a data-toggle="collapse" href="#leave_application" aria-expanded="false">            
-                <i class="material-icons">assignment</i>
+                <i class="material-icons">border_color</i>
                 <p>Leave Application<b class="caret"></b></p>
             </a>
             <div class="collapse " id="leave_application">
