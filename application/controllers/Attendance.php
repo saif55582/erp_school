@@ -45,7 +45,9 @@ class Attendance extends MY_Controller {
 	}
 
 	function sa() {
-		echo $this->input->post('sti').$this->input->post('a');
+		$studentID = $this->input->post('sti');
+		$param = $this->input->post('a');
+		$student = 
 	}
 
 
