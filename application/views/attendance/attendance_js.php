@@ -1,24 +1,11 @@
 <script>
-   
-    $(document).ready(function(){
-        
-        //-------DtatTable----------//
-        $('#datatables').DataTable({
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
-
-        });
-    });
-
+	$('form').on('submit', function(e) {
+		e.preventDefault();
+		var ci = $(this).find('#ci').val();
+		var si = $(this).find('#sec').val();
+		var d =  $(this).find('#d').val();
+		var b = '<?=base_url()?>';
+		//gsa(ci, si, base);
+		gsa(ci,si,d,b);
+	});
 </script>
-
-
-

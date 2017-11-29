@@ -1,3 +1,37 @@
+$(document).ready(function() {
+    $('#datatables').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records",
+        }
+
+    });
+
+    var table = $('#datatables').DataTable();
+    $('.card .material-datatables label').addClass('form-group');
+    demo.initFormExtendedDatetimepickers();
+    
+});
+
+function setFocus() {
+    setTimeout(function(){
+        $('#mychange').focus();
+    },250);
+}
+
+function getAge(dob) {
+    var d = new Date(dob);
+    var c = new Date();
+    var age = new Date(c-d).getFullYear()-1970;
+    $('#age').val(age);
+}
+
 function getSection(ci, base, si) {
 	var csi = 'ci=' +ci;
 	$.ajax({
@@ -9,7 +43,6 @@ function getSection(ci, base, si) {
             if(msg=='fail'){
             }
             else{
-                
                 var m = JSON.parse(msg);
                 var $select = $('#sec');
                 listItem = '';
@@ -30,47 +63,11 @@ function getSection(ci, base, si) {
                 else {
                     listItem = '<option selected value="">No Section Found</option>';
                 }
-
                 $('#sec').html(listItem);
                 $('.selectpicker').selectpicker('refresh');
             }
          }
    });
-}
-
-function gsbc(ci, base) {
-    var x = 'x=' +ci;
-    $.ajax({
-        type: 'POST',
-        url: base+'student/gSt',
-        data: x,
-        success: function(msg) 
-        {
-            //console.log(msg);
-            datatableDestroy();
-            setTimeout(function(){
-                datatableSet();
-            },1000);
-            
-        }
-    });
-}
-
-function gsa(si,base) {
-    var ci = $('#classesID').val();
-    var y = 'y=' +ci+'&z='+si;
-    $.ajax({
-        type: 'POST',
-        url: base+'student/gsa',
-        data: y,
-        success: function(msg) 
-        {
-            datatableDestroy();
-            $('#tbody').html(msg);
-            datatableSet();
-            
-        }
-    });
 }
 
 function pop(arg, base, cm) {
@@ -95,98 +92,194 @@ function pop(arg, base, cm) {
                  data: data,
                  cache: false,
                  success: function(msg)
-                 {                         
-                        datatableDestroy();
-                        row.parentNode.removeChild(row);
-                        datatableSet();
-                        //demo.showNotification('top','center', 'done',2, 'Student Deleted..');
-                    
+                 {                    
+                    if(msg=='active') {
+                      demo.showNotification('top','center', 'error', 4, "Can't delete active academic year" );
+                    }
+                    else {
+                      datatableDestroy();
+                      row.parentNode.removeChild(row);
+                      datatableSet();
+                    }
+                    //demo.showNotification('top','center', 'done',2, 'Student Deleted..');
                  }
            });
         }
     );
 }
 
-$('#tbody').on('click', '#present', function() {
-  $(this).css('background-color','#4CAF50');
-  $(this).children().css('color','#fff');
-  $(this).next().css('background-color','#fff');
-  $(this).next().children().css('color','#F44336');
-  $(this).next().next().css('background-color','#fff');
-  $(this).next().next().children().css('color','#FF9800');
-  var si = $(this).attr('si');
+function gsbc(ci, si, base) {
+    
+    var dt = $('#setd').html();
+    var d = 'y=' +ci;
+    $.ajax({
+        type: 'POST',
+        url: base+'student/gSt',
+        data: d,
+        success: function(msg) 
+        {
+            console.log(msg);
+            datatableDestroy();
+            setTimeout(function(){
+                datatableSet();
+            },1000);
+            
+        }
+    });
+}
+
+
+
+function gsa(ci, si, dt, base) {
+    var y = 'y=' +ci+'&z='+si+'&dt='+dt;
+    $('#setd').html(dt);
+    $.ajax({
+        type: 'POST',
+        url: base+'attendance/gsa',
+        data: y,
+        success: function(msg) 
+        {
+            datatableDestroy();
+            $('#tbody').html(msg);
+            datatableSet();
+            
+        }
+    });
+}
+
+$('#fetch_attendance').on('click', function() {
+  var ci = $('#class').val();
+  var si = $('#sec').val();
+  var d = $('#setd').val();
   var base = $(this).attr('base');
-  var data = 'sti='+si+ '&a=p';
+  var d = 'y='+ci+'&z='+si+'&dt='+d;
+  $.ajax({
+    type: 'post',
+    url: base+'attendance/getsta',
+    data: d
+  }).done(function(data) {
+      datatableDestroy();
+      $('#tbody').html(data);
+      datatableSet();
+    }).fail(function (errObject, status, error) {
+    demo.showNotification('top','center', 'error',4, error);
+  });
+});
+
+
+
+$('#tbody').on('click', '#present', function() {
+  
+  var asi = $(this).attr('asi');
+  var base = $(this).attr('base');
+  var auth = $(this).attr('auth');
+  var status = $(this).attr('status');
+  if(auth=='admin' || auth!='admin' && status=='n') { 
+    $(this).css('background-color','#4CAF50');
+    $(this).children().css('color','#fff');
+    $(this).next().css('background-color','#fff');
+    $(this).next().children().css('color','#F44336');
+    $(this).next().next().css('background-color','#fff');
+    $(this).next().next().children().css('color','#FF9800');
+  }
+  var dt = $('#setd').html();
+  var data = 'asi='+asi+'&dt='+dt+'&a=p'+'&auth='+auth+'&status='+status;
   $.ajax({
     type: 'post',
     url: base+'attendance/sa',
-    data: data,
+    data: data
   }).done(function(data) {
-    alert(data);
-  }).fail(function (errObject, status, error) {
-    console.log(error);
-  })
+      if(data == 'not_allowed')
+        demo.showNotification('top','center', 'error',4, 'Not Allowed..Only Admin can edit attendance');
+      if(data == 'allowed')
+        demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
+    }).fail(function (errObject, status, error) {
+    demo.showNotification('top','center', 'error',4, error);
+  });
 });
+
 
 $('#tbody').on('click', '#absent', function() {
-  $(this).css('background-color','#F44336');
-  $(this).children().css('color','#fff');
-  $(this).prev().css('background-color','#fff');
-  $(this).prev().children().css('color','#4CAF50');
-  $(this).next().css('background-color','#fff');
-  $(this).next().children().css('color','#FF9800');
-  var si = $(this).attr('si');
+
+  var asi = $(this).attr('asi');
   var base = $(this).attr('base');
-  var data = 'sti='+si+ '&a=a';
+  var auth = $(this).attr('auth');
+  var status = $(this).attr('status');
+
+  if(auth=='admin' || auth!='admin' && status=='n') {
+    $(this).css('background-color','#F44336');
+    $(this).children().css('color','#fff');
+    $(this).prev().css('background-color','#fff');
+    $(this).prev().children().css('color','#4CAF50');
+    $(this).next().css('background-color','#fff');
+    $(this).next().children().css('color','#FF9800');
+  }
+  
+  var dt = $('#setd').html();
+  var data = 'asi='+asi+'&dt='+dt+'&a=a'+'&auth='+auth+'&status='+status;
   $.ajax({
     type: 'post',
     url: base+'attendance/sa',
-    data: data,
+    data: data
   }).done(function(data) {
-    alert(data);
+   if(data == 'not_allowed')
+      demo.showNotification('top','center', 'error',4, 'Not Allowed..Only Admin can edit attendance');
+    if(data == 'allowed')
+      demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
   }).fail(function (errObject, status, error) {
-    console.log(error);
+    demo.showNotification('top','center', 'error',4, error);
   })
 });
+
 
 $('#tbody').on('click', '#leave', function() {
-  $(this).css('background-color','#FF9800');
-  $(this).children().css('color','#fff');
-  $(this).prev().css('background-color','#fff');
-  $(this).prev().children().css('color','#F44336');
-  $(this).prev().prev().css('background-color','#fff');
-  $(this).prev().prev().children().css('color','#4CAF50');
-  var si = $(this).attr('si');
+
+  var asi = $(this).attr('asi');
   var base = $(this).attr('base');
-  var data = 'sti='+si+ '&a=l';
+  var auth = $(this).attr('auth');
+  var status = $(this).attr('status');
+
+  if(auth=='admin' || auth!='admin' && status=='n') {
+    $(this).css('background-color','#FF9800');
+    $(this).children().css('color','#fff');
+    $(this).prev().css('background-color','#fff');
+    $(this).prev().children().css('color','#F44336');
+    $(this).prev().prev().css('background-color','#fff');
+    $(this).prev().prev().children().css('color','#4CAF50');
+  }
+  
+  var dt = $('#setd').html();
+  var data = 'asi='+asi+'&dt='+dt+'&a=l'+'&auth='+auth+'&status='+status;
   $.ajax({
     type: 'post',
     url: base+'attendance/sa',
-    data: data,
+    data: data
   }).done(function(data) {
-    alert(data);
+    if(data == 'not_allowed')
+      demo.showNotification('top','center', 'error',4, 'Not Allowed..Only Admin can edit attendance');
+    if(data == 'allowed')
+      demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
   }).fail(function (errObject, status, error) {
-    console.log(error);
-  })
+    demo.showNotification('top','center', 'error',4, error);
+  });
 });
 
-function inc() {
-    var i = 1;
-    $('#i').innerHTML = i++;
-}
 
-function setFocus() {
-    setTimeout(function(){
-        $('#mychange').focus();
-    },250);
-}
+$('#tbody_academics_year').on('change', '#a', function() {
+  var aci = $(this).val();
+  var base = $(this).attr('base');
+  var d = 'ac='+aci;
+  $.ajax({
+    type: 'post',
+    url: base+'institute/up',
+    data: d
+  }).done(function(data) {
+    demo.showNotification('top','center', 'done',2, 'Academic Session Change ..');
+  }).fail(function (errObject, status, error) {
+    console.log(error);
+  });
+});
 
-function getAge(dob) {
-    var d = new Date(dob);
-    var c = new Date();
-    var age = new Date(c-d).getFullYear()-1970;
-    $('#age').val(age);
-}
 
 
 

@@ -6,17 +6,20 @@
         'academics'=>($li1 == 'academics' ) ? "class='active'" : "class=' '",
         'attendance'=>($li1 == 'attendance' ) ? "class='active'" : "class=' '",
         'finance'=>($li1 == 'finance' ) ? "class='active'" : "class=' '",
+        'administrator'=>($li1 == 'administrator' ) ? "class='active'" : "class=' '"
     );
     $_a1 = array(
          'academics'=>($a1 == 'academics' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
          'attendance'=>($a1 == 'attendance' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
-         'finance'=>($a1 == 'finance' ) ? "aria-expanded='true' " : "aria-expanded='false' "
+         'finance'=>($a1 == 'finance' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
+         'administrator'=>($a1 == 'administrator' ) ? "aria-expanded='true' " : "aria-expanded='false' "
     );
 
     $_div1 = array(
         'academics'=>($div1 == 'academics') ? "class='collapse in'" : "class='collapse'",
         'attendance'=>($div1 == 'attendance') ? "class='collapse in'" : "class='collapse'",
-        'finance'=>($div1 == 'finance') ? "class='collapse in'" : "class='collapse'"
+        'finance'=>($div1 == 'finance') ? "class='collapse in'" : "class='collapse'",
+        'administrator'=>($div1 == 'administrator') ? "class='collapse in'" : "class='collapse'"
     );
 
     $_li2 = array(
@@ -27,7 +30,8 @@
         'assignment'=>($li2 == 'assignment' ) ? "class='active'" : "class=' '",
         'student'=>($li2 == 'student' ) ? "class='active'" : "class=' '",
         'employee'=>($li2 == 'employee' ) ? "class='active'" : "class=' '",
-        'fee'=>($li2 == 'fee' ) ? "class='active'" : "class=' '"
+        'fee'=>($li2 == 'fee' ) ? "class='active'" : "class=' '",
+        'academic_year'=>($li2 == 'academic_year' ) ? "class='active'" : "class=' '"
         
     );
 
@@ -238,18 +242,17 @@
             </div>
         </li> -->
 
-        <li>
-
-            <a data-toggle="collapse" href="#Administrator">
+        <li <?=$_li1['administrator'];?> >
+            <a data-toggle="collapse" href="#Administrator" <?=$_a1['administrator']?> >
                 <i class="material-icons">account_circle</i>
                 <p>Administrator
                     <b class="caret"></b>
                 </p>
             </a>
-            <div class="collapse" id="Administrator">
+            <div <?=$_div1['administrator']?> id="Administrator">
                 <ul class="nav">
-                    <li>
-                        <a href="pages/pricing.html">Academic Year</a>
+                    <li <?=$_li2['academic_year']?>>
+                        <a href="<?=base_url()?>administrator/academic_year">Academic Year</a>
                     </li>
                     <li>
                         <a href="pages/timeline.html">System Admin</a>

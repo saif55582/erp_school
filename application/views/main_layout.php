@@ -4,7 +4,7 @@
 <title><?=$title;?></title>
 <?php 
     $this->load->view('head'); 
-    //print_r($this->session->userdata());
+    print_r($this->session->userdata());
 ?>
 </head>
 <body style="overflow-y: hidden;">
@@ -40,7 +40,7 @@
         
         </div>
         <div class="main-panel">
-            <nav class="navbar navbar-transparent navbar-absolute">
+            <nav class="navbar navbar-transparent navbar-absolut" style="margin-bottom:10px;">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
                         <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
@@ -55,7 +55,6 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> </a>
                     </div>
 
                     <div class="collapse navbar-collapse nav navbar-nav navbar-right">
@@ -113,15 +112,7 @@
                 $this->load->view($subview); 
 
             ?>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <p class="copyright pull-right">
-                        &copy;
-                        <?php echo $school_name.' '.date('Y');?>
-                        <a href="#SChool ERP"></a>
-                    </p>
-                </div>
-            </footer>
+           
         </div>
     </div>
 </body>
