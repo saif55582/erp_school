@@ -14,18 +14,17 @@
                                 <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Attendance</button>
                             </a>
                             <div class="col-md-2" style="float:right;margin-top:11px">
-                                <button base="<?=base_url()?>" id="fetch_attendance" class="btn btn-sm btn-info">Fetch</button>
+                                <button base="<?=base_url()?>" id="fetch_attendance" class="btn btn-sm btn-rose">Fetch</button>
                             </div>
+
                             <div class="col-md-2" style="float:right;">
                                 <input id="setd" type="text" class="form-control datepicker" placeholder="Select Date">
                             </div>
-                            
+
                             <div onclick="setFocus();" class="col-md-2 mytargetchange" style="float:right;margin-top:11px">
                                 <select name="classesID" id="sec" class="selectpicker" data-style="select-with-transition" title="Select Section">
                                     <option value="">Select Section</option>
                                 </select>
-                                <?php
-                                ?>
                             </div>
 
                             <div onclick="setFocus();" class="col-md-2 mytargetchange" style="float:right;margin-top:11px">

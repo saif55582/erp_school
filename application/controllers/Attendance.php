@@ -100,10 +100,10 @@ class Attendance extends MY_Controller {
 				$result .= "<tr>
 						    <td>";
 						    if($student->photo == 'default.png') {
-						    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:90px'>";
+						    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:40px'>";
 						    }
 						    else {
-						    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:100px'>";
+						    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:60px'>";
 						    }
 						    
 						    $result .= "</td>
@@ -215,62 +215,64 @@ class Attendance extends MY_Controller {
 
 			$student = $this->student_m->get_single_student(array('studentID'=>$studentID,'instituteID'=>$instituteID));
 
-			$result .= "<tr>
-						    <td>";
-						    if($student->photo == 'default.png') {
-						    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:90px'>";
-						    }
-						    else {
-						    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:100px'>";
-						    }
-						    
-						    $result .= "</td>
-						    <td>".$student->f_name." ".$student->l_name."</td>
-						    <td>".$attendance->attendance_studID."</td>
-						    <td>".$this->mylibrary->getClassName($student->classesID)."</td>
-						    <td>".$this->mylibrary->getSectionName($student->sectionID)."</td>
-						    <td>
-						        <div class='btn-group'>";
-						        $d = 'd'.$day;
-						    	$status = isset($attendance->$d) ? $attendance->$d : 'n';
-						    	$usertype = $this->session->userdata('loginusertype');
-						    	if($status == 'p') {
-							        $result .= "
-							            <div style='background-color:#4CAF50' class='btn btn-round'>
-							            	<div style='color:#fff' class='text-success'>Present</div></button>
+			if($student) {
+				$result .= "<tr>
+							    <td>";
+							    if($student->photo == 'default.png') {
+							    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:40px'>";
+							    }
+							    else {
+							    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:50px'>";
+							    }
+							    
+							    $result .= "</td>
+							    <td>".$student->f_name." ".$student->l_name."</td>
+							    <td>".$attendance->attendance_studID."</td>
+							    <td>".$this->mylibrary->getClassName($student->classesID)."</td>
+							    <td>".$this->mylibrary->getSectionName($student->sectionID)."</td>
+							    <td>
+							        <div class='btn-group'>";
+							        $d = 'd'.$day;
+							    	$status = isset($attendance->$d) ? $attendance->$d : 'n';
+							    	$usertype = $this->session->userdata('loginusertype');
+							    	if($status == 'p') {
+								        $result .= "
+								            <div style='background-color:#4CAF50' class='btn btn-round'>
+								            	<div style='color:#fff' class='text-success'>Present</div></button>
+								            </div>";
+							        }else {
+							        	 $result .= "
+								            <div style='background-color:#fff' class='btn btn-round'>
+								            	<div class='text-success'>Present</div></button>
+								            </div>";
+							        }
+							        if($status == 'a') {
+							        	$result .= "
+							            <div style='background-color:#F44336' class='btn btn-round'>
+							            	<div style='color:#fff' class='text-danger'>Absent</div>
 							            </div>";
-						        }else {
-						        	 $result .= "
+							        }else {
+							        	$result .= "
 							            <div style='background-color:#fff' class='btn btn-round'>
-							            	<div class='text-success'>Present</div></button>
+							            	<div class='text-danger'>Absent</div>
 							            </div>";
-						        }
-						        if($status == 'a') {
-						        	$result .= "
-						            <div style='background-color:#F44336' class='btn btn-round'>
-						            	<div style='color:#fff' class='text-danger'>Absent</div>
-						            </div>";
-						        }else {
-						        	$result .= "
-						            <div style='background-color:#fff' class='btn btn-round'>
-						            	<div class='text-danger'>Absent</div>
-						            </div>";
-						        }
-					            if($status == 'l') {
-					            	$result .= "
-						            <div style='background-color:#FF9800'  class='btn btn-round'>
-						            	<div style='color:#fff'class='text-warning'>Leave</div>
-						            </div>";
-					            }else {
-					            	$result .= "
-						            <div style='background-color:#fff' class='btn btn-round'>
-						            	<div class='text-warning'>Leave</div>
-						            </div>";
-					            }
-					            $result .= "
-						        </div>
-						    </td>
-						</tr>";
+							        }
+						            if($status == 'l') {
+						            	$result .= "
+							            <div style='background-color:#FF9800'  class='btn btn-round'>
+							            	<div style='color:#fff'class='text-warning'>Leave</div>
+							            </div>";
+						            }else {
+						            	$result .= "
+							            <div style='background-color:#fff' class='btn btn-round'>
+							            	<div class='text-warning'>Leave</div>
+							            </div>";
+						            }
+						            $result .= "
+							        </div>
+							    </td>
+							</tr>";
+						}
 		}
 		echo $result;
 	}

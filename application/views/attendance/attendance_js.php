@@ -5,7 +5,8 @@
 		var si = $(this).find('#sec').val();
 		var d =  $(this).find('#d').val();
 		var b = '<?=base_url()?>';
-		//gsa(ci, si, base);
 		gsa(ci,si,d,b);
+		//alert(ci);
 	});
+	
 </script>

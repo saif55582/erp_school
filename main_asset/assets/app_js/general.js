@@ -108,26 +108,80 @@ function pop(arg, base, cm) {
     );
 }
 
-function gsbc(ci, si, base) {
-    
-    var dt = $('#setd').html();
-    var d = 'y=' +ci;
+$('#tbody').on('click', '.pop', function() {
+  var arg = $(this).attr('id');
+  var base = $(this).attr('base');
+  var cm = $(this).attr('cm');
+  var row = document.getElementById(arg);
+  var parent = $(this).parent().parent();
+  var data = 'param=' + arg;
+  
+
+  swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            confirmButtonText: 'Yes, delete it!',
+            buttonsStyling: false
+        }).then(function() {
+          $.ajax(
+          {
+                 type: "POST",
+                 url: base+cm,
+                 data: data,
+                 cache: false,
+                 success: function(msg)
+                 {                    
+                    
+                      datatableDestroy();
+                      row.parentNode.removeChild(row);
+                      datatableSet();
+                 }
+           });
+        }
+    );
+});
+
+function getStudent(ci,si, base) {
+    if(si) {
+      var d = 'y=' +ci+'&z='+si;
+    }
+    else {
+      var d = 'y=' +ci;
+    }
     $.ajax({
         type: 'POST',
         url: base+'student/gSt',
         data: d,
         success: function(msg) 
         {
-            console.log(msg);
             datatableDestroy();
-            setTimeout(function(){
-                datatableSet();
-            },1000);
-            
+            $('#tbody').html(msg);
+            datatableSet();
         }
     });
 }
 
+function getSubject(ci) {
+
+  var d = 'y='+ci;
+  var base = $('#base').val();
+  $.ajax({
+        type: 'POST',
+        url: base+'subject/get',
+        data: d,
+        success: function(msg) 
+        {
+            datatableDestroy();
+            $('#tbody').html(msg);
+            datatableSet();
+        }
+    });
+
+}
 
 
 function gsa(ci, si, dt, base) {
@@ -138,13 +192,23 @@ function gsa(ci, si, dt, base) {
         url: base+'attendance/gsa',
         data: y,
         success: function(msg) 
-        {
-            datatableDestroy();
-            $('#tbody').html(msg);
-            datatableSet();
+        { 
+            if(msg!='No date') {
+              datatableDestroy();
+              $('#tbody').html(msg);
+              datatableSet();
+              $('#pa').css('display','block');
+            }
             
         }
     });
+}
+
+function present_all() {
+  $('#tbody').children().each(function(){
+    $(this).find('#present').click();
+    
+  });
 }
 
 $('#fetch_attendance').on('click', function() {
@@ -167,9 +231,7 @@ $('#fetch_attendance').on('click', function() {
 });
 
 
-
 $('#tbody').on('click', '#present', function() {
-  
   var asi = $(this).attr('asi');
   var base = $(this).attr('base');
   var auth = $(this).attr('auth');
@@ -191,8 +253,9 @@ $('#tbody').on('click', '#present', function() {
   }).done(function(data) {
       if(data == 'not_allowed')
         demo.showNotification('top','center', 'error',4, 'Not Allowed..Only Admin can edit attendance');
-      if(data == 'allowed')
-        demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
+      if(data == 'allowed'){
+        //demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
+      }
     }).fail(function (errObject, status, error) {
     demo.showNotification('top','center', 'error',4, error);
   });
@@ -200,7 +263,6 @@ $('#tbody').on('click', '#present', function() {
 
 
 $('#tbody').on('click', '#absent', function() {
-
   var asi = $(this).attr('asi');
   var base = $(this).attr('base');
   var auth = $(this).attr('auth');
@@ -224,8 +286,9 @@ $('#tbody').on('click', '#absent', function() {
   }).done(function(data) {
    if(data == 'not_allowed')
       demo.showNotification('top','center', 'error',4, 'Not Allowed..Only Admin can edit attendance');
-    if(data == 'allowed')
-      demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
+    if(data == 'allowed'){
+      //demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
+    }
   }).fail(function (errObject, status, error) {
     demo.showNotification('top','center', 'error',4, error);
   })
@@ -257,8 +320,9 @@ $('#tbody').on('click', '#leave', function() {
   }).done(function(data) {
     if(data == 'not_allowed')
       demo.showNotification('top','center', 'error',4, 'Not Allowed..Only Admin can edit attendance');
-    if(data == 'allowed')
-      demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
+    if(data == 'allowed'){
+      //demo.showNotification('top','center', 'done',2, 'Attendance Updated..');
+    }
   }).fail(function (errObject, status, error) {
     demo.showNotification('top','center', 'error',4, error);
   });

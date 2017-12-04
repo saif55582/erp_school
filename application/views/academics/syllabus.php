@@ -24,31 +24,42 @@
                             <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
-                                        <th>#</th>
                                         <th>Title</th>
                                         <th>Description</th>
-                                        <th>Date</th>
-                                        <th>Uploader</th>
                                         <th>File</th>
-                                        <th>Action</th>
                                         <th class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>#</th>
                                         <th>Title</th>
                                         <th>Description</th>
-                                        <th>Date</th>
-                                        <th>Uploader</th>
                                         <th>File</th>
-                                        <th>Action</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody">
-                                    
-                                    
+                                    <?php
+                                    foreach($syllabuses as $syllabus) :?>
+                                    <tr <?=$syllabus->syllabusID?>>
+                                        <td><?=$syllabus->title?></td>
+                                        <td><?=$syllabus->description?></td>
+                                        <td><?=$syllabus->title?></td>
+                                        <td>
+                                            <a href='<?=base_url()?>syllabus/edit/<?=base64_encode($syllabus->syllabusID)?>'>
+                                                <button type='button' rel='tooltip' class='btn btn-info mybtn'>
+                                                <i class='material-icons'>edit</i>
+                                                </button>
+                                            </a>
+                                            <button id="<?= $syllabus->syllabusID?>" cm="syllabus/dest" base="<?=base_url()?>" type="button" rel="tooltip" class="btn btn-danger mybtn pop">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <?php
+                                    endforeach;
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

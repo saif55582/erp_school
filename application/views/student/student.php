@@ -13,7 +13,7 @@
                             <a href="<?= base_url(); ?>student/add" <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Students</button></a>
 
                             <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select name="classesID" id="sec" class="selectpicker" data-style="select-with-transition" title="Select Section">
+                                <select name="classesID" id="sec" onchange="getStudent($('#class').val(),this.value,'<?=base_url()?>');" class="selectpicker" data-style="select-with-transition" title="Select Section">
                                     <option value="">Select Section</option>
                                 </select>
                                 <?php
@@ -22,7 +22,7 @@
 
 
                             <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select name="classesID" onchange="getSection(this.value,'<?=base_url()?>',null);gsbc(this.value,'<?=base_url()?>');" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                                <select name="classesID" id="class" onchange="getSection(this.value,'<?=base_url()?>',null);getStudent(this.value,null,'<?=base_url()?>');" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
                                     <?php
                                     
                                         foreach($classes as $class):
@@ -80,26 +80,12 @@
                                         <td><?=$student->reg_no?></td>
                                         <td>
                                             <?php
-                                                $classesID = $student->classesID;
-                                                $where = array(
-                                                    'instituteID'=>$this->session->userdata('instituteID'),
-                                                    'classesID'=>$classesID
-                                                );
-                                                $classes = $this->classes_m->get_single_class($where);
-                                                echo $classes->class_name;
-
+                                                echo $this->mylibrary->getClassName($student->classesID);
                                             ?>
                                         </td>
                                         <td>
-                                             <?php
-                                                $sectionID = $student->sectionID;
-                                                $where = array(
-                                                    'instituteID'=>$this->session->userdata('instituteID'),
-                                                    'sectionID'=>$sectionID
-                                                );
-                                                $section = $this->section_m->get_single_section($where);
-                                                echo $section->section_name;
-
+                                            <?php
+                                                echo $this->mylibrary->getSectionName($student->sectionID);
                                             ?>
                                         </td>
                                         <td class="text-center td-actions">

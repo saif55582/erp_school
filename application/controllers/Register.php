@@ -99,7 +99,7 @@ class Register extends MY_Controller {
 
 				$dest = './main_asset/school_docs/'.$instituteID;
 				if(mkdir($dest)) {
-					$subfolders = array('/student','/teacher','/staff','/admin');
+					$subfolders = array('/student','/teacher','/staff','/admin','/data');
 					foreach ($subfolders as $folder) {
 						$sub_folder = $dest.$folder;
 						mkdir($sub_folder);

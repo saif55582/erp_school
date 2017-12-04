@@ -44,7 +44,7 @@
     );
 
     $_li3 = array(
-        'fee-category'=>($li3 == 'fe-category' ) ? "class='active'" : "class=' '",
+        'fee-category'=>($li3 == 'fee-category' ) ? "class='active'" : "class=' '",
         'fee-sub-category'=>($li3 == 'fee-sub-category' ) ? "class='active'" : "class=' '",
         'fee-category-fine'=>($li3 == 'fee-category-fine' ) ? "class='active'" : "class=' '",
         'fee-allocation'=>($li3 == 'fee-allocation' ) ? "class='active'" : "class=' '",

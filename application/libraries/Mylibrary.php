@@ -12,6 +12,7 @@ class Mylibrary {
 		$this->CI->load->library('session');
 		$this->CI->load->model('classes_m');
 		$this->CI->load->model('section_m');
+		$this->CI->load->model('teacher_m');
 	}
 
 	public function isLoggedIn() {
@@ -35,6 +36,15 @@ class Mylibrary {
         );
         $section = $this->CI->section_m->get_single_section($where);
         return $section->section_name;
+	}
+
+	public function getTeacherName($teacherID) {
+		$where = array(
+            'instituteID'=>$this->CI->session->userdata('instituteID'),
+            'teacherID'=>$teacherID
+        );
+        $teacher = $this->CI->teacher_m->get_teacher_single($where);
+        return $teacher->name;
 	}
 
 	

@@ -4,7 +4,7 @@
 <title><?=$title;?></title>
 <?php 
     $this->load->view('head'); 
-    print_r($this->session->userdata());
+    //print_r($this->session->userdata());
 ?>
 </head>
 <body style="overflow-y: hidden;">

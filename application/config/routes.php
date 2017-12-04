@@ -52,5 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'signin';
 $route['attendance/student/add'] = 'attendance/student_add';
 $route['administrator/academic-year'] = 'administrator/academic_year';
+$route['subject/edit/(:any)'] = 'subject/lookup/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

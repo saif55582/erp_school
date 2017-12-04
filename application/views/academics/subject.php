@@ -15,7 +15,12 @@
                             </a>
     
                             <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select onchange="selectClass(this.value)" name="classesID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                                <select onchange="getSubject(this.value)" name="classesID" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                                     <?php
+                                        foreach ($classes as $class) {
+                                            echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";                                      
+                                        }
+                                        ?>
                                 </select>
                             </div>
 
@@ -24,9 +29,7 @@
                             <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
-                                        <th>#</th>
-                                        <th>Subject Name</th>
-                                        <th>Subject Author</th>
+                                        <th>Name</th>
                                         <th>Subject Code</th>
                                         <th>Teacher</th>
                                         <th>Pass Mark</th>
@@ -37,10 +40,8 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Subject Name</th>
-                                        <th>Subject Author</th>
-                                        <th>Subject Code</th>
+                                        <th>Name</th>
+                                        <th>Code</th>
                                         <th>Teacher</th>
                                         <th>Pass Mark</th>
                                         <th>Final Mark</th>
@@ -48,9 +49,36 @@
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>
+                                <input type="hidden" value="<?=base_url()?>" id='base'>
                                 <tbody id="tbody">
-                                    
-                                    
+                                    <?php
+                                    foreach ($subjects as $subject):
+                                    ?>
+                                    <tr id="<?= $subject->subjectID?>" >
+                                        <td><?=$subject->subject_name?></td>
+                                        <td><?=$subject->subject_code?></td>
+                                        <td>
+                                             <?php
+                                                echo $this->mylibrary->getTeacherName($subject->teacherID);
+                                            ?>
+                                        </td>
+                                        <td><?=$subject->pass_marks?></td>
+                                        <td><?=$subject->final_marks?></td>
+                                        <td><?= ($subject->optional) ? 'Optional' : 'Mandatory' ?></td>
+                                        <td style="float:right">
+                                             <a href='<?=base_url()?>subject/edit/<?=base64_encode($subject->subjectID)?>'>
+                                                <button type='button' rel='tooltip' class='btn btn-info mybtn'>
+                                                <i class='material-icons'>edit</i>
+                                                </button>
+                                            </a>
+                                            <button id="<?= $subject->subjectID?>" cm="subject/dest" base="<?=base_url()?>" type="button" rel="tooltip" class="btn btn-danger mybtn pop">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <?php 
+                                    endforeach;
+                                      ?>
                                 </tbody>
                             </table>
                         </div>
