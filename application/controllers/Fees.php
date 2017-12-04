@@ -10,9 +10,8 @@ class Fees extends MY_Controller {
 			redirect('signin');
 	}
 
+	//changed
 	function index() {
-
-
 		$this->data['title'] = 'Fee';
 		$this->data['subview'] = 'test';
 		$this->data['script'] = '';
