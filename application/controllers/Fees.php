@@ -11,9 +11,7 @@ class Fees extends MY_Controller {
 	}
 
 	function index() {
-
-
-		$this->data['title'] = 'Fee';
+  	$this->data['title'] = 'Fee';
 		$this->data['subview'] = 'test';
 		$this->data['script'] = '';
 		$this->data['app_script'] = 'general.js';
