@@ -7,53 +7,59 @@
                         <i class="material-icons">assignment</i>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title my-title">Section</h4>
+                        <h4 class="card-title my-title">Student attendance</h4>
                         <div class="toolbar">
                             <!--Here you can write extra buttons/actions for the toolbar              -->
                             <a href="<?= base_url('attendance/student/add')?>">
-                                <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Student Attendance</button>
+                                <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Attendance</button>
                             </a>
-    
-                            <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select onchange="selectClass(this.value)" name="classesID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                            <div class="col-md-2" style="float:right;margin-top:11px">
+                                <button base="<?=base_url()?>" id="fetch_attendance" class="btn btn-sm btn-rose">Fetch</button>
+                            </div>
+
+                            <div class="col-md-2" style="float:right;">
+                                <input id="setd" type="text" class="form-control datepicker" placeholder="Select Date">
+                            </div>
+
+                            <div onclick="setFocus();" class="col-md-2 mytargetchange" style="float:right;margin-top:11px">
+                                <select name="classesID" id="sec" class="selectpicker" data-style="select-with-transition" title="Select Section">
+                                    <option value="">Select Section</option>
+                                </select>
+                            </div>
+
+                            <div onclick="setFocus();" class="col-md-2 mytargetchange" style="float:right;margin-top:11px">
+                                <div id="setd"></div>
+                                <select name="classesID" id="class" onchange="getSection(this.value,'<?=base_url()?>',null);" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
                                     <?php
                                     
-                                        $classesID = $this->session->flashdata('classesID');
                                         foreach($classes as $class):
-                                            if($class->classesID == $classesID) {
-                                                echo "<option selected value='".$class->classesID."'>".strtoupper($class->class_name)."</option>";
-                                            }
-                                            else {
-                                                echo "<option value='".$class->classesID."'>".strtoupper($class->class_name)."</option>";
-                                            }
+                                                echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
                                         endforeach;
 
                                     ?>
                                 </select>
-                                <?php
-                                ?>
                             </div>
 
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
-                                    <tr>    
-                                        <th>#</th>
-                                        <th>Photo</th>
-                                        <th>Name</th>
-                                        <th>Roll</th>
-                                        <th>Email</th>
-                                        <th class="disabled-sorting text-center ">Actions</th>
+                                    <tr width="100%">    
+                                        <th width='15%'>Photo</th>
+                                        <th width='13%'>Name</th>
+                                        <th width='13%'>Roll</th>
+                                        <th width='12%'>Class</th>
+                                        <th width='12%'>Section</th>
+                                        <th width='40%' class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>#</th>
                                         <th>Photo</th>
                                         <th>Name</th>
                                         <th>Roll</th>
-                                        <th>Email</th>
+                                        <th>Class</th>
+                                        <th>Section</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>

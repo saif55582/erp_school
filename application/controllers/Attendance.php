@@ -16,6 +16,10 @@ class Attendance extends MY_Controller {
 	}
 
 	function student() {
+		$where = array(
+			'instituteID'=>$this->session->userdata('instituteID')
+		);
+		$this->data['classes'] = $this->classes_m->get_order_by_classes($where);
 		$this->data['title'] = 'Student Attendance';
 		$this->data['subview'] = 'attendance/student';
 		$this->data['script'] = 'attendance/attendance_js';
@@ -44,9 +48,232 @@ class Attendance extends MY_Controller {
 		$this->load->view('main_layout', $this->data);
 	}
 
+	function gsa() {
+		$classesID = base64_decode($this->input->post('y'));
+		$sectionID = base64_decode($this->input->post('z'));
+		$date = $this->input->post('dt');
+		if(!$date) {
+			echo 'No date';
+			return false;
+		}
+		$day = date('d', strtotime($date));
+		$month_year = date('Y-m', strtotime($date));
+		$instituteID = $this->session->userdata('instituteID');
+		$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+		$academic_yearID = $institute->academic_yearID;
+		$where = array(
+			'instituteID'=>$instituteID,
+			'classesID'=>$classesID,
+			'sectionID'=>$sectionID
+		);
+		$students = $this->student_m->get_order_by_student($where);
+		$result = '';
+		foreach($students as $student) {
+		$array = array(
+			'instituteID'=>$this->session->userdata('instituteID'),
+			'academic_yearID'=>$student->academic_yearID,
+			'studentID'=>$student->studentID,
+			'classesID'=>$student->classesID,
+			'sectionID'=>$student->sectionID,
+			'month_year'=>$month_year
+		);
+
+		$a = $this->attendance_stud_m->get_single_attendance($array);
+		
+		if(!$a)
+			$this->attendance_stud_m->insertAttendance($array);
+
+		$where = array(
+			'instituteID'=>$instituteID,
+			'academic_yearID'=>$academic_yearID,
+			'studentID'=>$student->studentID,
+			'classesID'=>$student->classesID,
+			'sectionID'=>$student->sectionID,
+			'month_year'=>$month_year
+		);
+
+		$attendance = $this->attendance_stud_m->get_single_attendance($where);
+		$studentID =  $attendance->studentID;
+		$student = $this->student_m->get_single_student(array('studentID'=>$studentID,'instituteID'=>$instituteID));
+
+
+				$result .= "<tr>
+						    <td>";
+						    if($student->photo == 'default.png') {
+						    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:40px'>";
+						    }
+						    else {
+						    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:60px'>";
+						    }
+						    
+						    $result .= "</td>
+						    <td>".$student->f_name." ".$student->l_name."</td>
+						    <td>".$attendance->attendance_studID."</td>
+						    <td>".$this->mylibrary->getClassName($student->classesID)."</td>
+						    <td>".$this->mylibrary->getSectionName($student->sectionID)."</td>
+						    <td>
+						        <div class='btn-group'>";
+						        $d = 'd'.$day;
+						    	$status = isset($attendance->$d) ? $attendance->$d : 'n';
+						    	$usertype = $this->session->userdata('loginusertype');
+						    	if($status == 'p') {
+							        $result .= "
+							            <button style='background-color:#4CAF50' status='".$status."' id='present' auth='".($usertype)."' base='".base_url()."' asi='".base64_encode($attendance->attendance_studID)."' class='btn btn-round'>
+							            	<div style='color:#fff' class='text-success'>Present</div></button>
+							            </button>";
+						        }else {
+						        	 $result .= "
+							            <button style='background-color:#fff' status='".$status."' id='present' auth='".($usertype)."' base='".base_url()."' asi='".base64_encode($attendance->attendance_studID)."' class='btn btn-round'>
+							            	<div class='text-success'>Present</div></button>
+							            </button>";
+						        }
+						        if($status == 'a') {
+						        	$result .= "
+						            <button style='background-color:#F44336' status='".$status."' id='absent' auth='".($usertype)."' base='".base_url()."' asi='".base64_encode($attendance->attendance_studID)."' class='btn btn-round'>
+						            	<div style='color:#fff' class='text-danger'>Absent</div>
+						            </button>";
+						        }else {
+						        	$result .= "
+						            <button style='background-color:#fff' status='".$status."' id='absent' auth='".($usertype)."' base='".base_url()."' asi='".base64_encode($attendance->attendance_studID)."' class='btn btn-round'>
+						            	<div class='text-danger'>Absent</div>
+						            </button>";
+						        }
+					            if($status == 'l') {
+					            	$result .= "
+						            <button style='background-color:#FF9800' status='".$status."' id='leave' auth='".($usertype)."' base='".base_url()."' asi='".base64_encode($attendance->attendance_studID)."' class='btn btn-round'>
+						            	<div style='color:#fff'class='text-warning'>Leave</div>
+						            </button>";
+					            }else {
+					            	$result .= "
+						            <button style='background-color:#fff' status='".$status."' id='leave' auth='".($usertype)."' base='".base_url()."' asi='".base64_encode($attendance->attendance_studID)."' class='btn btn-round'>
+						            	<div class='text-warning'>Leave</div>
+						            </button>";
+					            }
+					            $result .= "
+						        </div>
+						    </td>
+						</tr>";
+		}
+		echo $result;
+	}
+
 	function sa() {
-		echo $this->input->post('sti').$this->input->post('a');
+		$attendance_studID = base64_decode($this->input->post('asi'));
+		$auth = ($this->input->post('auth'));
+		$status = $this->input->post('status');
+		$param = $this->input->post('a');
+		$date = $this->input->post('dt');
+		$day = date('d', strtotime($date));
+		$month_year = date('Y-m', strtotime($date));
+		$array = array(
+			'd'.$day=>$param
+		);
+		if($auth == 'admin') {
+			$this->attendance_stud_m->attendance_stud_update($array,$attendance_studID);
+			echo 'allowed';
+		}
+		else {
+			if($status =='n') {
+				$this->attendance_stud_m->attendance_stud_update($array,$attendance_studID);
+				echo 'allowed';
+			}
+			else
+				echo 'not_allowed';
+		}
 	}
 
 
+	function getsta() {
+		$classesID = base64_decode($this->input->post('y'));
+		$sectionID = base64_decode($this->input->post('z'));
+		$date = $this->input->post('dt');
+		if(!$date) {
+			echo 'No date';
+			return false;
+		}
+		$result = '';
+		$day = date('d', strtotime($date));
+		$month_year = date('Y-m', strtotime($date));
+		$instituteID = $this->session->userdata('instituteID');
+		$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+		$academic_yearID = $institute->academic_yearID;
+
+		$where = array(
+			'instituteID'=>$instituteID,
+			'academic_yearID'=>$academic_yearID,
+			'classesID'=>$classesID,
+			'sectionID'=>$sectionID,
+			'month_year'=>$month_year
+		);
+
+		$attendances = $this->attendance_stud_m->get_attendance_stud_where($where);
+		$d = 'd'.$day;
+		foreach($attendances as $attendance) {
+
+			$studentID = $attendance->studentID;
+			$status = $attendance->$d;
+
+			$student = $this->student_m->get_single_student(array('studentID'=>$studentID,'instituteID'=>$instituteID));
+
+			if($student) {
+				$result .= "<tr>
+							    <td>";
+							    if($student->photo == 'default.png') {
+							    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:40px'>";
+							    }
+							    else {
+							    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:50px'>";
+							    }
+							    
+							    $result .= "</td>
+							    <td>".$student->f_name." ".$student->l_name."</td>
+							    <td>".$attendance->attendance_studID."</td>
+							    <td>".$this->mylibrary->getClassName($student->classesID)."</td>
+							    <td>".$this->mylibrary->getSectionName($student->sectionID)."</td>
+							    <td>
+							        <div class='btn-group'>";
+							        $d = 'd'.$day;
+							    	$status = isset($attendance->$d) ? $attendance->$d : 'n';
+							    	$usertype = $this->session->userdata('loginusertype');
+							    	if($status == 'p') {
+								        $result .= "
+								            <div style='background-color:#4CAF50' class='btn btn-round'>
+								            	<div style='color:#fff' class='text-success'>Present</div></button>
+								            </div>";
+							        }else {
+							        	 $result .= "
+								            <div style='background-color:#fff' class='btn btn-round'>
+								            	<div class='text-success'>Present</div></button>
+								            </div>";
+							        }
+							        if($status == 'a') {
+							        	$result .= "
+							            <div style='background-color:#F44336' class='btn btn-round'>
+							            	<div style='color:#fff' class='text-danger'>Absent</div>
+							            </div>";
+							        }else {
+							        	$result .= "
+							            <div style='background-color:#fff' class='btn btn-round'>
+							            	<div class='text-danger'>Absent</div>
+							            </div>";
+							        }
+						            if($status == 'l') {
+						            	$result .= "
+							            <div style='background-color:#FF9800'  class='btn btn-round'>
+							            	<div style='color:#fff'class='text-warning'>Leave</div>
+							            </div>";
+						            }else {
+						            	$result .= "
+							            <div style='background-color:#fff' class='btn btn-round'>
+							            	<div class='text-warning'>Leave</div>
+							            </div>";
+						            }
+						            $result .= "
+							        </div>
+							    </td>
+							</tr>";
+						}
+		}
+		echo $result;
+	}
 }

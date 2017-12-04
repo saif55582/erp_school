@@ -337,82 +337,57 @@ class Student extends MY_Controller {
 	}
 
 	function gSt() {
-		$classesID = base64_decode($this->input->post('x'));
-		$instituteID = $this->session->userdata('instituteID');
-		$students = $this->student_m->get_order_by_student(array('instituteID'=>$instituteID,'classesID'=>$classesID));
-		$result = '';
-		if(!$students)
-			echo 'no student';
-		else {
-			foreach ($students as $student) :
-		$result .= "    
-				<tr id='".$student->studentID."'>
-				<td>".$index++."</td>
-				<td>".strtoupper($section->section_name)."</td>
-				<td>";
-				    $teacher = $this->teacher_m->get_teacher_by_id($section->teacherID);
-				    if(($teacher->name)) {
-				        $result .= strtoupper($teacher->name);
-				    }
-				    else
-				        $result .= '----';
-	$result .= "</td>
-				<td>".$section->max_student."</td>
-				<td>".$section->note."</td>
-				<td class='text-center'>
-				<a href='#' onclick='getEdit(".$section->sectionID.");' data-toggle='modal' data-target='#supportModal' class='btn mybtn btn-info btn-icon'><i class='material-icons'>edit</i></a>
-				<a href='#' id='". $section->sectionID."' onclick='del(this.id);;' class='btn mybtn btn-danger btn-icon remove'><i class='material-icons'>close</i></a>
-				</td>
-				</tr>";
-			endforeach;
-
-				echo $result;
-		}
-	}
-
-	function gsa() {
 		$classesID = base64_decode($this->input->post('y'));
 		$sectionID = base64_decode($this->input->post('z'));
-		$instituteID = $this->session->userdata('instituteID');
-		$where = array(
-			'instituteID'=>$instituteID,
-			'classesID'=>$classesID,
-			'sectionID'=>$sectionID
-		);
-		$students = $this->student_m->get_order_by_student($where);
-		$result = '';
-		foreach($students as $student) {
-		$result .= "<tr>
-					    <td>";
-					    if($student->photo == 'default.png') {
-					    	$result .= "<img src='".base_url('main_asset/assets/img/default.png')."' class='img img-' style='width:90px'>";
-					    }
-					    else {
-					    	$result .= "<img src='".base_url('main_asset/school_docs/').$this->session->userdata('instituteID')."/student/".$student->photo."' class='img img-' style='width:100px'>";
-					    }
-
-					    $result .= "</td>
-					    <td>".$student->f_name." ".$student->l_name."</td>
-					    <td>".$student->l_name."</td>
-					    <td>1</td>
-					    <td>A</td>
-					    <td>
-					        <div class='btn-group'>
-					            <button style='background-color:#fff' id='present' base='".base_url()."' si='".$student->studentID."' class='btn btn-round'>
-					            	<div class='text-success'>Present</div></button>
-					            </button>
-					            <button style='background-color:#fff' id='absent' base='".base_url()."' si='".$student->studentID."' class='btn btn-round'>
-					            	<div class='text-danger'>Absent</div>
-					            </button>
-					            <button style='background-color:#fff' id='leave' base='".base_url()."' si='".$student->studentID."' class='btn btn-round'>
-					            	<div class='text-warning'>Leave</div>
-					            </button>
-					        </div>
-					    </td>
-					</tr>";
+		$result = "";
+		if($classesID && $sectionID) {
+			$where = array(
+				'instituteID'=>$this->session->userdata('instituteID'),
+				'classesID'=>$classesID,
+				'sectionID'=>$sectionID
+			);
 		}
+		else {
+			$where = array(
+				'instituteID'=>$this->session->userdata('instituteID'),
+				'classesID'=>$classesID
+			);
+		}
+	
+		$students = $this->student_m->get_order_by_student($where);
+		 foreach ($students as $student) {
+		 	$result .= "
+				<tr id='".$student->studentID."'>
+                    <td>";
+                            if($student->photo == 'default.png') {
+                            $result .= "<img src='".base_url()."/main_asset/assets/img/default.png' alt='' class='img img-' style='width:50px'>";
+                            }
+                            else {
+                            $result .= "<img src='".base_url()."/main_asset/school_docs/".$this->session->userdata('instituteID')."/student/".$student->photo."' alt='' class='img' style='width:60px'>";
+                            }
+        $result .= "</td>
+                    <td>".strtoupper($student->f_name.' '.$student->l_name)."</td>
+                    <td>".$student->roll_no."</td>
+                    <td>".$student->reg_no."</td>
+                    <td>".$this->mylibrary->getClassName($student->classesID)."</td>
+                    <td>".$this->mylibrary->getSectionName($student->sectionID)."</td>
+                    <td class='text-center td-actions'>
+                        <a href='".base_url()."student/edit/".$student->studentID."'>
+                            <button type='button' rel='tooltip' class='btn btn-info'>
+                            <i class='material-icons'>edit</i>
+                            </button>
+                        </a>
+                        <button id='".$student->studentID."' base='".base_url()."' cm='student/dest' type='button' 
+                        rel='tooltip' class='btn btn-danger pop'>
+                            <i class='material-icons'>close</i>
+                        </button>
+                    </td>
+                </tr>";
+		
+		 }
+		 echo $result;
 
-		echo $result;
+		
 	}
 
 

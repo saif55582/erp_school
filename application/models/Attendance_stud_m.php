@@ -12,8 +12,20 @@ class Attendance_stud_m extends MY_Model {
 		parent::__construct();
 	}
 
-	function getSattendence() {
-		
+	function insertAttendance($array=NULL) {
+		parent::insert($array);
+	}
+
+	function get_single_attendance($array) {
+		return parent::get_single($array);
+	}
+
+	function get_attendance_stud_where($array=NULL) {
+		return parent::get_order_by($array);
+	}
+
+	function attendance_stud_update($array,$id) {
+		parent::update($array,$id);
 	}
 
 }
