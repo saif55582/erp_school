@@ -45,7 +45,6 @@
 
     $_li3 = array(
         'fee-category'=>($li3 == 'fee-category' ) ? "class='active'" : "class=' '",
-        'fee-sub-category'=>($li3 == 'fee-sub-category' ) ? "class='active'" : "class=' '",
         'fee-category-fine'=>($li3 == 'fee-category-fine' ) ? "class='active'" : "class=' '",
         'fee-allocation'=>($li3 == 'fee-allocation' ) ? "class='active'" : "class=' '",
         'quick-payment'=>($li3 == 'quick-payment' ) ? "class='active'" : "class=' '",
@@ -136,7 +135,6 @@
                         <div style="margin-left:20px;" <?=$_div2['fee']?> id="fees">
                             <ul class="nav">
                                 <li <?=$_li3['fee-category']?> ><a href="<?=base_url('fees')?>">Fee Category</a></li>
-                                <li <?=$_li3['fee-sub-category']?> ><a href="#">Fee Sub Category</a></li>
                                 <li <?=$_li3['fee-category-fine']?> ><a href="#">Fee Category Fine</a></li>
                                 <li <?=$_li3['fee-allocation']?> ><a href="#">Fee Allocation</a></li>
                                 <li <?=$_li3['quick-payment']?> ><a href="#">Quick Payment</a></li>

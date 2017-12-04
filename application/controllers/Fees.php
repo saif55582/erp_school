@@ -13,17 +13,17 @@ class Fees extends MY_Controller {
 	//changed
 	//made new changes
 	function index() {
-		$this->data['title'] = 'Fee';
-		$this->data['subview'] = 'test';
-		$this->data['script'] = '';
+		$this->data['title']      = 'Fee';
+		$this->data['subview']    = 'test';
+		$this->data['script']     = '';
 		$this->data['app_script'] = 'general.js';
-		$this->data['li1'] = 'finance';
-		$this->data['a1'] = 'finance';
-		$this->data['div1'] = 'finance';
-		$this->data['li2'] = 'fee';
-		$this->data['a2'] = 'fee';
-		$this->data['div2'] = 'fee';
-		$this->data['li3'] = 'fee-category';
+		$this->data['li1']        = 'finance';
+		$this->data['a1']         = 'finance';
+		$this->data['div1']       = 'finance';
+		$this->data['li2']        = 'fee';
+		$this->data['a2']         = 'fee';
+		$this->data['div2']       = 'fee';
+		$this->data['li3']        = 'fee-category';
 		$this->load->view('main_layout',$this->data);
 	}
 }
