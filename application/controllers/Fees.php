@@ -11,6 +11,7 @@ class Fees extends MY_Controller {
 	}
 
 	//changed
+	//made new changes
 	function index() {
 		$this->data['title'] = 'Fee';
 		$this->data['subview'] = 'test';
