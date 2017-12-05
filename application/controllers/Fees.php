@@ -28,4 +28,19 @@ class Fees extends MY_Controller {
 		$this->data['li3']        = 'fee-category';
 		$this->load->view('main_layout',$this->data);
 	}
+
+	function fee_category() {
+		$this->data['title']      = 'Fee Category';
+		$this->data['subview']    = 'finance/fees/fee_category';
+		$this->data['script']     = '';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1']        = 'finance';
+		$this->data['a1']         = 'finance';
+		$this->data['div1']       = 'finance';
+		$this->data['li2']        = 'fee';
+		$this->data['a2']         = 'fee';
+		$this->data['div2']       = 'fee';
+		$this->data['li3']        = 'fee-category';
+		$this->load->view('main_layout',$this->data);
+	}
 }
