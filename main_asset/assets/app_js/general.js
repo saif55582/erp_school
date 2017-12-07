@@ -116,7 +116,6 @@ $('#tbody').on('click', '.pop', function() {
   var parent = $(this).parent().parent();
   var data = 'param=' + arg;
   
-
   swal({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -135,7 +134,6 @@ $('#tbody').on('click', '.pop', function() {
                  cache: false,
                  success: function(msg)
                  {                    
-                    
                       datatableDestroy();
                       row.parentNode.removeChild(row);
                       datatableSet();
@@ -182,6 +180,25 @@ function getSubject(ci) {
     });
 
 }
+
+$('#get_rows').on('change', function(){
+  var ci = $(this).val();
+  var d = 'y='+ci;
+  var base = $(this).attr('base');
+  var act = $(this).attr('act');
+  $.ajax({
+        type: 'POST',
+        url: base+act,
+        data: d,
+        success: function(msg) 
+        {
+            datatableDestroy();
+            $('#tbody').html(msg);
+            datatableSet();
+        }
+    });
+
+});
 
 
 function gsa(ci, si, dt, base) {

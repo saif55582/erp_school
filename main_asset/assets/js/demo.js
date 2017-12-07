@@ -47,6 +47,8 @@ jQuery(document).ready(function($) {
             textBox.setSelectionRange(start, end);
         });
     });
+
+
 $().ready(function(){
     $sidebar = $('.sidebar');
     $sidebar_img_container = $sidebar.find('.sidebar-background');

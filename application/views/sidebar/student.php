@@ -22,7 +22,6 @@
         'administrator'=>($div1 == 'administrator') ? "class='collapse in'" : "class='collapse'"
     );
 
-
     $_li2 = array(
         'class'=>($li2 == 'class' ) ? "class='active'" : "class=' '",
         'section'=>($li2 == 'section' ) ? "class='active'" : "class=' '",

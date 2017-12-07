@@ -20,6 +20,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('academic_year_m');
 		$this->load->model('subject_m');
 		$this->load->model('syllabus_m');
+		$this->load->model('fee_list_m');
 
 		// $result  = $this->institute_details_m->get();
 		// $institute_details = array();

@@ -285,6 +285,7 @@ class Student extends MY_Controller {
 				$instituteID = $this->session->userdata('instituteID');
 				$res = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 				$registration_no = $res->registration_no;
+				$password = random_string('alpha', 10);
 				$array = array(
 					'instituteID'=>$instituteID,
 					'f_name'=>$this->input->post('f_name'),
@@ -306,7 +307,10 @@ class Student extends MY_Controller {
 					'roll_no'=>$this->input->post('roll_no'),
 					'sectionID'=>base64_decode($this->input->post('sectionID')),
 					'classesID'=>base64_decode($this->input->post('classesID')),
-					'doj'=>$this->input->post('doj')
+					'doj'=>$this->input->post('doj'),
+					'username'=>$registration_no,
+					'password'=>md5($password),
+					'slug'=>$password
 				);
 				$array['photo'] = $this->upload_data['file']['file_name'];
 				//echo $this->upload();

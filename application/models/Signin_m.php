@@ -14,7 +14,7 @@ class Signin_m extends MY_Model {
 		);	
 
 		$tables = array(
-			//'student' => 'student',
+			'student' => 'student',
 			'teacher' => 'teacher',
 			'admin' => 'admin'
 		);

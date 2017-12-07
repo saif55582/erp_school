@@ -69,7 +69,7 @@
                                                 <i class="material-icons">email</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Email address</label>
+                                                <label class="control-label">Email address/Username</label>
                                                 <input type="text" class="form-control" name="username">
                                                 <span class="text-danger"><?= form_error('username'); ?></span>
                                                 <span class="text-danger"><?= $form_validation ?></span>

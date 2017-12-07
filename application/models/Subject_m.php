@@ -40,9 +40,4 @@ class Subject_m extends MY_Model {
 		parent::delete($id);
 	}
 
-
-
-
-
-
 }
