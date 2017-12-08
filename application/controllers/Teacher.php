@@ -70,12 +70,11 @@ class Teacher extends MY_Controller {
 
 	function unique($param,$field) {
 		$array = array(
-			$field=>$param,
-			'instituteID'=>$this->session->userdata('instituteID')
+			$field=>$param
 		);
 		$check = $this->teacher_m->get_teacher_single($array);
 		if(count($check)) {
-			$this->form_validation->set_message('unique','Email Already exists');
+			$this->form_validation->set_message('unique','Account exists with this mail id.');
 			return false;
 		}
 		else
@@ -207,6 +206,7 @@ class Teacher extends MY_Controller {
 				$this->renderAdd();
 			}
 			else {
+				$password = random_string('alnum',10);
 				$array = array();
 				$array['instituteID'] = $this->session->userdata('instituteID');
 				$array['name'] = $this->input->post('name');
@@ -219,7 +219,8 @@ class Teacher extends MY_Controller {
 				$array['doj'] = $this->input->post('doj');
 				$array['photo'] = $this->upload_data['file']['file_name'];
 				$array['username'] = $this->input->post('email');
-				$array['password'] = random_string('alnum',10);
+				$array['password'] = md5($password);
+				$array['slug'] = $password;
 				$array['address'] = $this->input->post('address');
 				# preparing documents
 				$doc_name = $this->input->post('doc_name');

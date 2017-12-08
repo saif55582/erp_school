@@ -19,7 +19,6 @@
                             <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
-                                        <th>#</th>
                                         <th>Class Name</th>
                                         <th>Class Incharge </th>
                                         <th>Max Students</th>
@@ -29,7 +28,6 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>#</th>
                                         <th>Class Name</th>
                                         <th>Class Incharge</th>
                                         <th>Max Students</th>
@@ -43,17 +41,18 @@
                                         foreach ($classes as $class) :
                                     ?>
                                         <tr id="<?= $class->classesID;?>">
-                                        <td><?= $index++; ?></td>
                                         <td><?= strtoupper($class->class_name) ?></td>
                                         <td>
                                             <?php
-                                                $teacher = $this->teacher_m->get_teacher_by_id($class->teacherID);
-                                                if(count($teacher)==1) {
+                                                if($class->teacherID) {
+                                                    $teacher = $this->teacher_m->get_teacher_by_id($class->teacherID);
                                                     echo strtoupper($teacher->name);
                                                 }
-                                                else
+                                                else{
                                                     echo '----';
-                                            ?>    
+                                                }
+                                                                            
+                                            ?> 
                                         </td>
                                         <td><?=$class->max_student?></td>
                                         <td><?php echo isset($class->note) ? $class->note : '---'?></td>

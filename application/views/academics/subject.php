@@ -1,4 +1,4 @@
-<div  class="content">
+<div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -23,7 +23,6 @@
                                         ?>
                                 </select>
                             </div>
-
                         </div>
                         <div class="material-datatables">
                             <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -65,7 +64,7 @@
                                         <td><?=$subject->pass_marks?></td>
                                         <td><?=$subject->final_marks?></td>
                                         <td><?= ($subject->optional) ? 'Optional' : 'Mandatory' ?></td>
-                                        <td style="float:right">
+                                        <td class="text-center">
                                              <a href='<?=base_url()?>subject/edit/<?=base64_encode($subject->subjectID)?>'>
                                                 <button type='button' rel='tooltip' class='btn btn-info mybtn'>
                                                 <i class='material-icons'>edit</i>

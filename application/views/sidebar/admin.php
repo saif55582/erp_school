@@ -22,6 +22,7 @@
         'administrator'=>($div1 == 'administrator') ? "class='collapse in'" : "class='collapse'"
     );
 
+
     $_li2 = array(
         'class'=>($li2 == 'class' ) ? "class='active'" : "class=' '",
         'section'=>($li2 == 'section' ) ? "class='active'" : "class=' '",
@@ -29,7 +30,7 @@
         'syllabus'=>($li2 == 'syllabus' ) ? "class='active'" : "class=' '",
         'assignment'=>($li2 == 'assignment' ) ? "class='active'" : "class=' '",
         'student'=>($li2 == 'student' ) ? "class='active'" : "class=' '",
-        'employee'=>($li2 == 'employee' ) ? "class='active'" : "class=' '",
+        'teacher'=>($li2 == 'teacher' ) ? "class='active'" : "class=' '",
         'fee'=>($li2 == 'fee' ) ? "class='active'" : "class=' '",
         'academic_year'=>($li2 == 'academic_year' ) ? "class='active'" : "class=' '"
         
@@ -56,12 +57,6 @@
 <div class="sidebar-wrapper">
     <ul class="nav">
         <li <?=$_li1['dashboard']?> >
-        <?php 
-        if($active == 'dashboard') 
-            echo '<li class="active">'; 
-        else
-            echo '<li>'; 
-        ?>
             <a href="<?=base_url('dashboard');?>">
                 <i class="material-icons">dashboard</i>
                 <p>Dashboard</p>
@@ -98,9 +93,9 @@
                     <li <?=$_li2['syllabus']?>>
                         <a href="<?= base_url('syllabus') ?>">Syllabus</a>
                     </li>
-                    <li <?=$_li2['assignment']?>>
+                    <!-- <li <?=$_li2['assignment']?>>
                         <a href="<?= base_url('assignment'); ?>">Assignments</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </li>
@@ -114,8 +109,8 @@
                     <li <?=$_li2['student']?> >
                         <a href="<?= base_url('attendance/student'); ?>">Students Attendance</a>
                     </li>
-                    <li <?=$_li2['employee']?> >
-                        <a href="<?= base_url('attendance/teacher'); ?>">Employee Attendance</a>
+                    <li <?=$_li2['teacher']?> >
+                        <a href="<?= base_url('attendance/teacher'); ?>">Teacher Attendance</a>
                     </li>
                 </ul>
             </div>
@@ -134,10 +129,10 @@
                         </a>
                         <div style="margin-left:20px;" <?=$_div2['fee']?> id="fees">
                             <ul class="nav">
-                                <li <?=$_li3['fee-category']?> ><a href="<?=base_url('fees')?>">Fee Category</a></li>
-                                <li <?=$_li3['fee-category-fine']?> ><a href="#">Fee Category Fine</a></li>
-                                <li <?=$_li3['fee-allocation']?> ><a href="#">Fee Allocation</a></li>
-                                <li <?=$_li3['quick-payment']?> ><a href="#">Quick Payment</a></li>
+                                <li <?=$_li3['fee-category']?> ><a href="<?=base_url('fees')?>">Fee List</a></li>
+                                <!-- <li <?=$_li3['fee-category-fine']?> ><a href="#">Fee Category Fine</a></li> -->
+                                <!-- <li <?=$_li3['fee-allocation']?> ><a href="#">Fee Allocation</a></li> -->
+                                <!-- <li <?=$_li3['quick-payment']?> ><a href="#">Quick Payment</a></li> -->
                                 <li <?=$_li3['fee-collection']?> ><a href="#">Fee Collection</a></li>
                             </ul>
                         </div>
@@ -201,7 +196,7 @@
             </a>
             <div class="collapse " id="leave_application">
                 <ul class="nav">
-                    <li class="">';
+                    <li class="">
                         <a href="">Students Leave</a>
                     </li>
 

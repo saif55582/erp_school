@@ -109,6 +109,9 @@
                     <li <?=$_li2['student']?> >
                         <a href="<?= base_url('attendance/student'); ?>">Students Attendance</a>
                     </li>
+                    <li <?=$_li2['employee']?> >
+                        <a href="<?= base_url('attendance/teacher'); ?>">Employee Attendance</a>
+                    </li>
                 </ul>
             </div>
         </li>

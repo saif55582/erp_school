@@ -15,7 +15,12 @@
                             </a>
     
                             <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select onchange="selectClass(this.value)" name="classesID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                                <select id="get_rows" base="<?=base_url()?>" act="syllabus/getRows" name="classesID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                                    <?php
+                                        foreach ($classes as $class) {
+                                            echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";                                      
+                                        }
+                                    ?>
                                 </select>
                             </div>
 
@@ -25,6 +30,7 @@
                                 <thead class="text-rose">
                                     <tr>    
                                         <th>Title</th>
+                                        <th>Class</th>
                                         <th>Description</th>
                                         <th>File</th>
                                         <th class="disabled-sorting text-center ">Actions</th>
@@ -33,6 +39,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Title</th>
+                                        <th>Class</th>
                                         <th>Description</th>
                                         <th>File</th>
                                         <th class="text-center">Actions</th>
@@ -41,11 +48,23 @@
                                 <tbody id="tbody">
                                     <?php
                                     foreach($syllabuses as $syllabus) :?>
-                                    <tr <?=$syllabus->syllabusID?>>
-                                        <td><?=$syllabus->title?></td>
-                                        <td><?=$syllabus->description?></td>
+                                    <tr id="<?=$syllabus->syllabusID?>">
                                         <td><?=$syllabus->title?></td>
                                         <td>
+                                            <?php
+                                                echo $this->mylibrary->getClassName($syllabus->classesID);
+                                            ?>
+                                        </td>
+                                        <td><p><?=$syllabus->description?></td>
+                                        <td>
+                                            <?php
+                                                $instituteID = $this->session->userdata('instituteID');
+                                            ?>
+                                            <a rel="tooltip" href="<?=base_url()?>main_asset/school_docs/<?=$instituteID?>/data/<?=$syllabus->file?>" download="<?=$syllabus->file?>" >
+                                                <span style="color:seagreen"  class="material-icons">file_download</span>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
                                             <a href='<?=base_url()?>syllabus/edit/<?=base64_encode($syllabus->syllabusID)?>'>
                                                 <button type='button' rel='tooltip' class='btn btn-info mybtn'>
                                                 <i class='material-icons'>edit</i>

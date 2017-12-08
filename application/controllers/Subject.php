@@ -106,7 +106,7 @@ class Subject extends MY_Controller {
 		$subjects = $this->subject_m->get_order_by_subject($where);
 		foreach($subjects as $subject) :
 		$result .= "
-                <tr".$subject->subjectID.">	
+                <tr id=".$subject->subjectID.">	
                     <td>".$subject->subject_name."</td>
                     <td>".$subject->subject_code."</td>
                     <td>".$subject->teacherID."</td>
@@ -119,7 +119,7 @@ class Subject extends MY_Controller {
                             <i class='material-icons'>edit</i>
                             </button>
                         </a>
-                        <button id='".$subject->subjectID." cm='subject/dest' base='".base_url()."' type='button' rel='tooltip' class='btn btn-danger mybtn pop'>
+                        <button id='".$subject->subjectID."' cm='subject/dest' base='".base_url()."' type='button' rel='tooltip' class='btn btn-danger mybtn pop'>
                             <i class='material-icons'>close</i>
                         </button>
                     </td>

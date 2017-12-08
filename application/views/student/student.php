@@ -89,6 +89,11 @@
                                             ?>
                                         </td>
                                         <td class="text-center td-actions">
+                                            <a href="<?= base_url(); ?>student/view/<?=base64_encode($student->studentID*786786)?>">
+                                                <button type="button" rel="tooltip" class="btn btn-success">
+                                                <i class="material-icons">visibility</i>
+                                                </button>
+                                            </a>
                                             <a href="<?= base_url(); ?>student/edit/<?=$student->studentID?>">
                                                 <button type="button" rel="tooltip" class="btn btn-info">
                                                 <i class="material-icons">edit</i>

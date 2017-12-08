@@ -26,6 +26,7 @@
                                         <th>Designation</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Password</th>
                                         <th class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </thead>
@@ -37,6 +38,7 @@
                                         <th>Designation</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Password</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>
@@ -63,6 +65,9 @@
                                         <td><?= strtoupper($teacher->designation) ?></td>
                                         <td><?=$teacher->email?></td>
                                         <td><?=$teacher->phone?></td>
+                                        <td>
+                                            <?=$teacher->slug?>
+                                        </td>
                                         <td class="text-center td-actions">
                                             <a href="<?= base_url(); ?>teacher/edit/<?=$teacher->teacherID?>">
                                                 <button type="button" rel="tooltip" class="btn btn-info">
