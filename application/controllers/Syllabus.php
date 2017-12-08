@@ -140,7 +140,7 @@ class Syllabus extends MY_Controller {
 
 
 	function dest($id=NULL) {
-		$syllabusID = $this->input->post('id');
+		$syllabusID = $this->input->post('param');
 		$this->syllabus_m->delete($syllabusID);
 	}
 

@@ -133,7 +133,8 @@ $('#tbody').on('click', '.pop', function() {
                  data: data,
                  cache: false,
                  success: function(msg)
-                 {                    
+                 {               
+                      
                       datatableDestroy();
                       row.parentNode.removeChild(row);
                       datatableSet();
@@ -221,6 +222,30 @@ function gsa(ci, si, dt, base) {
     });
 }
 
+ function gta(dt, base) {
+    var y = 'dt='+dt;
+    $('#setd').html(dt);
+    $.ajax({
+        type: 'POST',
+        url: base+'attendance/gta',
+        data: y,
+        success: function(msg) 
+        { 
+            if(msg!='No date') {
+              datatableDestroy();
+              $('#tbody').html(msg);
+              datatableSet();
+              $('#pa').css('display','block');
+            }
+            
+        }
+    }).fail(function (errObject, status, error) {
+    demo.showNotification('top','center', 'error',4, error);
+  });
+}
+
+
+
 function present_all() {
   $('#tbody').children().each(function(){
     $(this).find('#present').click();
@@ -247,8 +272,25 @@ $('#fetch_attendance').on('click', function() {
   });
 });
 
+$('#fetch_teacher_attendance').on('click', function() {
+  var d = $('#setd').val();
+  var base = $(this).attr('base');
+  var d = 'dt='+d;
+  $.ajax({
+    type: 'post',
+    url: base+'attendance/getta',
+    data: d
+  }).done(function(data) {
+      datatableDestroy();
+      $('#tbody').html(data);
+      datatableSet();
+    }).fail(function (errObject, status, error) {
+    demo.showNotification('top','center', 'error',4, error);
+  });
+});
 
 $('#tbody').on('click', '#present', function() {
+  var act = $(this).attr('act');
   var asi = $(this).attr('asi');
   var base = $(this).attr('base');
   var auth = $(this).attr('auth');
@@ -265,7 +307,7 @@ $('#tbody').on('click', '#present', function() {
   var data = 'asi='+asi+'&dt='+dt+'&a=p'+'&auth='+auth+'&status='+status;
   $.ajax({
     type: 'post',
-    url: base+'attendance/sa',
+    url: base+act,
     data: data
   }).done(function(data) {
       if(data == 'not_allowed')
@@ -280,6 +322,7 @@ $('#tbody').on('click', '#present', function() {
 
 
 $('#tbody').on('click', '#absent', function() {
+  var act = $(this).attr('act');
   var asi = $(this).attr('asi');
   var base = $(this).attr('base');
   var auth = $(this).attr('auth');
@@ -298,7 +341,7 @@ $('#tbody').on('click', '#absent', function() {
   var data = 'asi='+asi+'&dt='+dt+'&a=a'+'&auth='+auth+'&status='+status;
   $.ajax({
     type: 'post',
-    url: base+'attendance/sa',
+    url: base+act,
     data: data
   }).done(function(data) {
    if(data == 'not_allowed')
@@ -313,7 +356,7 @@ $('#tbody').on('click', '#absent', function() {
 
 
 $('#tbody').on('click', '#leave', function() {
-
+  var act = $(this).attr('act');
   var asi = $(this).attr('asi');
   var base = $(this).attr('base');
   var auth = $(this).attr('auth');
@@ -332,7 +375,7 @@ $('#tbody').on('click', '#leave', function() {
   var data = 'asi='+asi+'&dt='+dt+'&a=l'+'&auth='+auth+'&status='+status;
   $.ajax({
     type: 'post',
-    url: base+'attendance/sa',
+    url: base+act,
     data: data
   }).done(function(data) {
     if(data == 'not_allowed')

@@ -9,25 +9,8 @@
                     <div class="card-content">
                         <h4 class="card-title my-title">Add/Edit Attendance</h4>
 
-                        <form method="post" id="form_student" class="classform form-horizontal">
+                        <form method="post" id="form_teacher" class="classform form-horizontal">
                             <div class="row">
-
-                                    <div onclick="setFocus();" style="margin-top:11px" class="form-group label-floating col-md-3">
-                                        <select onchange="getSection(this.value,'<?=base_url()?>',null)"  name="classesID"  id="ci" data-live-search="true" class="selectpicker" data-style="select-with-transition"  title="Select Class">
-                                            <?php
-                                                foreach ($classes as $class) {
-                                                    echo"
-                                                        <option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
-
-                                    <div onclick="setFocus();" style="margin-top:11px" class="form-group label-floating col-md-3">
-                                        <select onchang="gsa(this.value,'<?=base_url()?>')" name="sectionID"  id="sec"  class="selectpicker" data-style="select-with-transition" title="Select Section ">
-                                            <option>Select Section</option>
-                                        </select>
-                                    </div>
 
                                     <div class="form-group label-floating col-md-3">
                                         <input type="text" id='d' name="date" class="form-control datepicker" placeholder="Select Date"/>
@@ -37,6 +20,9 @@
                                
                             </div>
                         </form>
+
+
+
                         <div class="material-datatables">
                             <table id="datatable" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <buitton class="btn btn-sm btn-success" onclick="present_all()" id="pa" style="float:right;display:none">All Present</buitton>
@@ -46,9 +32,9 @@
                                     <tr width="100%">    
                                         <th width='15%'>Photo</th>
                                         <th width='13%'>Name</th>
-                                        <th width='13%'>Roll</th>
-                                        <th width='12%'>Class</th>
-                                        <th width='12%'>Section</th>
+                                        <th width='13%'>Designation</th>
+                                        <th width='12%'>Email</th>
+                                        <th width='12%'>Phone</th>
                                         <th width='40%' class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </thead>
@@ -56,9 +42,9 @@
                                     <tr>
                                         <th>Photo</th>
                                         <th>Name</th>
-                                        <th>Roll</th>
-                                        <th>Class</th>
-                                        <th>Section</th>
+                                        <th>Designation</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>

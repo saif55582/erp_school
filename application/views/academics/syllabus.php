@@ -48,7 +48,7 @@
                                 <tbody id="tbody">
                                     <?php
                                     foreach($syllabuses as $syllabus) :?>
-                                    <tr <?=$syllabus->syllabusID?>>
+                                    <tr id="<?=$syllabus->syllabusID?>">
                                         <td><?=$syllabus->title?></td>
                                         <td>
                                             <?php
@@ -57,12 +57,12 @@
                                         </td>
                                         <td><p><?=$syllabus->description?></td>
                                         <td>
-                                                <?php
-                                                    $instituteID = $this->session->userdata('instituteID');
-                                                ?>
-                                                <a rel="tooltip" href="<?=base_url()?>main_asset/school_docs/<?=$instituteID?>/data/<?=$syllabus->file?>" download="<?=$syllabus->file?>" >
-                                                    <span style="color:seagreen"  class="material-icons">file_download</span>
-                                                </a>
+                                            <?php
+                                                $instituteID = $this->session->userdata('instituteID');
+                                            ?>
+                                            <a rel="tooltip" href="<?=base_url()?>main_asset/school_docs/<?=$instituteID?>/data/<?=$syllabus->file?>" download="<?=$syllabus->file?>" >
+                                                <span style="color:seagreen"  class="material-icons">file_download</span>
+                                            </a>
                                         </td>
                                         <td class="text-center">
                                             <a href='<?=base_url()?>syllabus/edit/<?=base64_encode($syllabus->syllabusID)?>'>

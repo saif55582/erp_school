@@ -22,6 +22,7 @@
         'administrator'=>($div1 == 'administrator') ? "class='collapse in'" : "class='collapse'"
     );
 
+
     $_li2 = array(
         'class'=>($li2 == 'class' ) ? "class='active'" : "class=' '",
         'section'=>($li2 == 'section' ) ? "class='active'" : "class=' '",
@@ -92,9 +93,9 @@
                     <li <?=$_li2['syllabus']?>>
                         <a href="<?= base_url('syllabus') ?>">Syllabus</a>
                     </li>
-                    <li <?=$_li2['assignment']?>>
+                    <!-- <li <?=$_li2['assignment']?>>
                         <a href="<?= base_url('assignment'); ?>">Assignments</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </li>
@@ -195,7 +196,7 @@
             </a>
             <div class="collapse " id="leave_application">
                 <ul class="nav">
-                    <li class="">';
+                    <li class="">
                         <a href="">Students Leave</a>
                     </li>
 

@@ -17,6 +17,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('admin_m');
 		$this->load->model('student_m');
 		$this->load->model('attendance_stud_m');
+		$this->load->model('attendance_teacher_m');
 		$this->load->model('academic_year_m');
 		$this->load->model('subject_m');
 		$this->load->model('syllabus_m');

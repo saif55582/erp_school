@@ -70,7 +70,7 @@
                                             </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Email address/Username</label>
-                                                <input type="text" class="form-control" name="username">
+                                                <input type="text" class="form-control" value="<?=set_value('username')?>" name="username">
                                                 <span class="text-danger"><?= form_error('username'); ?></span>
                                                 <span class="text-danger"><?= $form_validation ?></span>
                                             </div>

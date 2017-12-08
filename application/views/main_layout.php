@@ -4,7 +4,7 @@
 <title><?=$title;?></title>
 <?php 
     $this->load->view('head'); 
-    print_r($this->session->userdata());
+    //print_r($this->session->userdata());
 ?>
 </head>
 <body style="overflow-y: hidden;">
@@ -36,7 +36,11 @@
                 ?>
             </div>
 
-        <?php $this->load->view('sidebar/'.$this->session->userdata('loginusertype')); ?>
+        <?php 
+            $this->load->view('sidebar/'.$this->session->userdata('loginusertype')); 
+
+        ?>
+
         
         </div>
         <div class="main-panel">
@@ -77,14 +81,16 @@
                                                         $src = $teacher.'/'.$this->session->loginuserphoto;
                                                     break;
                                                 case 'student':
-                                                    if($this->session->loginuserphoto == 'default.png')
+                                                    if($this->session->loginuserphoto == 'default.png') {
                                                         $src = base_url().'main_asset/assets/img/'.$this->session->loginuserphoto;
+                                                    }
                                                     else
                                                         $src = $student.'/'.$this->session->loginuserphoto;
                                                     break;
                                                 case 'admin':
-                                                    if($this->session->loginuserphoto == 'default.png')
+                                                    if($this->session->loginuserphoto == 'default.png') {
                                                         $src = base_url().'main_asset/assets/img/'.$this->session->loginuserphoto;
+                                                    }
                                                     else
                                                         $src = $admin.'/'.$this->session->loginuserphoto;
                                                     break;

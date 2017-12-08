@@ -11,6 +11,23 @@ class Student extends MY_Controller {
 		}
 	}
 
+	function view($sid){
+
+		$studentID = base64_decode($sid)/786786;
+		$instituteID = $this->session->userdata('instituteID');
+
+		$array = array('instituteID'=>$instituteID, 'studentID'=>$studentID );
+
+		$this->data['student'] = $this->student_m->get_single_student($array);
+		$this->data['title'] = 'View Student';
+		$this->data['subview'] = 'student/student_view';
+		$this->data['script'] = 'student/student_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1'] = 'student';
+		$this->load->view('main_layout', $this->data);
+
+	}
+
 	function rulesAdd() {
 		$rules = array(
 			array(
@@ -21,7 +38,7 @@ class Student extends MY_Controller {
 			array(
 				'field'=>'l_name',
 				'label'=>'Last Name',
-				'rules'=>'required|trim|xss_clean|alpha_numeric'
+				'rules'=>'trim|xss_clean|alpha_numeric'
 			),
 			array(
 				'field'=>'photo',
@@ -215,7 +232,6 @@ class Student extends MY_Controller {
 			$config = array();
 			$config['upload_path'] = 'main_asset/school_docs/'.$this->session->userdata('instituteID').'/student';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
-			$config['max_size']      = '2045';
 			$config['file_name'] = date('Y-m-d-H-i-s').random_string('alpha',15);
 			$config['overwrite'] = true;
 
@@ -229,6 +245,7 @@ class Student extends MY_Controller {
 	}
 
 	function upload() {
+
 		if($_FILES["photo"]['name'] !="") {
 			$file_name = $_FILES["photo"]['name'];
 			$explode = explode('.', $file_name);
@@ -238,14 +255,13 @@ class Student extends MY_Controller {
 				$config['upload_path'] = "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student';
 				$config['allowed_types'] = "gif|jpg|png|jpeg";
 				$config['file_name'] = date('Y-m-d-H-i-s').$new_file;
-				$config['max_size'] = '2048';
-				$config['max_width'] = '3000';
-				$config['max_height'] = '3000';
 				$this->load->library('upload', $config);
 				if(!$this->upload->do_upload("photo")) {
+					echo 'aaa';
 					$this->form_validation->set_message("upload", $this->upload->display_errors());
 	     			return FALSE;
 				} else {
+
 					$this->upload_data['file'] =  $this->upload->data();
 					return TRUE;
 				}
@@ -267,9 +283,12 @@ class Student extends MY_Controller {
 			$rules = $this->rulesAdd();
 			$this->form_validation->set_rules($rules);
 			if($this->form_validation->run() == FALSE) {
-				 $path =  "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student/'.$this->upload_data['file']['file_name'];
-				 if($_FILES["photo"]['name'] !="")
+				 
+				 if($_FILES["photo"]['name'] !="") {
+				 	$path =  "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student/'.$this->upload_data['file']['file_name'];
 				 	unlink($path);
+				 }
+				 	
 				  $classesID =  ($this->input->post('classesID'));
 				  $sectionID = ($this->input->post('sectionID'));
 				 if($classesID) {
@@ -283,11 +302,13 @@ class Student extends MY_Controller {
 			}
 			else {
 				$instituteID = $this->session->userdata('instituteID');
+				$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 				$res = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 				$registration_no = $res->registration_no;
 				$password = random_string('alpha', 10);
 				$array = array(
 					'instituteID'=>$instituteID,
+					'academic_yearID'=>$institute->academic_yearID,
 					'f_name'=>$this->input->post('f_name'),
 					'l_name'=>$this->input->post('l_name'),
 					'dob'=>$this->input->post('dob'),
