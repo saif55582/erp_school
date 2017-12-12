@@ -155,7 +155,7 @@
                     </div>
                     <div class="card-content">
                         <h4 class="card-title"><strong>Student Attendance</strong></h4>
-                        <table class="table table-responsive table-hove table-bordered">
+                        <table class="table table-responsive table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th><STRONG>#</STRONG></th>
@@ -170,26 +170,24 @@
                             </thead>
                             <tbody>
                                 <?php
-                                foreach($attendances as $attendance): 
-                                    echo '<tr>
-                                            <td>'.date('M',strtotime($attendance->month_year)).'</td>';
-                                    for($i=1;$i<=31;$i++) {?>
-                                        <td>
-                                            <?php
-                                                $d = ($i<10)? 'd0'.$i : 'd'.$i;
-                                                 if(strtoupper($attendance -> $d) == 'P')
-                                                    echo'<span class="text-success">'.strtoupper($attendance -> $d).'</span>';
-                                                else if(strtoupper($attendance -> $d) == 'A')
-                                                    echo'<span class="text-danger">'.strtoupper($attendance -> $d).'</span>';
-                                                else if(strtoupper($attendance -> $d) == 'L')
-                                                    echo'<span class="text-warning">'.strtoupper($attendance -> $d).'</span>';
-                       
-                                            ?>
-                                        </td>
-                                <?php
-                                    }
-                                    echo '</tr>';
-                                endforeach;
+                                    foreach($attendances as $attendance): 
+                                        echo '<tr>
+                                                <td>'.date('M',strtotime($attendance->month_year)).'</td>';
+                                                for($i=1;$i<=31;$i++) {?>
+                                                    <td>
+                                                        <?php
+                                                            $d = ($i<10)? 'd0'.$i : 'd'.$i;
+                                                             if(strtoupper($attendance -> $d) == 'P')
+                                                                echo'<span class="text-success">'.strtoupper($attendance -> $d).'</span>';
+                                                            else if(strtoupper($attendance -> $d) == 'A')
+                                                                echo'<span class="text-danger">'.strtoupper($attendance -> $d).'</span>';
+                                                            else if(strtoupper($attendance -> $d) == 'L')
+                                                                echo'<span class="text-warning">'.strtoupper($attendance -> $d).'</span>';
+                                                        ?>
+                                                    </td>
+                                                <?php }
+                                        echo '</tr>';
+                                    endforeach;
                                 ?>  
                             </tbody>
                         </table>
