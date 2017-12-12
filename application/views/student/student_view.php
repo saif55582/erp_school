@@ -1,6 +1,7 @@
 <div  class="content">
     <div class="container-fluid">
     	<div class="row">
+            <?php print_r($attendances) ?>
             <div class="col-md-12">
                 <div class="card card-profile">
                     <div class="card-avatar">
@@ -16,7 +17,7 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title"><strong><?= $student -> name ?></strong></h4>
+                        <h4 class="card-title"><strong><?= $student -> f_name.' '.$student -> f_name ?></strong></h4>
                         <h6 class="category text-gray">Class : <?= $this->mylibrary->getClassName($student->classesID); ?></h6>
                     </div>
                 </div>
@@ -147,6 +148,55 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="rose">
+                        <i class="material-icons">receipt</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title"><strong>Student Attendance</strong></h4>
+                        <table class="table table-responsive table-hove table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><STRONG>#</STRONG></th>
+                                    <?php
+
+                                        $i = 1;
+                                        while ($i <= 31) {
+                                            echo'<td>'.$i.'</td>';$i ++;
+                                        }
+                                    ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach($attendances as $attendance): 
+                                    echo '<tr>
+                                            <td>'.date('M',strtotime($attendance->month_year)).'</td>';
+                                    for($i=1;$i<=31;$i++) {?>
+                                        <td>
+                                            <?php
+                                                $d = ($i<10)? 'd0'.$i : 'd'.$i;
+                                                 if(strtoupper($attendance -> $d) == 'P')
+                                                    echo'<span class="text-success">'.strtoupper($attendance -> $d).'</span>';
+                                                else if(strtoupper($attendance -> $d) == 'A')
+                                                    echo'<span class="text-danger">'.strtoupper($attendance -> $d).'</span>';
+                                                else if(strtoupper($attendance -> $d) == 'L')
+                                                    echo'<span class="text-warning">'.strtoupper($attendance -> $d).'</span>';
+                       
+                                            ?>
+                                        </td>
+                                <?php
+                                    }
+                                    echo '</tr>';
+                                endforeach;
+                                ?>  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
