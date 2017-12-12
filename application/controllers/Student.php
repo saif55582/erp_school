@@ -17,8 +17,17 @@ class Student extends MY_Controller {
 		$instituteID = $this->session->userdata('instituteID');
 
 		$array = array('instituteID'=>$instituteID, 'studentID'=>$studentID );
+		
+		$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+		$academic_yearID = $institute->academic_yearID;
+		$where = array(
+			'instituteID'=>$instituteID, 
+			'studentID'=>$studentID,
+			'academic_yearID'=>$academic_yearID
+		);
 
 		$this->data['student'] = $this->student_m->get_single_student($array);
+		$this->data['attendances'] = $this->attendance_stud_m->get_attendance_stud_where($where);
 		$this->data['title'] = 'View Student';
 		$this->data['subview'] = 'student/student_view';
 		$this->data['script'] = 'student/student_js';
