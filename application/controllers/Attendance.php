@@ -284,6 +284,10 @@ class Attendance extends MY_Controller {
 
 	function teacher() {
 
+		$permission =  $this->aauth->is_group_allowed(1,4);
+		if(!$permission)
+			redirect('admin', 'refresh');
+
 		$usertype =  $this->session->userdata('loginusertype');
 		$where = array(
 			'instituteID'=>$this->session->userdata('instituteID')

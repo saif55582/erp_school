@@ -47,7 +47,7 @@ class Example extends CI_Controller {
         //$this->aauth->add_member(1,1)
         //$this->aauth->deny(1,1)
         //$this->aauth->mail()
-        //$this->aauth->create_user('seass@asds.com','asdasdsdsdasd','asd')
+        //$this->aauth->create_user('seass@asds.com','asdasdsdsdasd','asd'),
         //$this->aauth->verify_user(11, 'MLUguBbXpd9Eeu5B')
         //$this->aauth->remind_password('seass@asds.com')
         //$this->aauth->reset_password(11,'0ghUM3oIC95p7uMa')

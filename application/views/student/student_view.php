@@ -2,7 +2,6 @@
     <div class="container-fluid">
     	<div class="row">
             <div class="col-md-12">
-                
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a href="#pablo">

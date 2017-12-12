@@ -48,5 +48,18 @@ class Administrator extends MY_Controller {
 		else
 			$this->academic_year_m->delete_academic_year($academic_yearID);
 	}
+
+	function permission() {
+
+		$this->data['title'] = 'Permission';
+		$this->data['subview'] = 'administrator/permission';
+		$this->data['script'] = '';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1'] = 'administrator';
+		$this->data['a1'] = 'administrator';
+		$this->data['div1'] = 'administrator';
+		$this->data['li2'] = 'permission';
+		$this->load->view('main_layout', $this->data);			
+	}
 	
 }

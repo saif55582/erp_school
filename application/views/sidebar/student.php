@@ -30,9 +30,10 @@
         'syllabus'=>($li2 == 'syllabus' ) ? "class='active'" : "class=' '",
         'assignment'=>($li2 == 'assignment' ) ? "class='active'" : "class=' '",
         'student'=>($li2 == 'student' ) ? "class='active'" : "class=' '",
-        'employee'=>($li2 == 'employee' ) ? "class='active'" : "class=' '",
+        'teacher'=>($li2 == 'teacher' ) ? "class='active'" : "class=' '",
         'fee'=>($li2 == 'fee' ) ? "class='active'" : "class=' '",
-        'academic_year'=>($li2 == 'academic_year' ) ? "class='active'" : "class=' '"
+        'academic_year'=>($li2 == 'academic_year' ) ? "class='active'" : "class=' '",
+        'permission'=>($li2 == 'permission' ) ? "class='active'" : "class=' '"
         
     );
 
@@ -107,10 +108,10 @@
             <div style="margin-left:10px;" <?= $_div1['attendance']?> id="attendance">
                 <ul class="nav">
                     <li <?=$_li2['student']?> >
-                        <a href="<?= base_url('attendance/student'); ?>">Students Attendance</a>
+                        <a href="<?= base_url('attendance/student'); ?>">Student Attendance</a>
                     </li>
-                    <li <?=$_li2['employee']?> >
-                        <a href="<?= base_url('attendance/teacher'); ?>">Employee Attendance</a>
+                    <li <?=$_li2['teacher']?> >
+                        <a href="<?= base_url('attendance/teacher'); ?>">Teacher Attendance</a>
                     </li>
                 </ul>
             </div>
@@ -259,8 +260,8 @@
                     <li>
                         <a href="pages/pricing.html">Role</a>
                     </li>
-                    <li>
-                        <a href="pages/pricing.html">Permission</a>
+                    <li <?=$_li2['permission']?>>
+                        <a href="<?=base_url()?>administrator/permission">Permission</a>
                     </li>
                     <li>
                         <a href="pages/pricing.html">Update</a>
