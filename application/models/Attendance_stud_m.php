@@ -17,7 +17,7 @@ class Attendance_stud_m extends MY_Model {
 	}
 
 	function get_single_attendance($array) {
-		return parent::get_single($array);
+		return  parent::get_single($array);
 	}
 
 	function get_attendance_stud_where($array=NULL) {

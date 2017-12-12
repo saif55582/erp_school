@@ -72,7 +72,8 @@ class Attendance extends MY_Controller {
 		foreach($students as $student) {
 		$array = array(
 			'instituteID'=>$this->session->userdata('instituteID'),
-			'academic_yearID'=>$student->academic_yearID,
+			//'academic_yearID'=>$student->academic_yearID,
+			'academic_yearID'=>$academic_yearID,
 			'studentID'=>$student->studentID,
 			'classesID'=>$student->classesID,
 			'sectionID'=>$student->sectionID,
