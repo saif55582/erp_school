@@ -7,7 +7,7 @@
                         <i class="material-icons">assignment</i>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title my-title">Classes</h4>
+                        <h4 class="card-title my-title">Teachers</h4>
                         <div class="toolbar">
                             <!--Here you can write extra buttons/actions for the toolbar              -->
                             <a href="<?= base_url(); ?>teacher/add" <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Teacher</button></a>
@@ -69,6 +69,11 @@
                                             <?=$teacher->slug?>
                                         </td>
                                         <td class="text-center td-actions">
+                                            <a href="<?= base_url(); ?>teacher/view/<?=base64_encode($teacher->teacherID*786786)?>">
+                                                <button type="button" rel="tooltip" class="btn btn-success">
+                                                <i class="material-icons">visibility</i>
+                                                </button>
+                                            </a>
                                             <a href="<?= base_url(); ?>teacher/edit/<?=$teacher->teacherID?>">
                                                 <button type="button" rel="tooltip" class="btn btn-info">
                                                 <i class="material-icons">edit</i>
