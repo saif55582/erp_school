@@ -12,6 +12,32 @@ class Teacher extends MY_Controller {
 		}
 	}
 
+	function view($tid){
+
+		$teacherID   = base64_decode($tid)/786786;
+		$instituteID = $this->session->userdata('instituteID');
+		$array       = array('instituteID'=>$instituteID, 'teacherID'=>$teacherID );
+		
+		$institute       = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+		$academic_yearID = $institute->academic_yearID;
+
+		$where = array(
+			'instituteID'    =>$instituteID, 
+			'teacherID'      =>$teacherID,
+			'academic_yearID'=>$academic_yearID
+		);
+
+		$this->data['teacher']     = $this->teacher_m->get_teacher_single($array);
+		$this->data['attendances'] = $this->attendance_teacher_m->get_attendance_teacher_where($where);
+		$this->data['title']       = 'View Teacher';
+		$this->data['subview']     = 'teacher/teacher_view';
+		$this->data['script']      = 'teacher/teacher_js';
+		$this->data['app_script']  = 'general.js';
+		$this->data['li1']         = 'teacher';
+		$this->load->view('main_layout', $this->data);
+
+	}
+
 	function rulesAdd() {
 		$rules = array(
 			array(
