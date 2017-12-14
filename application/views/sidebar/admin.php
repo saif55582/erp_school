@@ -131,10 +131,7 @@
                         <div style="margin-left:20px;" <?=$_div2['fee']?> id="fees">
                             <ul class="nav">
                                 <li <?=$_li3['fee-category']?> ><a href="<?=base_url('fees')?>">Fee List</a></li>
-                                <!-- <li <?=$_li3['fee-category-fine']?> ><a href="#">Fee Category Fine</a></li> -->
-                                <!-- <li <?=$_li3['fee-allocation']?> ><a href="#">Fee Allocation</a></li> -->
-                                <!-- <li <?=$_li3['quick-payment']?> ><a href="#">Quick Payment</a></li> -->
-                                <li <?=$_li3['fee-collection']?> ><a href="#">Fee Collection</a></li>
+                                <li <?=$_li3['fee-collection']?> ><a href="<?= base_url('fees/collection')?>">Fee Collection</a></li>
                             </ul>
                         </div>
                     </li>

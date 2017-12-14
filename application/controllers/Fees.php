@@ -14,6 +14,23 @@ class Fees extends MY_Controller {
 	//made new changes
 	//made fir se new changes
 	//made fir se new changes.2
+
+	function collection(){
+
+		$this->data['title']      = 'Fee Collection';
+		$this->data['subview']    = 'finance/fees/fee_collection';
+		$this->data['script']     = 'finance/fees/fee_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1']        = 'finance';
+		$this->data['a1']         = 'finance';
+		$this->data['div1']       = 'finance';
+		$this->data['li2']        = 'fee';
+		$this->data['a2']         = 'fee';
+		$this->data['div2']       = 'fee';
+		$this->data['li3']        = 'fee-category';
+		$this->load->view('main_layout',$this->data);
+	}
+
 	function index() {
 		$this->data['classes'] = $this->classes_m->get_order_by_classes(array('instituteID'=>$this->session->userdata('instituteID')));
 		$this->data['fees'] = $this->fee_list_m->get_order_by_fee(array('instituteID'=>$this->session->userdata('instituteID')));
