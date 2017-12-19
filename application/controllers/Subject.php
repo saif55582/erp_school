@@ -107,12 +107,13 @@ class Subject extends MY_Controller {
 		foreach($subjects as $subject) :
 		$result .= "
                 <tr id=".$subject->subjectID.">	
+                	<td>".$this->mylibrary->getClassName($subject->classesID)."</td>
                     <td>".$subject->subject_name."</td>
                     <td>".$subject->subject_code."</td>
-                    <td>".$subject->teacherID."</td>
+                    <td>".$this->mylibrary->getTeacherParam($subject->teacherID, 'name')."</td>
                     <td>".$subject->pass_marks."</td>
                     <td>".$subject->final_marks."</td>
-                    <td>".$subject->optional."</td>
+                    <td>".($subject->optional == 1 ? 'Optional':'Mandatory')."</td>
                     <td>
 						<a href='".base_url()."subject/edit/".base64_encode($subject->subjectID)."'>
                             <button type='button' rel='tooltip' class='btn btn-info mybtn'>

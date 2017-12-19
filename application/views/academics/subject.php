@@ -25,9 +25,10 @@
                             </div>
                         </div>
                         <div class="material-datatables">
-                            <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n="subjects" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
+                                        <th>Class</th>
                                         <th>Name</th>
                                         <th>Subject Code</th>
                                         <th>Teacher</th>
@@ -39,6 +40,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Class</th>
                                         <th>Name</th>
                                         <th>Code</th>
                                         <th>Teacher</th>
@@ -54,6 +56,7 @@
                                     foreach ($subjects as $subject):
                                     ?>
                                     <tr id="<?= $subject->subjectID?>" >
+                                        <td><?= $this->mylibrary->getClassName($subject->classesID)?></td>
                                         <td><?=$subject->subject_name?></td>
                                         <td><?=$subject->subject_code?></td>
                                         <td>

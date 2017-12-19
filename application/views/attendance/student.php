@@ -7,7 +7,7 @@
                         <i class="material-icons">assignment</i>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title my-title">Student attendance</h4>
+                        <h4 class="card-title my-title">Student Attendance</h4>
                         <div class="toolbar">
                             <!--Here you can write extra buttons/actions for the toolbar              -->
                             <a href="<?= base_url('attendance/student/add')?>">
@@ -42,7 +42,7 @@
 
                         </div>
                         <div class="material-datatables">
-                            <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n='student_attendance_day' id="datatable" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr width="100%">    
                                         <th width='15%'>Photo</th>
@@ -50,7 +50,7 @@
                                         <th width='13%'>Roll</th>
                                         <th width='12%'>Class</th>
                                         <th width='12%'>Section</th>
-                                        <th width='40%' class="disabled-sorting text-center ">Actions</th>
+                                        <th width='40%' class="disabled-sorting text-center ">Attendance</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -60,7 +60,7 @@
                                         <th>Roll</th>
                                         <th>Class</th>
                                         <th>Section</th>
-                                        <th class="text-center">Actions</th>
+                                        <th class="text-center">Attendance</th>
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody">

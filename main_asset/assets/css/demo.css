@@ -1,3 +1,16 @@
+.btn-blue {
+    background-color: #673ab7;
+}
+.btn-blue:hover {
+    background-color: #673ab7;
+}
+.btn-blue:focus {
+    background-color: #673ab7;
+}
+.btn-blue:active {
+    background-color: #673ab7;
+}
+
 .label-on-left {
 	float:left !important;
 }
