@@ -1,4 +1,4 @@
-<?php 
+	<?php 
 
 defined('BASEPATH') or exit('No direct scripting allowed');
 
@@ -117,9 +117,6 @@ class Teacher extends MY_Controller {
 				$config['upload_path'] = "./main_asset/school_docs/".$this->session->userdata('instituteID').'/teacher';
 				$config['allowed_types'] = 'gif|jpg|png|jpeg';
 				$config['file_name'] = date('Y-m-d-H-i-s').$new_file;
-				$config['max_size'] = '2048';
-				$config['max_width'] = '3000';
-				$config['max_height'] = '3000';
 				$this->load->library('upload', $config);
 				if(!$this->upload->do_upload("photo")) {
 					$this->form_validation->set_message("upload", $this->upload->display_errors());
@@ -145,6 +142,7 @@ class Teacher extends MY_Controller {
 		$this->data['title'] = 'Teacher';
 		$this->data['subview'] = 'teacher/teacher';
 		$this->data['script'] = 'teacher/teacher_js';
+		$this->data['app_script']  = 'general.js';
 		$this->data['li1'] = 'teacher';
 		$this->load->view('main_layout', $this->data);
 	}
@@ -153,6 +151,7 @@ class Teacher extends MY_Controller {
 		$this->data['title'] = 'Add Teacher';
 		$this->data['subview'] = 'teacher/teacher_add';
 		$this->data['script'] = 'teacher/teacher_js';
+		$this->data['app_script']  = 'general.js';
 		$this->data['li1'] = 'teacher';
 
 		$this->load->view('main_layout', $this->data);
@@ -170,6 +169,7 @@ class Teacher extends MY_Controller {
 			$this->data['subview'] = 'not_found';
 		}
 		$this->data['script'] = 'teacher/teacher_js';
+		$this->data['app_script']  = 'general.js';
 		$this->data['active'] = 'teacher';
 		$this->load->view('main_layout', $this->data);
 	}
@@ -210,7 +210,6 @@ class Teacher extends MY_Controller {
 	        $config = array();
 		    $config['upload_path'] = 'main_asset/school_docs/'.$this->session->userdata('instituteID').'/teacher';
 		    $config['allowed_types'] = 'gif|jpg|png|jpeg';
-		    $config['max_size']      = '2045';
 		    $config['file_name'] = date('Y-m-d-H-i-s').random_string('alpha',15);
 		    $config['overwrite'] = true;
 
@@ -232,9 +231,14 @@ class Teacher extends MY_Controller {
 				$this->renderAdd();
 			}
 			else {
+
+				$instituteID = $this->session->userdata('instituteID');
+				$res = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+
 				$password = random_string('alnum',10);
 				$array = array();
 				$array['instituteID'] = $this->session->userdata('instituteID');
+				$array['academic_yearID'] = $res->academic_yearID;
 				$array['name'] = $this->input->post('name');
 				$array['designation'] = $this->input->post('designation');
 				$array['dob'] = $this->input->post('dob');
@@ -244,7 +248,6 @@ class Teacher extends MY_Controller {
 				$array['phone'] = $this->input->post('phone');
 				$array['doj'] = $this->input->post('doj');
 				$array['photo'] = $this->upload_data['file']['file_name'];
-				$array['username'] = $this->input->post('email');
 				$array['password'] = md5($password);
 				$array['slug'] = $password;
 				$array['address'] = $this->input->post('address');
@@ -261,7 +264,12 @@ class Teacher extends MY_Controller {
 					$array['documents'] = serialize($documents);
 				}
 				//print_r($array);die();
-				$this->teacher_m->insertTeacher($array);
+				$id = $this->teacher_m->insertTeacher($array);
+				$update = array(
+					'employeeID'=>$id+1000,
+					'username'=>$id+1000
+				);
+				$this->teacher_m->updateTeacher($update, $id);
 				redirect('teacher');
 
 			}

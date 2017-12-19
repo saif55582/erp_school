@@ -8,7 +8,7 @@
                     </div>
                     <div class="card-content">
                         <p class="category">Students</p>
-                        <h3 class="card-title">184</h3>
+                        <h3 class="card-title"><?=count($students)?></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+           <!--  <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="rose">
                         <i class="material-icons">person</i>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="green">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="card-content">
                         <p class="category">Teacher</p>
-                        <h3 class="card-title">55</h3>
+                        <h3 class="card-title"><?=count($teachers)?></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="card-content">
                         <p class="category">Subject</p>
-                        <h3 class="card-title">45</h3>
+                        <h3 class="card-title"><?=count($subjects)?></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">

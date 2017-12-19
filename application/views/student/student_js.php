@@ -1,4 +1,13 @@
 <script>
+
+  
+
+    function exportReset() {
+        liveTableData.update();
+        liveTableData.reset();
+    }
+
+
     $(function()
     {
         $(document).on('click', '.btn-add', function(e)

@@ -14,7 +14,7 @@ class teacher_m extends MY_Model {
 
 	function insertTeacher($array) {
 		$id = parent::insert($array);
-		return true;
+		return $id;
 	}
 
 	function get_order_by_teacher($array=NULL) {

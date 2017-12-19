@@ -13,6 +13,7 @@ class Mylibrary {
 		$this->CI->load->model('classes_m');
 		$this->CI->load->model('section_m');
 		$this->CI->load->model('teacher_m');
+		$this->CI->load->model('student_m');
 	}
 
 	public function isLoggedIn() {
@@ -45,6 +46,31 @@ class Mylibrary {
         );
         $teacher = $this->CI->teacher_m->get_teacher_single($where);
         return $teacher->name;
+	}
+
+	public function getTeacherParam($teacherID, $col) {
+		$where = array(
+            'instituteID'=>$this->CI->session->userdata('instituteID'),
+            'teacherID'=>$teacherID
+        );
+        $teacher = $this->CI->teacher_m->get_teacher_single($where);
+        return isset($teacher->$col) ? $teacher->$col : '---';
+
+	}
+
+	public function getStudentParam($studentID, $col1) {
+		$where = array(
+            'instituteID'=>$this->CI->session->userdata('instituteID'),
+            'studentID'=>$studentID
+        );
+    	$student = $this->CI->student_m->get_single_student($where);
+    	//return isset($student->$col1) ? $student->$col1 : '---';
+    	if($student->$col1) {
+    		return $student->$col1;
+    	}else {
+    		return '--';
+    	}
+
 	}
 
 	

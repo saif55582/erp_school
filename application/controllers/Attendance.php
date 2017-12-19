@@ -63,7 +63,7 @@ class Attendance extends MY_Controller {
 		$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 		$academic_yearID = $institute->academic_yearID;
 		$where = array(
-			'instituteID'=>$instituteID,
+			//'instituteID'=>$instituteID,
 			'classesID'=>$classesID,
 			'sectionID'=>$sectionID
 		);
@@ -73,7 +73,7 @@ class Attendance extends MY_Controller {
 		$array = array(
 			'instituteID'=>$this->session->userdata('instituteID'),
 			//'academic_yearID'=>$student->academic_yearID,
-			'academic_yearID'=>$academic_yearID,
+			//'academic_yearID'=>$academic_yearID,
 			'studentID'=>$student->studentID,
 			'classesID'=>$student->classesID,
 			'sectionID'=>$student->sectionID,
@@ -87,7 +87,7 @@ class Attendance extends MY_Controller {
 
 		$where = array(
 			'instituteID'=>$instituteID,
-			'academic_yearID'=>$academic_yearID,
+			//'academic_yearID'=>$academic_yearID,
 			'studentID'=>$student->studentID,
 			'classesID'=>$student->classesID,
 			'sectionID'=>$student->sectionID,
@@ -202,7 +202,7 @@ class Attendance extends MY_Controller {
 
 		$where = array(
 			'instituteID'=>$instituteID,
-			'academic_yearID'=>$academic_yearID,
+			//'academic_yearID'=>$academic_yearID,
 			'classesID'=>$classesID,
 			'sectionID'=>$sectionID,
 			'month_year'=>$month_year
@@ -279,7 +279,7 @@ class Attendance extends MY_Controller {
 		echo $result;
 	}
 
-
+#####################################################################################################################################################
 
 	//Teacher attendance start
 
@@ -339,7 +339,7 @@ class Attendance extends MY_Controller {
 		foreach($teachers as $teacher) {
 		$array = array(
 			'instituteID'=>$this->session->userdata('instituteID'),
-			'academic_yearID'=>$teacher->academic_yearID,
+			//'academic_yearID'=>$teacher->academic_yearID,
 			'teacherID'=>$teacher->teacherID,
 			'month_year'=>$month_year
 		);
@@ -351,7 +351,7 @@ class Attendance extends MY_Controller {
 
 		$where = array(
 			'instituteID'=>$instituteID,
-			'academic_yearID'=>$academic_yearID,
+			//'academic_yearID'=>$academic_yearID,
 			'teacherID'=>$teacher->teacherID,
 			'month_year'=>$month_year
 		);
@@ -464,7 +464,7 @@ class Attendance extends MY_Controller {
 
 		$where = array(
 			'instituteID'=>$instituteID,
-			'academic_yearID'=>$academic_yearID,
+			//'academic_yearID'=>$academic_yearID,
 			'month_year'=>$month_year
 		);
 
@@ -538,4 +538,133 @@ class Attendance extends MY_Controller {
 		}
 		echo $result;
 	}
+
+
+
+	#######################################################################################################################################################
+	//Attendance Report
+
+	function reportStudent() {
+
+
+		$usertype =  $this->session->userdata('loginusertype');
+		$where = array(
+			'instituteID'=>$this->session->userdata('instituteID')
+		);
+		$st_years = array();
+		$student_year = $this->attendance_stud_m->get_attendance_stud_where($where); 
+		foreach($student_year as $student) {
+			$y =  date('Y',strtotime($student->month_year));
+			array_push($st_years, $y);
+		}
+		$years = array_unique($st_years);
+		$this->data['years'] = $years;
+		$this->data['classes'] = $this->classes_m->get_order_by_classes($where);
+		$this->data['title'] = 'Attendance Report';
+		$this->data['subview'] = 'attendance/report_student';
+		$this->data['script'] = 'attendance/attendance_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1'] = 'attendance';
+		$this->data['a1'] = 'attendance';
+		$this->data['div1'] = 'attendance';
+		$this->data['li2'] = 'attendance_report';
+		$this->data['a2'] = 'attendance_report';
+		$this->data['div2'] = 'attendance_report';
+		$this->data['li3'] = 'attendance_rep_student';
+		$this->load->view('main_layout', $this->data);
+
+	}
+
+	//Report Teacher
+	function reportTeacher() {
+
+		$usertype =  $this->session->userdata('loginusertype');
+
+		$where = array(
+			'instituteID'=>$this->session->userdata('instituteID')
+		);
+		$t_years = array();
+		$teacher_year = $this->attendance_teacher_m->get_attendance_teacher_where($where);
+		foreach($teacher_year as $teacher) {
+			$y = date('Y',strtotime($teacher->month_year));
+			array_push($t_years, $y);
+		}
+		$years = array_unique($t_years);
+		$this->data['years'] = $years;
+		$this->data['classes'] = $this->classes_m->get_order_by_classes($where);
+		$this->data['title'] = 'Attendance Report';
+		$this->data['subview'] = 'attendance/report_teacher';
+		$this->data['script'] = 'attendance/attendance_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1'] = 'attendance';
+		$this->data['a1'] = 'attendance';
+		$this->data['div1'] = 'attendance';
+		$this->data['li2'] = 'attendance_report';
+		$this->data['a2'] = 'attendance_report';
+		$this->data['div2'] = 'attendance_report';
+		$this->data['li3'] = 'attendance_rep_teacher';
+		$this->load->view('main_layout', $this->data);
+
+	}
+
+
+
+	function gR() {
+		$user   = $_POST['user'];
+		$month_year = $_POST['year'].'-'.$_POST['month'];
+		if($user==1) {
+
+			$model 	= 'attendance_stud_m';
+			$method = 'get_attendance_stud_where';
+			$where  = array(
+				'instituteID' => $this->session->userdata('instituteID'),
+				'classesID'   => base64_decode($_POST['classesID']),
+				'sectionID'   => base64_decode($_POST['sectionID']),
+				'month_year'  => $month_year
+			);
+		}else {
+			$model 	= 'attendance_teacher_m';
+			$method = 'get_attendance_teacher_where';
+			$where  = array(
+				'instituteID' => $this->session->userdata('instituteID'),
+				'month_year'  => $month_year
+			);
+		}
+
+			$attendances = $this->$model->$method($where);
+		if($attendances==null) {
+			echo "<tr><td class='text-danger' colspan='32'> <center>No Attendance found</center></td></tr>";
+		}
+		
+		foreach($attendances as $attendance): 
+			if($user==1) {
+				$col1 = $this->mylibrary->getStudentParam($attendance -> studentID, 'roll_no');
+				$col2 = $this->mylibrary->getStudentParam($attendance -> studentID, 'f_name').' '.
+				$this->mylibrary->getStudentParam($attendance -> studentID, 'l_name');				
+			}else {
+				$col1 = $this->mylibrary->getTeacherParam($attendance -> teacherID, 'employeeID');
+				$col2 = $this->mylibrary->getTeacherParam($attendance -> teacherID, 'name');
+			}
+	        echo '<tr>
+	                <th>'.$col1.'</th>
+	                <th>'.$col2.'</th>';
+	                for($i=1;$i<=31;$i++) {?>
+	                    <td>
+	                        <?php
+	                            $d = ($i<10)? 'd0'.$i : 'd'.$i;
+	                             if(strtoupper($attendance -> $d) == 'P')
+	                                echo'<span class="text-success">'.strtoupper($attendance -> $d).'</span>';
+	                            else if(strtoupper($attendance -> $d) == 'A')
+	                                echo'<span class="text-danger">'.strtoupper($attendance -> $d).'</span>';
+	                            else if(strtoupper($attendance -> $d) == 'L')
+	                                echo'<span class="text-warning">'.strtoupper($attendance -> $d).'</span>';
+	                        ?>
+	                    </td>
+	                <?php }
+	        echo '</tr>';
+	    endforeach;
+
+	}
+
+
 }

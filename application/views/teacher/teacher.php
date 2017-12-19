@@ -17,39 +17,35 @@
                             ?>
                         </div>
                         <div class="material-datatables">
-                            <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n="teachers" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
-                                        <th>#</th>
                                         <th>Photo</th>
                                         <th>Name</th>
-                                        <th>Designation</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Username</th>
                                         <th>Password</th>
                                         <th class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>#</th>
                                         <th>Photo</th>
                                         <th>Name</th>
-                                        <th>Designation</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Username</th>
                                         <th>Password</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php 
-                                        $index = 1;
                                         
                                         foreach ($teachers as $teacher) :
                                     ?>
                                         <tr id="<?= $teacher->teacherID;?>">
-                                        <td></td>
                                         <td>
                                             <?php
 
@@ -62,9 +58,9 @@
                                             ?>                                                
                                         </td>
                                         <td><?= strtoupper($teacher->name) ?></td>
-                                        <td><?= strtoupper($teacher->designation) ?></td>
                                         <td><?=$teacher->email?></td>
                                         <td><?=$teacher->phone?></td>
+                                        <td><?= $teacher->username ?></td>
                                         <td>
                                             <?=$teacher->slug?>
                                         </td>

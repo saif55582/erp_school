@@ -52,6 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'signin';
 $route['attendance/student/add'] = 'attendance/student_add';
 $route['attendance/teacher/add'] = 'attendance/teacher_add';
+$route['attendance/report/student'] = 'attendance/reportStudent';
+$route['attendance/report/teacher'] = 'attendance/reportTeacher';
 $route['administrator/academic-year'] = 'administrator/academic_year';
 $route['subject/edit/(:any)'] = 'subject/lookup/$1';
 $route['syllabus/edit/(:any)'] = 'syllabus/renderEdit/$1';

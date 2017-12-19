@@ -22,6 +22,7 @@ class Section extends MY_Controller {
 		$this->data['title'] = 'Section';
 		$this->data['subview'] = 'academics/section';
 		$this->data['script'] = 'academics/section_js';
+		$this->data['app_script'] = 'general.js';
 		$this->data['li1'] = 'academics';
 		$this->data['a1'] = 'academics';
 		$this->data['div1'] = 'academics';
@@ -155,7 +156,6 @@ class Section extends MY_Controller {
 			foreach ($sections as $section) :
 		$result .= "    
 				<tr id='".$section->sectionID."'>
-				<td>".$index++."</td>
 				<td>".strtoupper($section->section_name)."</td>
 				<td>";
 				    $teacher = $this->teacher_m->get_teacher_by_id($section->teacherID);

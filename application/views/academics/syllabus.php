@@ -26,11 +26,11 @@
 
                         </div>
                         <div class="material-datatables">
-                            <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n="syllabus" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
-                                        <th>Title</th>
                                         <th>Class</th>
+                                        <th>Title</th>
                                         <th>Description</th>
                                         <th>File</th>
                                         <th class="disabled-sorting text-center ">Actions</th>
@@ -38,8 +38,8 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Title</th>
                                         <th>Class</th>
+                                        <th>Title</th>
                                         <th>Description</th>
                                         <th>File</th>
                                         <th class="text-center">Actions</th>
@@ -49,12 +49,13 @@
                                     <?php
                                     foreach($syllabuses as $syllabus) :?>
                                     <tr id="<?=$syllabus->syllabusID?>">
-                                        <td><?=$syllabus->title?></td>
+                                        
                                         <td>
                                             <?php
                                                 echo $this->mylibrary->getClassName($syllabus->classesID);
                                             ?>
                                         </td>
+                                        <td><?=$syllabus->title?></td>
                                         <td><p><?=$syllabus->description?></td>
                                         <td>
                                             <?php
