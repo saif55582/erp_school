@@ -191,7 +191,7 @@ $().ready(function(){
             $('body').removeClass('sidebar-mini');
             md.misc.sidebar_mini_active = false;
 
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+            $('.sidebar .sidebar-wrapper .myscroll, .main-panel').perfectScrollbar();
 
         }else{
 

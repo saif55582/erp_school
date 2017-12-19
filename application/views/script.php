@@ -1,4 +1,7 @@
 <!--   Core JS Files   -->
+
+
+
 <script src="<?= base_url();?>main_asset/assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 <script src="<?= base_url();?>main_asset/assets/js/jquery-ui.min.js" type="text/javascript"></script>
 <script src="<?= base_url();?>main_asset/assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -37,3 +40,8 @@
 <script src="<?= base_url();?>main_asset/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="<?= base_url();?>main_asset/assets/js/demo.js"></script>
+
+<script src="<?= base_url();?>main_asset/assets/js/xlsx.core.js"></script>
+<script src="<?= base_url();?>main_asset/assets/js/FileSaver.js"></script>
+<script src="<?= base_url();?>main_asset/assets/js/tableexport.js"></script>
+

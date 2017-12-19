@@ -1,5 +1,25 @@
+
+  //finding last index of table
+  var lastIndex = $('#datatables ').find('thead').first().find('th').last().index();
+  //table export init
+  TableExport.prototype.defaultButton = "btn btn-blue btn-xs";
+  var liveTableData = $('#datatables').tableExport({
+    filename: $('#datatables').attr('n'),
+    ignoreCols: [lastIndex],
+    footers: false
+  });
+
+  //student view attendance
+  TableExport.prototype.defaultButton = "btn btn-blue btn-sm";
+  var student_attendance = $('#datatable').tableExport({
+    filename: $('#datatable').attr('n'),
+    footers: false
+  });
+
+    
 $(document).ready(function() {
     $('#datatables').DataTable({
+       
         "pagingType": "full_numbers",
         "lengthMenu": [
             [10, 25, 50, -1],
@@ -16,6 +36,7 @@ $(document).ready(function() {
     var table = $('#datatables').DataTable();
     $('.card .material-datatables label').addClass('form-group');
     demo.initFormExtendedDatetimepickers();
+    $('.myscroll').perfectScrollbar();
     
 });
 
@@ -145,6 +166,13 @@ $('#tbody').on('click', '.pop', function() {
 });
 
 function getStudent(ci,si, base) {
+
+    var clas = $('#class').find(":selected").text();
+    var section = $('#sec').find(':selected').text();
+    //var name = $('#mytable').attr('n')+ $("#export_year").val()+$('#export_month').val();
+    TableExport.prototype.defaultFilename = $('#datatables').attr('n')+'sasasa';
+
+
     if(si) {
       var d = 'y=' +ci+'&z='+si;
     }
@@ -160,6 +188,12 @@ function getStudent(ci,si, base) {
             datatableDestroy();
             $('#tbody').html(msg);
             datatableSet();
+
+            //updating table to export export
+            //TableExport.prototype.defaultFilename = name;
+            liveTableData.update();
+            liveTableData.reset();
+
         }
     });
 }
@@ -177,6 +211,10 @@ function getSubject(ci) {
             datatableDestroy();
             $('#tbody').html(msg);
             datatableSet();
+
+            //TableExport.prototype.defaultFilename = name;
+            liveTableData.update();
+            liveTableData.reset();
         }
     });
 
@@ -196,6 +234,10 @@ $('#get_rows').on('change', function(){
             datatableDestroy();
             $('#tbody').html(msg);
             datatableSet();
+
+            //TableExport.prototype.defaultFilename = name;
+            liveTableData.update();
+            liveTableData.reset();
         }
     });
 
@@ -267,6 +309,10 @@ $('#fetch_attendance').on('click', function() {
       datatableDestroy();
       $('#tbody').html(data);
       datatableSet();
+      //TableExport.prototype.defaultFilename = name;
+      student_attendance.update();
+      student_attendance.reset();
+      alert();
     }).fail(function (errObject, status, error) {
     demo.showNotification('top','center', 'error',4, error);
   });

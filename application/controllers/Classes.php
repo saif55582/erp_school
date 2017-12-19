@@ -113,6 +113,7 @@ class Classes extends MY_Controller {
 		$this->data['title'] = 'Class';
 		$this->data['subview'] = 'academics/class';
 		$this->data['script'] = 'academics/class_js';
+		$this->data['app_script'] = 'general.js';
 		$this->data['li1'] = 'academics';
 		$this->data['a1'] = 'academics';
 		$this->data['div1'] = 'academics';

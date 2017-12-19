@@ -33,16 +33,18 @@
         'teacher'=>($li2 == 'teacher' ) ? "class='active'" : "class=' '",
         'fee'=>($li2 == 'fee' ) ? "class='active'" : "class=' '",
         'academic_year'=>($li2 == 'academic_year' ) ? "class='active'" : "class=' '",
-        'permission'=>($li2 == 'permission' ) ? "class='active'" : "class=' '"
-        
+        'permission'=>($li2 == 'permission' ) ? "class='active'" : "class=' '",
+        'attendance_report'=>($li2 == 'attendance_report' ) ? "class='active'" : "class=' '"
     );
 
     $_a2 = array(
-         'fee'=>($a2 == 'fee' ) ? "aria-expanded='true' " : "aria-expanded='false'"
+         'fee'=>($a2 == 'fee' ) ? "aria-expanded='true' " : "aria-expanded='false'",
+         'attendance_report'=>($a2 == 'attendance_report' ) ? "aria-expanded='true' " : "aria-expanded='false'"
     );
 
     $_div2 = array(
-        'fee'=>($div2 == 'fee') ? "class='collapse in'" : "class='collapse'"
+        'fee'=>($div2 == 'fee') ? "class='collapse in'" : "class='collapse'",
+        'attendance_report'=>($div2 == 'attendance_report') ? "class='collapse in'" : "class='collapse'"
     );
 
     $_li3 = array(
@@ -50,7 +52,9 @@
         'fee-category-fine'=>($li3 == 'fee-category-fine' ) ? "class='active'" : "class=' '",
         'fee-allocation'=>($li3 == 'fee-allocation' ) ? "class='active'" : "class=' '",
         'quick-payment'=>($li3 == 'quick-payment' ) ? "class='active'" : "class=' '",
-        'fee-collection'=>($li3 == 'fee-collection' ) ? "class='active'" : "class=' '"
+        'fee-collection'=>($li3 == 'fee-collection' ) ? "class='active'" : "class=' '",
+        'attendance_rep_student'=>($li3 == 'attendance_rep_student' ) ? "class='active'" : "class=' '",
+        'attendance_rep_teacher'=>($li3 == 'attendance_rep_teacher' ) ? "class='active'" : "class=' '"
     );
 
 ?>
@@ -113,6 +117,17 @@
                     <li <?=$_li2['teacher']?> >
                         <a href="<?= base_url('attendance/teacher'); ?>">Teacher Attendance</a>
                     </li>
+                    <li <?=$_li2['attendance_report']?> >
+                        <a data-toggle="collapse" href="#attendance_report" <?=$_a2['attendance_report']?> >
+                            Reports<b class="caret"></b>
+                        </a>
+                        <div style="margin-left:20px;" <?=$_div2['attendance_report']?> id="attendance_report">
+                            <ul class="nav">
+                                <li <?=$_li3['attendance_rep_student']?> ><a href="<?=base_url('attendance/report/student')?>">Student</a></li>
+                                <li <?=$_li3['attendance_rep_teacher']?> ><a href="<?=base_url('attendance/report/teacher')?>">Teacher</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -131,9 +146,6 @@
                         <div style="margin-left:20px;" <?=$_div2['fee']?> id="fees">
                             <ul class="nav">
                                 <li <?=$_li3['fee-category']?> ><a href="<?=base_url('fees')?>">Fee List</a></li>
-                                <!-- <li <?=$_li3['fee-category-fine']?> ><a href="#">Fee Category Fine</a></li> -->
-                                <!-- <li <?=$_li3['fee-allocation']?> ><a href="#">Fee Allocation</a></li> -->
-                                <!-- <li <?=$_li3['quick-payment']?> ><a href="#">Quick Payment</a></li> -->
                                 <li <?=$_li3['fee-collection']?> ><a href="#">Fee Collection</a></li>
                             </ul>
                         </div>

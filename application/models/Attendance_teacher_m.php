@@ -24,6 +24,10 @@ class Attendance_teacher_m extends MY_Model {
 		return parent::get_order_by($array);
 	}
 
+	function array_get_attendance_teacher_where($array=NULL) {
+		return parent::array_get_order_by($array);
+	}
+
 	function attendance_teacher_update($array,$id) {
 		parent::update($array,$id);
 	}

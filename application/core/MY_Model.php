@@ -58,7 +58,27 @@ class MY_Model extends CI_Model {
 
 	}
 
+	function array_get_order_by($array=NULL) {
 
+		if($array != NULL) {
+
+			$this->db->select()->from($this->_table_name)->where($array)->order_by($this->_order_by);
+
+			$query = $this->db->get();
+
+			return $query->result_array();
+
+		} else {
+
+			$this->db->select()->from($this->_table_name)->order_by($this->_order_by);
+
+			$query = $this->db->get();
+
+			return $query->result_array();
+
+		}
+
+	}
 
 	function get_single($array=NULL) {
 

@@ -43,7 +43,7 @@ class Syllabus extends MY_Controller {
 			if(count($explode) >= 2) {
 				$new_file = $file_name_rename.'.'.end($explode);
 				$config['upload_path'] = "./main_asset/school_docs/".$this->session->userdata('instituteID').'/data';
-				$config['allowed_types'] = "gif|jpg|png|jpeg";
+				$config['allowed_types'] = "*";
 				$config['file_name'] = date('Y-m-d-H-i-s').$new_file;
 				$this->load->library('upload', $config);
 				if(!$this->upload->do_upload("photo")) {
@@ -71,7 +71,7 @@ class Syllabus extends MY_Controller {
 			if(count($explode) >= 2) {
 				$new_file = $file_name_rename.'.'.end($explode);
 				$config['upload_path'] = "./main_asset/school_docs/".$this->session->userdata('instituteID').'/data';
-				$config['allowed_types'] = "gif|jpg|png|jpeg";
+				$config['allowed_types'] = "*";
 				$config['file_name'] = date('Y-m-d-H-i-s').$new_file;
 				$this->load->library('upload', $config);
 				if(!$this->upload->do_upload("photo")) {
@@ -210,8 +210,8 @@ class Syllabus extends MY_Controller {
 		foreach($syllabus as $syll) :
 		$result .= "
                 <tr id=".$syll->syllabusID.">	
-                    <td>".$syll->title."</td>
                     <td>".$this->mylibrary->getClassName($syll->classesID)."</td>
+                    <td>".$syll->title."</td>
                     <td>".$syll->description."</td>
                     <td>
                     	<a href='".base_url()."main_asset/school_docs/".$instituteID."/data/".$syll->file."' download='".$syll->file."' >

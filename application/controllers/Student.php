@@ -311,13 +311,12 @@ class Student extends MY_Controller {
 			}
 			else {
 				$instituteID = $this->session->userdata('instituteID');
-				$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 				$res = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 				$registration_no = $res->registration_no;
 				$password = random_string('alpha', 10);
 				$array = array(
 					'instituteID'=>$instituteID,
-					'academic_yearID'=>$institute->academic_yearID,
+					'academic_yearID'=>$res->academic_yearID,
 					'f_name'=>$this->input->post('f_name'),
 					'l_name'=>$this->input->post('l_name'),
 					'dob'=>$this->input->post('dob'),

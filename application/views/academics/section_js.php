@@ -1,23 +1,5 @@
 <script>
-$(document).ready(function() {
-        $('#datatables').DataTable({
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
 
-        });
-
-
-        var table = $('#datatables').DataTable();
-        $('.card .material-datatables label').addClass('form-group');
-    });
 
 function modal_action(action) {
     $('#myModal').modal(action);
@@ -78,6 +60,10 @@ function selectClass(classesID) {
                 datatableDestroy();
                 $('#tbody')[0].innerHTML = result;
                 datatableSet();
+
+                //updating table to export export
+                liveTableData.update();
+                liveTableData.reset();
             }
         }
     });

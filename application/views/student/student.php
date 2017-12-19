@@ -13,7 +13,7 @@
                             <a href="<?= base_url(); ?>student/add" <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Students</button></a>
 
                             <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select name="classesID" id="sec" onchange="getStudent($('#class').val(),this.value,'<?=base_url()?>');" class="selectpicker" data-style="select-with-transition" title="Select Section">
+                                <select name="sectionID" id="sec" onchange="getStudent($('#class').val(),this.value,'<?=base_url()?>');" class="selectpicker" data-style="select-with-transition" title="Select Section">
                                     <option value="">Select Section</option>
                                 </select>
                                 <?php
@@ -35,7 +35,7 @@
 
                         </div>
                         <div class="material-datatables">
-                            <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n="students" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
                                         <th>Photo</th>
