@@ -145,8 +145,12 @@
                         </a>
                         <div style="margin-left:20px;" <?=$_div2['fee']?> id="fees">
                             <ul class="nav">
-                                <li <?=$_li3['fee-category']?> ><a href="<?=base_url('fees')?>">Fee List</a></li>
-                                <li <?=$_li3['fee-collection']?> ><a href="#">Fee Collection</a></li>
+                                    
+                                <li><a href="<?= base_url('fees')?>">Fee Types</a></li>
+                                <li><a href="<?= base_url('fees/balance')?>">Balance</a></li>
+                                <li><a href="<?= base_url('fees/invoice')?>">Invoice</a></li>
+                                <li><a href="#">Payment History</a></li>
+                                <li><a href="#">Expense</a></li>
                             </ul>
                         </div>
                     </li>
