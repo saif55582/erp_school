@@ -14,12 +14,13 @@ class Fees extends MY_Controller {
 	//made new changes
 	//made fir se new changes
 	//made fir se new changes.2
+
 	function index() {
 		$this->data['classes'] = $this->classes_m->get_order_by_classes(array('instituteID'=>$this->session->userdata('instituteID')));
 		$this->data['fees'] = $this->fee_list_m->get_order_by_fee(array('instituteID'=>$this->session->userdata('instituteID')));
 		$this->data['title']      = 'Fee';
 		$this->data['subview']    = 'finance/fees/fee_list';
-		$this->data['script']     = '';
+		$this->data['script']     = 'finance/fees/fee_js';
 		$this->data['app_script'] = 'general.js';
 		$this->data['li1']        = 'finance';
 		$this->data['a1']         = 'finance';
@@ -31,11 +32,75 @@ class Fees extends MY_Controller {
 		$this->load->view('main_layout',$this->data);
 	}
 
-	function renderAdd() {
-		$this->data['classes'] = $this->classes_m->get_order_by_classes(array('instituteID'=>$this->session->userdata('instituteID')));
-		$this->data['title']      = 'Fee Add';
-		$this->data['subview']    = 'finance/fees/add_fees';
-		$this->data['script']     = '';
+	function invoice(){
+
+		$this->data['title']      = 'Fee Invoice';
+		$this->data['subview']    = 'finance/fees/fee_invoice';
+		$this->data['script']     = 'finance/fees/fee_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1']        = 'finance';
+		$this->data['a1']         = 'finance';
+		$this->data['div1']       = 'finance';
+		$this->data['li2']        = 'fee';
+		$this->data['a2']         = 'fee';
+		$this->data['div2']       = 'fee';
+		$this->data['li3']        = 'fee-category';
+		$this->load->view('main_layout',$this->data);
+	}
+
+	function view(){
+
+		$this->data['title']      = 'Viewe Invoice';
+		$this->data['subview']    = 'finance/fees/fee_invoice_view';
+		$this->data['script']     = 'finance/fees/fee_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1']        = 'finance';
+		$this->data['a1']         = 'finance';
+		$this->data['div1']       = 'finance';
+		$this->data['li2']        = 'fee';
+		$this->data['a2']         = 'fee';
+		$this->data['div2']       = 'fee';
+		$this->data['li3']        = 'fee-category';
+		$this->load->view('main_layout',$this->data);
+	}
+
+	function balance(){
+
+		$this->data['title']      = 'Balance';
+		$this->data['subview']    = 'finance/fees/fee_balance';
+		$this->data['script']     = 'finance/fees/fee_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1']        = 'finance';
+		$this->data['a1']         = 'finance';
+		$this->data['div1']       = 'finance';
+		$this->data['li2']        = 'fee';
+		$this->data['a2']         = 'fee';
+		$this->data['div2']       = 'fee';
+		$this->data['li3']        = 'fee-category';
+		$this->load->view('main_layout',$this->data);
+	}
+
+	function AddInvoice() {
+		
+		$this->data['title']      = 'Add Invoice';
+		$this->data['subview']    = 'finance/fees/invoice_add';
+		$this->data['script']     = 'finance/fees/fee_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1']        = 'finance';
+		$this->data['a1']         = 'finance';
+		$this->data['div1']       = 'finance';
+		$this->data['li2']        = 'fee';
+		$this->data['a2']         = 'fee';
+		$this->data['div2']       = 'fee';
+		$this->data['li3']        = 'fee-category';
+		$this->load->view('main_layout',$this->data);
+	}
+
+	function EditInvoice() {
+		
+		$this->data['title']      = 'Edit Invoice';
+		$this->data['subview']    = 'finance/fees/invoice_edit';
+		$this->data['script']     = 'finance/fees/fee_js';
 		$this->data['app_script'] = 'general.js';
 		$this->data['li1']        = 'finance';
 		$this->data['a1']         = 'finance';
@@ -50,25 +115,6 @@ class Fees extends MY_Controller {
 	function dest() {
 		$fee_listID = $this->input->post('param');
 		$this->fee_list_m->deleteFee($fee_listID);
-	}
-
-	function add() {
-		if($_POST) {
-			$array = array(
-				'fee_name'=>$this->input->post('fee_name'),
-				'instituteID'=>$this->session->userdata('instituteID'),
-				'fee_desc'=>$this->input->post('fee_desc'),
-				'amount'=>$this->input->post('amount'),
-				'fee_type'=>$this->input->post('fee_type'),
-				'classesID'=>base64_decode($this->input->post('classesID')),
-				'assigned_date'=>date('Y-m-d')
-			);
-			$this->fee_list_m->insertFee($array);
-			redirect('fees');
-		}
-		else {
-			$this->renderAdd();
-		}
 	}
 
 	function rows() {
