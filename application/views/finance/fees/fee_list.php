@@ -1,7 +1,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6 col-sm-6">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="rose">
                         <i class="material-icons">assignment</i>
@@ -10,39 +10,21 @@
                         <h4 class="card-title my-title">Fee List</h4>
                         <div class="toolbar">
                             <!--Here you can write extra buttons/actions for the toolbar              -->
-                            <a href="<?= base_url('fees/add')?>">
-                                <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Fees</button>
-                            </a>
-    
-                            <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select id="get_rows" base="<?=base_url()?>" act="fees/rows" name="classesID" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
-                                     <?php
-                                        foreach ($classes as $class) {
-                                            echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";                                      
-                                        }
-                                        ?>
-                                </select>
-                            </div>
+                            <button class="btn btn-md btn-success btn-wd" data-toggle="modal" data-target="#addFeeType"> <i class="material-icons">library_add</i> Add Fee Type</button>
                         </div>
                         <div class="material-datatables">
-                            <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table id="FeeType" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
-                                        <th>Fee Name</th>
-                                        <th>Fee Description</th>
-                                        <th>Amount</th>
                                         <th>Fee Type</th>
-                                        <th>Class</th>
+                                        <th>Fee Description</th>
                                         <th class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Fee Name</th>
-                                        <th>Fee Description</th>
-                                        <th>Amount</th>
                                         <th>Fee Type</th>
-                                        <th>Class</th>
+                                        <th>Fee Description</th>
                                         <th class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </tfoot>
@@ -53,36 +35,6 @@
                                     <tr id="<?= $fee->fee_listID ?>" >
                                         <td><?= $fee->fee_name ?></td>
                                         <td><?= ($fee->fee_desc !="" ? $fee->fee_desc : '-----') ?></td>
-                                        <td><?= $fee->amount ?></td>
-                                        <td>
-                                            <?php
-                                                switch($fee->fee_type) {
-                                                    case 1:
-                                                        echo 'Annual';
-                                                        break;
-                                                    case 2:
-                                                        echo 'Bi-Annual';
-                                                        break;
-                                                    case 3:
-                                                        echo 'Tri-Annual';
-                                                        break;
-                                                    case 4:
-                                                        echo 'Quarterly';
-                                                        beak;
-                                                    case 5:
-                                                        echo 'Monthly';
-                                                        break;
-                                                    case 6:
-                                                        echo 'One Time';
-                                                        break;
-                                                }
-                                            ?>
-                                        </td>
-                                        <td>
-                                             <?php
-                                                echo $this->mylibrary->getClassName($fee->classesID);
-                                            ?>
-                                        </td>
                                         <td class="text-center td-actions">
                                             <!-- <a href='<?=base_url()?>fees/edit/<?=base64_encode($fee->fee_listID)?>'>
                                                 <button type='button' rel='tooltip' class='btn btn-info mybtn'>
@@ -105,7 +57,134 @@
                 </div>
                 <!--  end card  -->
             </div>
-            <!-- end col-md-12 -->
+            <!-- end col-md-6 -->
+            <!-- Classic Modal -->
+            <div class="modal fade" id="addFeeType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                            <h4 class="modal-title"><strong>Add Fee Type</strong></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" action="" method="post" >
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Fee Type</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="pwd">Note</label>
+                                    <div class="col-sm-9"> 
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group"> 
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-rose pull-right btn-sm">Add Fee</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  End Modal -->
+            <div class="col-md-6 col-sm-6">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="rose">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title my-title">Fee Concession</h4>
+                        <div class="toolbar">
+                            <!--Here you can write extra buttons/actions for the toolbar              -->
+                            <button class="btn btn-md btn-success btn-wd" data-toggle="modal" data-target="#addConcessionType"> <i class="material-icons">library_add</i> Add Concession Type</button>
+                        </div>
+                        <div class="material-datatables">
+                            <table id="concession" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead class="text-rose">
+                                    <tr>    
+                                        <th>Fee Type</th>
+                                        <th>Fee Description</th>
+                                        <th class="disabled-sorting text-center ">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Fee Type</th>
+                                        <th>Fee Description</th>
+                                        <th class="disabled-sorting text-center ">Actions</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody id="tbody">
+                                    <?php
+                                    foreach ($fees as $fee):
+                                    ?>
+                                    <tr id="<?= $fee->fee_listID ?>" >
+                                        <td><?= $fee->fee_name ?></td>
+                                        <td><?= ($fee->fee_desc !="" ? $fee->fee_desc : '-----') ?></td>
+                                        <td class="text-center td-actions">
+                                            <!-- <a href='<?=base_url()?>fees/edit/<?=base64_encode($fee->fee_listID)?>'>
+                                                <button type='button' rel='tooltip' class='btn btn-info mybtn'>
+                                                <i class='material-icons'>edit</i>
+                                                </button>
+                                            </a> -->
+                                            <button id="<?= $fee->fee_listID?>" cm="fees/dest" base="<?=base_url()?>" type="button" rel="tooltip" class="btn btn-danger mybtn pop">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <?php 
+                                    endforeach;
+                                      ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-6 -->
+            <!-- Classic Modal -->
+            <div class="modal fade" id="addConcessionType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <i class="material-icons">clear</i>
+                            </button>
+                            <h4 class="modal-title"><strong>Consession Type</strong></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" action="" method="post" >
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Consession Type</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="pwd">Discount(%)</label>
+                                    <div class="col-sm-9"> 
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group"> 
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-rose pull-right btn-sm">Add Consession</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  End Modal -->
         </div>
         <!-- end row -->
     </div>
