@@ -13,6 +13,7 @@
                             <a href="<?= base_url('attendance/student/add')?>">
                                 <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add/Edit Attendance</button>
                             </a>
+                            
                             <div class="col-md-2" style="float:right;margin-top:11px">
                                 <button base="<?=base_url()?>" id="fetch_attendance" class="btn btn-sm btn-rose">Fetch</button>
                             </div>

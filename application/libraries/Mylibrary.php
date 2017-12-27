@@ -21,11 +21,18 @@ class Mylibrary {
 		return (bool) $this->CI->session->userdata('loggedin');
 	}
 
+    public function isLoggedInSuper() {
+
+        return (bool) $this->CI->session->userdata('loggedInSuper');
+    }
+
 	public function getClassName($classesID) {
+
         $where = array(
             'instituteID'=>$this->CI->session->userdata('instituteID'),
             'classesID'=>$classesID
         );
+
         $classes = $this->CI->classes_m->get_single_class($where);
         return $classes->class_name;
 	}
@@ -40,12 +47,15 @@ class Mylibrary {
 	}
 
 	public function getTeacherName($teacherID) {
+
 		$where = array(
             'instituteID'=>$this->CI->session->userdata('instituteID'),
             'teacherID'=>$teacherID
         );
+
         $teacher = $this->CI->teacher_m->get_teacher_single($where);
         return $teacher->name;
+
 	}
 
 	public function getTeacherParam($teacherID, $col) {
@@ -72,6 +82,51 @@ class Mylibrary {
     	}
 
 	}
+
+    public function getExamParam($examScheduleID, $col) {
+        $where = array(
+            'instituteID'=>$this->CI->session->userdata('instituteID'),
+            'examID'=>$examScheduleID
+        );
+
+        $exam = $this->CI->exam_m->get_exam_single($where);
+        if($exam->$col) {
+            return $exam->$col;
+        }else {
+            return '--';
+        }
+
+    }
+
+    public function getFeeListParam($feelistID, $col) {
+        $where = array(
+            'instituteID'=>$this->CI->session->userdata('instituteID'),
+            'fee_listID'=>$feelistID
+        );
+
+        $fee_list = $this->CI->fee_list_m->get_single_fee($where);
+        if($fee_list->$col) {
+            return $fee_list->$col;
+        }else {
+            return '--';
+        }
+
+    }
+
+    public function getSubjectParam($subjectID, $col) {
+        $where = array(
+            'instituteID'=>$this->CI->session->userdata('instituteID'),
+            'subjectID'=>$subjectID
+        );
+
+        $subject = $this->CI->subject_m->get_subject_single($where);
+        if($subject->$col) {
+            return $subject->$col;
+        }else {
+            return '--';
+        }
+
+    }
 
 	
 }

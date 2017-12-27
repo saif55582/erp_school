@@ -59,10 +59,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody">
-                                    <?php 
-                                        
-                                        foreach ($students as $student) :
-                                    ?>
+                                <?php foreach ($students as $student) : ?>
                                         <tr id="<?= $student->studentID;?>">
                                         <td>
                                             <?php
@@ -91,7 +88,7 @@
                                         <td class="text-center td-actions">
                                             <a href="<?= base_url(); ?>student/view/<?=base64_encode($student->studentID*786786)?>">
                                                 <button type="button" rel="tooltip" class="btn btn-success">
-                                                <i class="material-icons">visibility</i>
+                                                <i class="material-icons">open_in_new</i>
                                                 </button>
                                             </a>
                                             <a href="<?= base_url(); ?>student/edit/<?=$student->studentID?>">
@@ -105,9 +102,7 @@
                                             
                                         </td>
                                     </tr>
-                                    <?php 
-                                        endforeach;
-                                    ?>
+                                <?php endforeach; ?>
                                     
                                     
                                 </tbody>

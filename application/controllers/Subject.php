@@ -44,6 +44,7 @@ class Subject extends MY_Controller {
 	}
 
 	function dest($id=NULL) {
+		
 		$subjectID = $this->input->post('param');
 		$this->subject_m->delete($subjectID);
 
@@ -150,6 +151,20 @@ class Subject extends MY_Controller {
 		$this->data['div1'] = 'academics';
 		$this->data['li2'] = 'subject';
 		$this->load->view('main_layout', $this->data);
+	}
+
+	function gS() {
+		$classesID =  base64_decode($this->input->post('ci'));
+		$instituteID = $this->session->userdata('instituteID');
+		$subjects = $this->subject_m->get_order_by_subject(array('classesID'=>$classesID,'instituteID'=>$instituteID));
+		$subject = array();
+		foreach ($subjects as $sub) {
+			$subject[] = array(
+				'subject_name'=>$sub->subject_name,
+				'subjectID'=>base64_encode($sub->subjectID),
+			);
+		}
+		echo json_encode($subject);
 	}
 
 }

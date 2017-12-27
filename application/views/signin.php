@@ -19,20 +19,20 @@
                                     <div class="card-header text-center" data-background-color="rose">
                                         <h4 class="card-title">
                                             <?php 
-                                                echo 'School Title' 
+                                                echo 'Admin Login';
                                             ?>
                                         </h4>
-                                        <h4><?= $form_validation; ?></h4>
                                     </div>
                                     
                                     <div class="card-content">
+                                        <center><p class="text-danger"><?= $form_validation; ?></p></center>
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">email</i>
                                             </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Username</label>
-                                                <input type="text" class="form-control" name="username">
+                                                <input type="text" class="form-control" value="<?=set_value('username') ?>" name="username">
                                                 <h7 class="text-danger"><?= form_error('username'); ?></h7>
                                             </div>
                                         </div>

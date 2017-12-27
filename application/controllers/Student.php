@@ -369,6 +369,25 @@ class Student extends MY_Controller {
 		}
 	}
 
+
+	function gStOpt() {
+		$classesID = base64_decode($this->input->post('y'));
+		$where = array(
+				'instituteID'=>$this->session->userdata('instituteID'),
+				'classesID'=>$classesID
+			);
+		$students = $this->student_m->get_order_by_student($where);
+		$result = array();
+		foreach ($students as $student) {
+			$result[] = array(
+				'student_name'=>$student->f_name.' '.$student->l_name,
+				'studentID'=>base64_encode($student->studentID)
+			);
+		}
+		echo json_encode($result);
+	}
+
+
 	function gSt() {
 		$classesID = base64_decode($this->input->post('y'));
 		$sectionID = base64_decode($this->input->post('z'));
@@ -422,6 +441,56 @@ class Student extends MY_Controller {
 
 		
 	}
+
+	function gStM() {
+		$classesID = base64_decode($this->input->post('y'));
+		$sectionID = base64_decode($this->input->post('z'));
+		$result = "";
+		if($classesID && $sectionID) {
+			$where = array(
+				'instituteID'=>$this->session->userdata('instituteID'),
+				'classesID'=>$classesID,
+				'sectionID'=>$sectionID
+			);
+		}
+		else {
+			$where = array(
+				'instituteID'=>$this->session->userdata('instituteID'),
+				'classesID'=>$classesID
+			);
+		}
+	
+		$students = $this->student_m->get_order_by_student($where);
+		 foreach ($students as $student) {
+		 	$result .= "
+				<tr id='".$student->studentID."'>
+                    <td>";
+                            if($student->photo == 'default.png') {
+                            $result .= "<img src='".base_url()."/main_asset/assets/img/default.png' alt='' class='img img-' style='width:50px'>";
+                            }
+                            else {
+                            $result .= "<img src='".base_url()."/main_asset/school_docs/".$this->session->userdata('instituteID')."/student/".$student->photo."' alt='' class='img' style='width:60px'>";
+                            }
+        $result .= "</td>
+                    <td>".strtoupper($student->f_name.' '.$student->l_name)."</td>
+                    <td>".$student->roll_no."</td>
+                    <td>".$student->reg_no."</td>
+                    <td class='text-center td-actions'>
+                        <a href='".base_url()."student/view/".$student->studentID."'>
+                            <button type='button' rel='tooltip' class='btn btn-success'>
+                            	<i class='material-icons'>open_in_new</i>
+                            </button>
+                        </a>
+                        
+                    </td>
+                </tr>";
+		
+		 }
+		 echo $result;
+
+		
+	}
+
 
 
 }

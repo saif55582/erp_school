@@ -12,6 +12,12 @@ class Admin_m extends MY_Model {
 		parent::__construct();
 	}
 
+	function get_admin_where($array=null) {
+		$query = parent::get_single($array);
+		return $query;
+
+	}
+
 	function insert_admin($array=NULL) {
 		parent::insert($array);
 	}

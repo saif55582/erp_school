@@ -8,15 +8,22 @@
 	protected $_order_by = '';
 
 	function __construct() {
+
 		parent::__construct();
 	}
 
+	function get_institute_by($array=NULL) {
+		return parent::get_order_by($array);
+	}
+
 	function get_institute($id=NULL) {
+
 		$query =  parent::get($id);
 		return $query;
 	}
 
 	function register($array=NULL) {
+
 		return parent::insert($array);
 	}
 

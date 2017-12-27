@@ -25,7 +25,9 @@
 
 	//report
 	TableExport.prototype.defaultButton = "btn btn-blue btn-sm";
-	var liveTableData = $('#mytable').tableExport();
+	var liveTableData = $('#mytable').tableExport({
+		filename: false
+	});
 
 	$('#form_student').on('submit', function(e) {
 		e.preventDefault();
