@@ -25,7 +25,9 @@
 
 	//report
 	TableExport.prototype.defaultButton = "btn btn-blue btn-sm";
-	var liveTableData = $('#mytable').tableExport();
+	var liveTableData = $('#mytable').tableExport({
+		filename: false
+	});
 
 	$('#form_student').on('submit', function(e) {
 		e.preventDefault();
@@ -45,7 +47,7 @@
 
 	$('#report_form').bind('submit', function(e) {
 
-		var name = $('#mytable').attr('n')+ $("#export_year").val()+$('#export_month').val();
+		var name = $('#mytable').attr('n')+$("#export_year").val()+$('#export_month').val();
 		e.preventDefault();
 		var formData = new FormData(this);
 		$.ajax({
@@ -54,8 +56,8 @@
 			data: $(this).serialize(),
 			success: function(msg) {
 				$('#tbody').html(msg);
+
 				TableExport.prototype.defaultFilename = name;
-				
 				liveTableData.update();
 				liveTableData.reset();
 			}

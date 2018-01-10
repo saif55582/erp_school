@@ -5,9 +5,12 @@ class Signin_m extends MY_Model {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('usertype_m');
+		$this->load->model('institute_m');
+		$this->load->database();
 	}
 
 	public function signin() {
+		
 		$returnArray = array(
 			'return' => FALSE,
 			'message' => ''
@@ -56,9 +59,17 @@ class Signin_m extends MY_Model {
 							"loggedin" => TRUE
 						);
 
-						$this->session->set_userdata($data);
-
-						$returnArray = array('return' => TRUE, 'message' => 'Success');
+						##checking if institute is active or not
+						$instituteID =  $userdata->instituteID;
+						$institute = $this->institute_m->get_institute($instituteID);
+						$active = $institute->active;
+						if($active) {
+							$this->session->set_userdata($data);
+							$returnArray = array('return' => TRUE, 'message' => 'Success');
+						}	
+						else {
+							$returnArray = array('return' => FALSE, 'message' => 'Institute is inactive..!');
+						}
 					}
 					else {
 						$returnArray = array( 'return' => FALSE, 'message' => 'You are blocked.');
@@ -72,6 +83,42 @@ class Signin_m extends MY_Model {
 				$returnArray = array( 'return' => FALSE, 'message' => 'Email or password is incorrect.');
 			}
 			return $returnArray;
+	}
+
+	function signin_superadmin() {
+		$returnArray = array(
+			'return '=>'',
+			'message'=>''
+		);
+
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$query = $this->db->select('*')->from('superadmin')->where('username', $username)->get();
+
+		if($query->num_rows() == 1) {
+			$row = $query->row();
+			if(password_verify($password, $row->password)) {
+
+				//set data to session 
+				$data = array(
+					'superadminID'	=> $row->superadminID,
+					'name'			=> $row->name,
+					'email'			=> $row->email,
+					'username'		=> $row->username,
+					"loggedInSuper" => TRUE
+				);
+
+				$this->session->set_userdata($data);
+				$returnArray = array('return'=>true, 'message'=>'Success');
+			}
+			else {
+				$returnArray = array('return'=>false,'message'=>'Wrong Password');
+			}
+		}
+		else {
+			$returnArray = array('return'=>false,'message'=>'Username not Found');
+		}
+		return $returnArray;
 	}
 
 

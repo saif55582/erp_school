@@ -5,7 +5,6 @@ class MY_Controller extends CI_Controller {
 	public $data = array();
 
 	public function __construct() {
-
 		parent::__construct();
 		$this->load->model('institute_details_m');
 		$this->load->model('signin_m');
@@ -22,6 +21,12 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('subject_m');
 		$this->load->model('syllabus_m');
 		$this->load->model('fee_list_m');
+		$this->load->model('fee_allocation_m');
+		$this->load->model('fee_fine_m');
+		$this->load->model('exam_m');
+		$this->load->model('exam_schedule_m');
+		$this->load->model('marks_list_m');
+		$this->load->model('marks_m');
 
 		// $result  = $this->institute_details_m->get();
 		// $institute_details = array();
@@ -43,7 +48,6 @@ class MY_Controller extends CI_Controller {
 			'div2'=>'',
 			'li3'=>''
 		);
-		
 	}
 
 	function not_found() {

@@ -32,20 +32,15 @@
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody_academics_year">
-                                        <?php
-                                        $permissions = $this->aauth->list_perms();
-                                        foreach($permissions as $perm):
-                                        ?>
+                                       
                                         <tr>
-                                           <td><?=$perm->definition?></td>
+                                           <td></td>
                                            <td>1</td>
                                            <td>1</td>
                                            <td>1</td>
                                            <td>1</td>
                                         </tr>
-                                        <?php
-                                        endforeach;
-                                        ?>  
+                                        
                                 </tbody>
                             </table>
                         </div>

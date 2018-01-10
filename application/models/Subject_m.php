@@ -22,7 +22,7 @@ class Subject_m extends MY_Model {
 		return $query;
 	}
 
-	function get_by_subject_name($array=NULL) {
+	function get_subject_single($array=NULL) {
 		$query = parent::get_single($array);
 		return $query;
 	}

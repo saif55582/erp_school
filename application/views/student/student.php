@@ -35,7 +35,7 @@
 
                         </div>
                         <div class="material-datatables">
-                            <table n="students" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n="students" id="datatables" class="mytable table table-striped table-no-bordered table-hover export" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
                                         <th>Photo</th>
@@ -59,10 +59,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody">
-                                    <?php 
-                                        
-                                        foreach ($students as $student) :
-                                    ?>
+                                <!-- <?php foreach ($students as $student) : ?>
                                         <tr id="<?= $student->studentID;?>">
                                         <td>
                                             <?php
@@ -91,7 +88,7 @@
                                         <td class="text-center td-actions">
                                             <a href="<?= base_url(); ?>student/view/<?=base64_encode($student->studentID*786786)?>">
                                                 <button type="button" rel="tooltip" class="btn btn-success">
-                                                <i class="material-icons">visibility</i>
+                                                <i class="material-icons">open_in_new</i>
                                                 </button>
                                             </a>
                                             <a href="<?= base_url(); ?>student/edit/<?=$student->studentID?>">
@@ -105,9 +102,7 @@
                                             
                                         </td>
                                     </tr>
-                                    <?php 
-                                        endforeach;
-                                    ?>
+                                <?php endforeach; ?> -->
                                     
                                     
                                 </tbody>

@@ -67,7 +67,7 @@
                                         <td class="text-center td-actions">
                                             <a href="<?= base_url(); ?>teacher/view/<?=base64_encode($teacher->teacherID*786786)?>">
                                                 <button type="button" rel="tooltip" class="btn btn-success">
-                                                <i class="material-icons">visibility</i>
+                                                <i class="material-icons">open_in_new</i>
                                                 </button>
                                             </a>
                                             <a href="<?= base_url(); ?>teacher/edit/<?=$teacher->teacherID?>">

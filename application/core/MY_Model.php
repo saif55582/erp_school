@@ -28,6 +28,7 @@ class MY_Model extends CI_Model {
 		else {
 			$method = 'result';
 		}
+
 		if(!count($this->db->order_by($this->_order_by))) {
 			$this->db->order_by($this->_order_by);
 		}
@@ -37,67 +38,40 @@ class MY_Model extends CI_Model {
 	}
 
 	function get_order_by($array=NULL) {
-
 		if($array != NULL) {
-
 			$this->db->select()->from($this->_table_name)->where($array)->order_by($this->_order_by);
-
 			$query = $this->db->get();
-
 			return $query->result();
-
 		} else {
-
 			$this->db->select()->from($this->_table_name)->order_by($this->_order_by);
-
 			$query = $this->db->get();
-
 			return $query->result();
-
 		}
 
 	}
 
 	function array_get_order_by($array=NULL) {
-
 		if($array != NULL) {
-
 			$this->db->select()->from($this->_table_name)->where($array)->order_by($this->_order_by);
-
 			$query = $this->db->get();
-
 			return $query->result_array();
-
 		} else {
-
 			$this->db->select()->from($this->_table_name)->order_by($this->_order_by);
-
 			$query = $this->db->get();
-
 			return $query->result_array();
-
 		}
 
 	}
 
 	function get_single($array=NULL) {
-
 		if($array != NULL) {
-
 			$this->db->select()->from($this->_table_name)->where($array);
-
 			$query = $this->db->get();
-
 			return $query->row();
-
 		} else {
-
 			$this->db->select()->from($this->_table_name)->order_by($this->_order_by);
-
 			$query = $this->db->get();
-
 			return $query->result();
-
 		}
 
 	}
@@ -105,11 +79,8 @@ class MY_Model extends CI_Model {
 
 
 	function insert($array) {
-
 		$this->db->insert($this->_table_name, $array);
-
 		$id = $this->db->insert_id();
-
 		return $id;
 
 	}
@@ -117,16 +88,11 @@ class MY_Model extends CI_Model {
 
 
 	function update($data, $id = NULL) {
-
 		$filter = $this->_primary_filter;
-
 		$id = $filter($id);
-
 		$this->db->set($data);
-
 		$this->db->where($this->_primary_key, $id);
-
-		$this->db->update($this->_table_name);
+		return $this->db->update($this->_table_name);
 
 	}
 
@@ -146,18 +112,14 @@ class MY_Model extends CI_Model {
 
 
 	public function hash($string) {
-
 		return hash("sha512", $string . config_item("encryption_key"));
-
 	}
 
 	
-
 }
 
 
 
 /* End of file MY_Model.php */
 
-/* Location: .//D/xampp/htdocs/school/mvc/core/MY_Model.php */
 

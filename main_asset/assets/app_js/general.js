@@ -1,10 +1,10 @@
 
   //finding last index of table
-  var lastIndex = $('#datatables ').find('thead').first().find('th').last().index();
+  var lastIndex = $('.export ').find('thead').first().find('th').last().index();
   //table export init
   TableExport.prototype.defaultButton = "btn btn-blue btn-xs";
-  var liveTableData = $('#datatables').tableExport({
-    filename: $('#datatables').attr('n'),
+  var liveTableData = $('.export').tableExport({
+    filename: $('.export').attr('n'),
     ignoreCols: [lastIndex],
     footers: false
   });
@@ -61,13 +61,13 @@ function getSection(ci, base, si) {
          data: csi,
          success: function(msg)
          { 
-            if(msg=='fail'){
+            
+            if(msg=='fail') {
+              listItem = '<option selected value="">No Section Found</option>';
             }
             else{
                 var m = JSON.parse(msg);
-                var $select = $('#sec');
                 listItem = '';
-                if(!$.isEmptyObject(m)) {
                     $.each(m,function(key, value) {
                         if(si) {
                             if(value.sectionID == si) {
@@ -80,13 +80,72 @@ function getSection(ci, base, si) {
                         else
                             listItem += '<option value=' + value.sectionID + '>' + value.section_name + '</option>';
                     });
-                }
-                else {
-                    listItem = '<option selected value="">No Section Found</option>';
-                }
-                $('#sec').html(listItem);
+                
+            }
+            $('#sec').html(listItem);
+            $('.selectpicker').selectpicker('refresh');
+         }
+   });
+}
+
+function getStudentOption (ci,base) {
+  var csi = 'y=' +ci;
+  $.ajax({
+         type: "POST",
+         url: base+"student/gStOpt",
+         data: csi,
+         success: function(msg)
+         { 
+            if(msg=='fail'){
+            }
+            else{
+                var m = JSON.parse(msg);
+                listItem = '';
+                    $.each(m,function(key, value) {
+                        
+                            listItem += '<option value=' + value.studentID + '>' + value.student_name + '</option>';
+                    });
+                $('#stud').html(listItem);
                 $('.selectpicker').selectpicker('refresh');
             }
+         }
+   });
+}
+
+function getSubjectOptions(ci, base, si) {
+  var csi = 'ci=' +ci;
+  $.ajax({
+         type: "POST",
+         url: base+"subject/gS",
+         data: csi,
+         success: function(msg)
+         { 
+
+            if(msg=='fail'){
+              listItem = '<option selected value="">No Subject Found</option>';
+            }
+            else{
+                var m = JSON.parse(msg);
+                listItem = '';
+                    $.each(m,function(key, value) {
+
+                        if(si)  {
+
+                          if(value.subjectID == si) {
+                            listItem += '<option selected value=' + value.subjectID + '>' + value.subject_name + '</option>';
+                          }
+                          else {
+                            listItem += '<option value=' + value.subjectID + '>' + value.subject_name + '</option>';
+                          }
+                        }
+                        else {
+                          listItem += '<option value=' + value.subjectID + '>' + value.subject_name + '</option>';
+                        }
+                    });
+            }
+
+            $('#sub').html(listItem);
+            $('.selectpicker').selectpicker('refresh');
          }
    });
 }
@@ -165,12 +224,47 @@ $('#tbody').on('click', '.pop', function() {
     );
 });
 
+$('#tbody2').on('click', '.pop', function() {
+  var arg = $(this).attr('id');
+  var base = $(this).attr('base');
+  var cm = $(this).attr('cm');
+  var row = document.getElementById(arg);
+  var parent = $(this).parent().parent();
+  var data = 'param=' + arg;
+  
+  swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            confirmButtonText: 'Yes, delete it!',
+            buttonsStyling: false
+        }).then(function() {
+          $.ajax(
+          {
+                 type: "POST",
+                 url: base+cm,
+                 data: data,
+                 cache: false,
+                 success: function(msg)
+                 {               
+                      
+                      datatableDestroy();
+                      row.parentNode.removeChild(row);
+                      datatableSet();
+                 }
+           });
+        }
+    );
+});
+
 function getStudent(ci,si, base) {
 
     var clas = $('#class').find(":selected").text();
     var section = $('#sec').find(':selected').text();
-    //var name = $('#mytable').attr('n')+ $("#export_year").val()+$('#export_month').val();
-    TableExport.prototype.defaultFilename = $('#datatables').attr('n')+'sasasa';
+   
 
 
     if(si) {
@@ -193,6 +287,73 @@ function getStudent(ci,si, base) {
             //TableExport.prototype.defaultFilename = name;
             liveTableData.update();
             liveTableData.reset();
+
+        }
+    });
+}
+
+function getStudentForMarks(ci,si, base) {
+
+    var clas = $('#class').find(":selected").text();
+    var section = $('#sec').find(':selected').text();
+
+    if(si) {
+      var d = 'y=' +ci+'&z='+si;
+    }
+    else {
+      var d = 'y=' +ci;
+    }
+    $.ajax({
+        type: 'POST',
+        url: base+'student/gStM',
+        data: d,
+        success: function(msg) 
+        {
+            datatableDestroy();
+            $('#tbody').html(msg);
+            datatableSet();
+
+            //updating table to export export
+            //TableExport.prototype.defaultFilename = name;
+            liveTableData.update();
+            liveTableData.reset();
+
+        }
+    });
+}
+
+function getExamSchedule (ci,si, base) {
+
+    var clas = $('#class').find(":selected").text();
+    var section = $('#sec').find(':selected').text();
+
+
+    if(si) {
+      var d = 'y=' +ci+'&z='+si;
+    }
+    else {
+      var d = 'y=' +ci;
+    }
+    $.ajax({
+        type: 'POST',
+        url: base+'exam/gES',
+        data: d,
+        success: function(msg) 
+        {
+              
+            datatableDestroy();
+            $('#tbody').html(msg);
+            datatableSet();
+
+            if(!msg)
+              liveTableData.remove();
+            else {
+
+              //updating table to export export
+              //TableExport.prototype.defaultFilename = name;
+              liveTableData.update();
+              liveTableData.reset();
+            }
 
         }
     });
@@ -245,6 +406,7 @@ $('#get_rows').on('change', function(){
 
 
 function gsa(ci, si, dt, base) {
+
     var y = 'y=' +ci+'&z='+si+'&dt='+dt;
     $('#setd').html(dt);
     $.ajax({
@@ -312,7 +474,6 @@ $('#fetch_attendance').on('click', function() {
       //TableExport.prototype.defaultFilename = name;
       student_attendance.update();
       student_attendance.reset();
-      alert();
     }).fail(function (errObject, status, error) {
     demo.showNotification('top','center', 'error',4, error);
   });
@@ -330,6 +491,9 @@ $('#fetch_teacher_attendance').on('click', function() {
       datatableDestroy();
       $('#tbody').html(data);
       datatableSet();
+      //TableExport.prototype.defaultFilename = name;
+      student_attendance.update();
+      student_attendance.reset();
     }).fail(function (errObject, status, error) {
     demo.showNotification('top','center', 'error',4, error);
   });

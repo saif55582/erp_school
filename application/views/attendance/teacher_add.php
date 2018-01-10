@@ -24,7 +24,7 @@
 
 
                         <div class="material-datatables">
-                            <table id="datatable" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table id="datatabl" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <buitton class="btn btn-sm btn-success" onclick="present_all()" id="pa" style="float:right;display:none">All Present</buitton>
                                 
                                 <h3 style="display:none" id="setd"></h3>

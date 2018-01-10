@@ -9,7 +9,6 @@ class Attendance extends MY_Controller {
 		if($this->mylibrary->isLoggedIn() == FALSE) {
 			redirect('signin');
 		}
-		
 	}
 
 	function rulesAdd() {
@@ -17,9 +16,11 @@ class Attendance extends MY_Controller {
 	}
 
 	function student() {
+
 		$where = array(
 			'instituteID'=>$this->session->userdata('instituteID')
 		);
+
 		$this->data['classes'] = $this->classes_m->get_order_by_classes($where);
 		$this->data['title'] = 'Student Attendance';
 		$this->data['subview'] = 'attendance/student';
@@ -54,7 +55,6 @@ class Attendance extends MY_Controller {
 		$sectionID = base64_decode($this->input->post('z'));
 		$date = $this->input->post('dt');
 		if(!$date) {
-			echo 'No date';
 			return false;
 		}
 		$day = date('d', strtotime($date));
@@ -190,7 +190,6 @@ class Attendance extends MY_Controller {
 		$sectionID = base64_decode($this->input->post('z'));
 		$date = $this->input->post('dt');
 		if(!$date) {
-			echo 'No date';
 			return false;
 		}
 		$result = '';
@@ -232,8 +231,8 @@ class Attendance extends MY_Controller {
 							    <td>".$student->roll_no."</td>
 							    <td>".$this->mylibrary->getClassName($student->classesID)."</td>
 							    <td>".$this->mylibrary->getSectionName($student->sectionID)."</td>
-							    <td>
-							        <div class='btn-group'>";
+							    <td class='text-center'>
+							      ";
 							        $d = 'd'.$day;
 							    	$status = isset($attendance->$d) ? $attendance->$d : 'n';
 							    	$usertype = $this->session->userdata('loginusertype');
@@ -242,36 +241,26 @@ class Attendance extends MY_Controller {
 								            <div style='background-color:#4CAF50' class='btn btn-round'>
 								            	<div style='color:#fff' class='text-success'>Present</div></button>
 								            </div>";
-							        }else {
-							        	 $result .= "
-								            <div style='background-color:#fff' class='btn btn-round'>
-								            	<div class='text-success'>Present</div></button>
-								            </div>";
 							        }
-							        if($status == 'a') {
+							        else if($status == 'a') {
 							        	$result .= "
 							            <div style='background-color:#F44336' class='btn btn-round'>
 							            	<div style='color:#fff' class='text-danger'>Absent</div>
 							            </div>";
-							        }else {
-							        	$result .= "
-							            <div style='background-color:#fff' class='btn btn-round'>
-							            	<div class='text-danger'>Absent</div>
-							            </div>";
 							        }
-						            if($status == 'l') {
+						            else if($status == 'l') {
 						            	$result .= "
 							            <div style='background-color:#FF9800'  class='btn btn-round'>
-							            	<div style='color:#fff'class='text-warning'>Leave</div>
-							            </div>";
-						            }else {
-						            	$result .= "
-							            <div style='background-color:#fff' class='btn btn-round'>
-							            	<div class='text-warning'>Leave</div>
+							            	<div style='color:#fff' class='text-warning'>Leave</div>
 							            </div>";
 						            }
+						            else {
+						            	$result .= "
+							            <center>
+							            		<div class='text-danger'>Not Marked</div>
+						            	</center>";	
+						            }
 						            $result .= "
-							        </div>
 							    </td>
 							</tr>";
 						}
@@ -492,8 +481,8 @@ class Attendance extends MY_Controller {
 							    <td>".$teacher->designation."</td>
 							    <td>".$teacher->email."</td>
 							    <td>".$teacher->phone."</td>
-							    <td>
-							        <div class='btn-group'>";
+							    <td  class='text-center'>
+							       ";
 							        $d = 'd'.$day;
 							    	$status = isset($attendance->$d) ? $attendance->$d : 'n';
 							    	$usertype = $this->session->userdata('loginusertype');
@@ -502,36 +491,24 @@ class Attendance extends MY_Controller {
 								            <div style='background-color:#4CAF50' class='btn btn-round'>
 								            	<div style='color:#fff' class='text-success'>Present</div></button>
 								            </div>";
-							        }else {
-							        	 $result .= "
-								            <div style='background-color:#fff' class='btn btn-round'>
-								            	<div class='text-success'>Present</div></button>
-								            </div>";
 							        }
-							        if($status == 'a') {
+							        else if($status == 'a') {
 							        	$result .= "
 							            <div style='background-color:#F44336' class='btn btn-round'>
 							            	<div style='color:#fff' class='text-danger'>Absent</div>
 							            </div>";
-							        }else {
-							        	$result .= "
-							            <div style='background-color:#fff' class='btn btn-round'>
-							            	<div class='text-danger'>Absent</div>
-							            </div>";
 							        }
-						            if($status == 'l') {
+						            else if($status == 'l') {
 						            	$result .= "
 							            <div style='background-color:#FF9800'  class='btn btn-round'>
 							            	<div style='color:#fff'class='text-warning'>Leave</div>
 							            </div>";
-						            }else {
+						            }
+						            else {
 						            	$result .= "
-							            <div style='background-color:#fff' class='btn btn-round'>
-							            	<div class='text-warning'>Leave</div>
-							            </div>";
+							            	<div class='text-danger'>Not Marked</div>";
 						            }
 						            $result .= "
-							        </div>
 							    </td>
 							</tr>";
 						}

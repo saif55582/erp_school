@@ -203,12 +203,12 @@
                             </center>
 
                             <div class="row">
-                                <label class="col-md-2 label-on-left">Register Number: <?=requiredStar()?></label>
+                               <label class="col-md-2 label-on-left">Joining Date: <?=requiredStar()?></label>
                                 <div class="col-md-4">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
-                                        <input type="text" name="reg_no" value="<?=$registration_no?>" class="form-control" readonly>
-                                        <h7 class='text-danger'><?=form_error('reg_no')?></h7>
+                                        <input type="text" value="<?=set_value('doj')?>" name="doj" class="form-control datepicker"/>
+                                        <h7 class='text-danger'><?=form_error('doj')?></h7>
                                     </div>
                                 </div>
                                 <label class="col-md-2 label-on-left">Roll Number:</label>
@@ -255,14 +255,7 @@
                                 </div>
                             </div>
                              <div class="row">
-                                <label class="col-md-2 label-on-left">Joining Date: <?=requiredStar()?></label>
-                                <div class="col-md-4">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label"></label>
-                                        <input type="text" value="<?=set_value('doj')?>" name="doj" class="form-control datepicker"/>
-                                        <h7 class='text-danger'><?=form_error('doj')?></h7>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <br>
                             <div class="row">

@@ -23,7 +23,7 @@
 
                         </div>
                         <div class="material-datatables">
-                            <table id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n='teacher_attendance_day' id="datatable" class="mytable table table-striped table-no-bordered table-hover export" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr width="100%">    
                                         <th width='15%'>Photo</th>
