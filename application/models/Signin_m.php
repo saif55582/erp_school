@@ -5,10 +5,12 @@ class Signin_m extends MY_Model {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('usertype_m');
+		$this->load->model('institute_m');
 		$this->load->database();
 	}
 
 	public function signin() {
+		
 		$returnArray = array(
 			'return' => FALSE,
 			'message' => ''
@@ -57,9 +59,17 @@ class Signin_m extends MY_Model {
 							"loggedin" => TRUE
 						);
 
-						$this->session->set_userdata($data);
-
-						$returnArray = array('return' => TRUE, 'message' => 'Success');
+						##checking if institute is active or not
+						$instituteID =  $userdata->instituteID;
+						$institute = $this->institute_m->get_institute($instituteID);
+						$active = $institute->active;
+						if($active) {
+							$this->session->set_userdata($data);
+							$returnArray = array('return' => TRUE, 'message' => 'Success');
+						}	
+						else {
+							$returnArray = array('return' => FALSE, 'message' => 'Institute is inactive..!');
+						}
 					}
 					else {
 						$returnArray = array( 'return' => FALSE, 'message' => 'You are blocked.');

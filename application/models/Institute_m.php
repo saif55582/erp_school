@@ -32,7 +32,7 @@
 	}
 
 	function updateInstitute($array=NULL,$id=NULL) {
-		parent::update($array,$id);
+		return parent::update($array,$id);
 	}
 
 }

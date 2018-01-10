@@ -1,10 +1,10 @@
 
   //finding last index of table
-  var lastIndex = $('#datatables ').find('thead').first().find('th').last().index();
+  var lastIndex = $('.export ').find('thead').first().find('th').last().index();
   //table export init
   TableExport.prototype.defaultButton = "btn btn-blue btn-xs";
-  var liveTableData = $('#datatables').tableExport({
-    filename: $('#datatables').attr('n'),
+  var liveTableData = $('.export').tableExport({
+    filename: $('.export').attr('n'),
     ignoreCols: [lastIndex],
     footers: false
   });
@@ -61,13 +61,13 @@ function getSection(ci, base, si) {
          data: csi,
          success: function(msg)
          { 
-            if(msg=='fail'){
+            
+            if(msg=='fail') {
+              listItem = '<option selected value="">No Section Found</option>';
             }
             else{
                 var m = JSON.parse(msg);
-                var $select = $('#sec');
                 listItem = '';
-                if(!$.isEmptyObject(m)) {
                     $.each(m,function(key, value) {
                         if(si) {
                             if(value.sectionID == si) {
@@ -80,13 +80,10 @@ function getSection(ci, base, si) {
                         else
                             listItem += '<option value=' + value.sectionID + '>' + value.section_name + '</option>';
                     });
-                }
-                else {
-                    listItem = '<option selected value="">No Section Found</option>';
-                }
-                $('#sec').html(listItem);
-                $('.selectpicker').selectpicker('refresh');
+                
             }
+            $('#sec').html(listItem);
+            $('.selectpicker').selectpicker('refresh');
          }
    });
 }
@@ -104,15 +101,10 @@ function getStudentOption (ci,base) {
             else{
                 var m = JSON.parse(msg);
                 listItem = '';
-                if(!$.isEmptyObject(m)) {
                     $.each(m,function(key, value) {
                         
                             listItem += '<option value=' + value.studentID + '>' + value.student_name + '</option>';
                     });
-                }
-                else {
-                    listItem = '<option selected value="">No Student Found</option>';
-                }
                 $('#stud').html(listItem);
                 $('.selectpicker').selectpicker('refresh');
             }
@@ -120,7 +112,7 @@ function getStudentOption (ci,base) {
    });
 }
 
-function getSubjectOptions(ci, base) {
+function getSubjectOptions(ci, base, si) {
   var csi = 'ci=' +ci;
   $.ajax({
          type: "POST",
@@ -130,22 +122,30 @@ function getSubjectOptions(ci, base) {
          { 
 
             if(msg=='fail'){
+              listItem = '<option selected value="">No Subject Found</option>';
             }
             else{
                 var m = JSON.parse(msg);
                 listItem = '';
-                if(!$.isEmptyObject(m)) {
                     $.each(m,function(key, value) {
 
+                        if(si)  {
+
+                          if(value.subjectID == si) {
+                            listItem += '<option selected value=' + value.subjectID + '>' + value.subject_name + '</option>';
+                          }
+                          else {
                             listItem += '<option value=' + value.subjectID + '>' + value.subject_name + '</option>';
+                          }
+                        }
+                        else {
+                          listItem += '<option value=' + value.subjectID + '>' + value.subject_name + '</option>';
+                        }
                     });
-                }
-                else {
-                    listItem = '<option selected value="">No Subject Found</option>';
-                }
-                $('#sub').html(listItem);
-                $('.selectpicker').selectpicker('refresh');
             }
+
+            $('#sub').html(listItem);
+            $('.selectpicker').selectpicker('refresh');
          }
    });
 }

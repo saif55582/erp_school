@@ -10,7 +10,7 @@
                         <h4 class="card-title my-title">Mark</h4>
                         <div class="toolbar">
                             <!--Here you can write extra buttons/actions for the toolbar              -->
-                            <a href="<?= base_url();?>exam/add_schedule" <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Mark</button></a>
+                            <a href="<?= base_url();?>marks/add_marks" <button class="btn btn-md btn-success btn-wd"> <i class="material-icons">library_add</i> Add Mark</button></a>
 
                             <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
                                 <select name="sectionID" id="sec" onchange="getStudentForMarks($('#class').val(),this.value,'<?=base_url()?>');" class="selectpicker" data-style="select-with-transition" title="Select Section">

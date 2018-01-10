@@ -1,8 +1,8 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct scripting allowed');
+defined('BASEPATH') or exit('No direct scripting allowed');
 
-class SuperInstitute extends My_Controller {
+class Superinstitute extends My_Controller {
 
 	function __construct() {
 		parent::__construct();
@@ -18,8 +18,8 @@ class SuperInstitute extends My_Controller {
 		$this->data['title'] = 'Admin Dashboard';
 		$this->data['li1'] = 'institute';
 		$this->data['subview'] = 'superadmin/institute/institute';
-		$this->data['script'] = 'superadmin/dashboard/index_js';
-		$this->data['app_js'] = 'general.js';
+		$this->data['script'] = 'superadmin/institute/institute_js';
+		$this->data['app_script'] = 'general.js';
 		$this->load->view('superadmin/main_layout',$this->data);
 	}
 
@@ -31,9 +31,22 @@ class SuperInstitute extends My_Controller {
 		$this->data['title'] = 'Institute Profile';
 		$this->data['li1'] = 'institute';
 		$this->data['subview'] = 'superadmin/institute/institute_view';
-		$this->data['script'] = 'superadmin/dashboard/index_js';
-		$this->data['app_js'] = 'general.js';
+		$this->data['script'] = 'superadmin/institute/institute_js';
+		$this->data['app_script'] = 'general.js';
 		$this->load->view('superadmin/main_layout',$this->data);
 
+	}
+
+	function status () {
+		$active = $this->input->post('active');
+		$instituteID = base64_decode($this->input->post('hash'));
+		$array = array(
+			'active' => $active
+		);
+		$success =  $this->institute_m->updateInstitute($array, $instituteID);
+		if($success)
+			echo 1;
+		else
+			echo 0;
 	}
 }

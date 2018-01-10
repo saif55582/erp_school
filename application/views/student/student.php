@@ -35,7 +35,7 @@
 
                         </div>
                         <div class="material-datatables">
-                            <table n="students" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n="students" id="datatables" class="mytable table table-striped table-no-bordered table-hover export" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
                                         <th>Photo</th>
@@ -59,7 +59,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody">
-                                <?php foreach ($students as $student) : ?>
+                                <!-- <?php foreach ($students as $student) : ?>
                                         <tr id="<?= $student->studentID;?>">
                                         <td>
                                             <?php
@@ -102,7 +102,7 @@
                                             
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                                     
                                     
                                 </tbody>

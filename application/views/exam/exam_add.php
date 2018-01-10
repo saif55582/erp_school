@@ -9,7 +9,7 @@
                     <div class="card-content">
 
 						<h4 class="card-title my-title">Add Exam</h4>
-                        <form method="post" class="classform form-horizontal" action="<?=base_url()?>exam/add">
+                        <form method="post" class="classform form-horizontal" action="<?=base_url()?>exam">
                         		<div class="col-md-12"></div>
 	                            <div class="row">
 	                                <label class="col-md-2 label-on-left">Exam Name: <?=requiredStar()?></label>

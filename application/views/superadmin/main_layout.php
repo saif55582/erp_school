@@ -17,7 +17,7 @@
             -->
             <div class="logo">
                 <?php 
-                    echo '<center>School Title</center>';
+                    echo '<center>Admin Panel</center>';
                 ?>
             </div>
             <div class="logo logo-mini">

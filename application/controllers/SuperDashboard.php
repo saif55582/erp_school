@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct scripting allowed');
 
-class SuperDashboard extends My_Controller {
+class Superdashboard extends My_Controller {
 
 	function __construct() {
 		parent::__construct();

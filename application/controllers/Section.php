@@ -329,14 +329,20 @@ class Section extends MY_Controller {
 		$classesID =  base64_decode($this->input->post('ci'));
 		$instituteID = $this->session->userdata('instituteID');
 		$sections = $this->section_m->get_section_by(array('classesID'=>$classesID,'instituteID'=>$instituteID));
-		$section = array();
-		foreach ($sections as $sec) {
-			$section[] = array(
-				'section_name'=>$sec->section_name,
-				'sectionID'=>base64_encode($sec->sectionID),
-				'classesID'=>$sec->classesID
-			);
+		if(!count($sections)) {
+			echo 'fail';
+		}else {
+
+			$section = array();
+			foreach ($sections as $sec) {
+				$section[] = array(
+					'section_name'=>$sec->section_name,
+					'sectionID'=>base64_encode($sec->sectionID),
+					'classesID'=>$sec->classesID
+				);
+			}
+			echo json_encode($section);
 		}
-		echo json_encode($section);
+
 	}
 }

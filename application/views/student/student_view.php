@@ -16,7 +16,7 @@
                         </a>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title"><strong><?= $student -> f_name.' '.$student -> f_name ?></strong></h4>
+                        <h4 class="card-title"><strong><?= $student -> f_name.' '.$student -> l_name ?></strong></h4>
                         <h6 class="category text-gray">Class : <?= $this->mylibrary->getClassName($student->classesID); ?></h6>
                     </div>
                 </div>
@@ -147,6 +147,44 @@
                     </div>
                 </div>
             </div>
+
+            <?php
+
+                $docs = $student->documents;
+                if(count($docs)) {
+                    $documents = unserialize($docs);      
+            ?>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="rose">
+                            <i class="material-icons">filter_none</i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title"><strong>Documents</strong></h4>
+                            <br>
+                            <?php
+
+                                foreach($documents as $docs):
+                                    foreach($docs as $key => $value):
+                            ?>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <?=$key?>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="<?=base_url()?>main_asset/school_docs/7/student/<?=$value?>" download="<?=$value?>">
+                                        <button style="margin-top:-8px"class="btn bn-wd btn-sm btn-info">Download</button>
+                                    </a>
+                                </div>
+                            </div><br>
+                        <?php       endforeach;
+                                endforeach;
+                        ?>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="rose">

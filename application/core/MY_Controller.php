@@ -22,8 +22,11 @@ class MY_Controller extends CI_Controller {
 		$this->load->model('syllabus_m');
 		$this->load->model('fee_list_m');
 		$this->load->model('fee_allocation_m');
+		$this->load->model('fee_fine_m');
 		$this->load->model('exam_m');
 		$this->load->model('exam_schedule_m');
+		$this->load->model('marks_list_m');
+		$this->load->model('marks_m');
 
 		// $result  = $this->institute_details_m->get();
 		// $institute_details = array();

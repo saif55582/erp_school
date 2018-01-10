@@ -14,6 +14,8 @@ class Mylibrary {
 		$this->CI->load->model('section_m');
 		$this->CI->load->model('teacher_m');
 		$this->CI->load->model('student_m');
+        $this->CI->load->model('fee_list_m');
+        $this->CI->load->model('fee_allocation_m');
 	}
 
 	public function isLoggedIn() {
@@ -112,6 +114,22 @@ class Mylibrary {
         }
 
     }
+
+    public function getFeeParam($feelistID, $col) {
+        $where = array(
+            'instituteID'=>$this->CI->session->userdata('instituteID'),
+            'fee_listID'=>$feelistID
+        );
+
+        $fee_list = $this->CI->fee_list_m->get_single_fee($where);
+        if($fee_list->$col) {
+            return $fee_list->$col;
+        }else {
+            return '--';
+        }
+
+    }
+
 
     public function getSubjectParam($subjectID, $col) {
         $where = array(

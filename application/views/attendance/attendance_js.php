@@ -47,7 +47,7 @@
 
 	$('#report_form').bind('submit', function(e) {
 
-		var name = $('#mytable').attr('n')+ $("#export_year").val()+$('#export_month').val();
+		var name = $('#mytable').attr('n')+$("#export_year").val()+$('#export_month').val();
 		e.preventDefault();
 		var formData = new FormData(this);
 		$.ajax({
@@ -56,8 +56,8 @@
 			data: $(this).serialize(),
 			success: function(msg) {
 				$('#tbody').html(msg);
+
 				TableExport.prototype.defaultFilename = name;
-				
 				liveTableData.update();
 				liveTableData.reset();
 			}

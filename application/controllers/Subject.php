@@ -142,7 +142,7 @@ class Subject extends MY_Controller {
 
 		$this->data['classes'] = $this->classes_m->get_order_by_classes(array('instituteID'=>$this->session->userdata('instituteID')));
 		$this->data['teachers'] = $this->teacher_m->get_order_by_teacher(array('instituteID'=>$this->session->userdata('instituteID')));
-		$this->data['subject'] = $this->subject_m->get_by_subject_name($where);
+		$this->data['subject'] = $this->subject_m->get_subject_single($where);
 		$this->data['title'] = 'Edit Subject';
 		$this->data['subview'] = 'academics/subject_edit';
 		$this->data['script'] = 'academics/subject_js';
@@ -157,14 +157,21 @@ class Subject extends MY_Controller {
 		$classesID =  base64_decode($this->input->post('ci'));
 		$instituteID = $this->session->userdata('instituteID');
 		$subjects = $this->subject_m->get_order_by_subject(array('classesID'=>$classesID,'instituteID'=>$instituteID));
-		$subject = array();
-		foreach ($subjects as $sub) {
-			$subject[] = array(
-				'subject_name'=>$sub->subject_name,
-				'subjectID'=>base64_encode($sub->subjectID),
-			);
+		if(!count($subjects)) {
+			echo 'fail';
 		}
-		echo json_encode($subject);
+		else {
+
+			$subject = array();
+			foreach ($subjects as $sub) {
+				$subject[] = array(
+					'subject_name'=>$sub->subject_name,
+					'subjectID'=>base64_encode($sub->subjectID),
+				);
+			}
+			echo json_encode($subject);
+		}
+		
 	}
 
 }

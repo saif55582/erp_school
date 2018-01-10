@@ -61,7 +61,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody">
-                           <?php foreach ($exam_schedules as $exam): ?>
+                          <!--  <?php foreach ($exam_schedules as $exam): ?>
                                     <tr id="<?= $exam->examID?>" >
                                         <td><?=$this->mylibrary->getExamParam($exam->examID, 'name')?></td>
                                         <td><?=$this->mylibrary->getClassName($exam->classesID)?></td>
@@ -82,7 +82,7 @@
                                             </button>
                                         </td>
                                     </tr>
-                            <?php endforeach; ?>
+                            <?php endforeach; ?> -->
                                 </tbody>
                             </table>
                         </div>

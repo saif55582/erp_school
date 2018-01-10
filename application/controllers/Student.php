@@ -11,7 +11,7 @@ class Student extends MY_Controller {
 		}
 	}
 
-	function view($sid){
+	function view($sid) {
 
 		$studentID = base64_decode($sid)/786786;
 		$instituteID = $this->session->userdata('instituteID');
@@ -120,11 +120,6 @@ class Student extends MY_Controller {
 				'rules'=>'trim|xss_clean|numeric|exact_length[12]'
 			),
 			array(
-				'field'=>'reg_no',
-				'label'=>'Registration Number',
-				'rules'=>'required|trim|xss_clean'
-			),
-			array(
 				'field'=>'roll_no',
 				'label'=>'Roll No ',
 				'rules'=>'xss_clean|trim'
@@ -176,6 +171,7 @@ class Student extends MY_Controller {
 		$where = array(
 			'instituteID'=>$this->session->userdata('instituteID')
 		);
+
 		$this->data['classes'] = $this->classes_m->get_order_by_classes($where);
 		$this->data['sections'] = $this->section_m->get_section_by($where);
 		$this->data['students'] = $this->student_m->get_order_by_student($where);
@@ -203,6 +199,7 @@ class Student extends MY_Controller {
 	}
 
 	function dest($id=NULL) {
+
 		$studentID = $this->input->post('param');
 		$instituteID = $this->session->userdata('instituteID');
 		$where = array(
@@ -223,6 +220,7 @@ class Student extends MY_Controller {
 				}
 			}
 		}
+
 		$this->student_m->delete($studentID);
 	}
 
@@ -240,7 +238,7 @@ class Student extends MY_Controller {
 
 			$config = array();
 			$config['upload_path'] = 'main_asset/school_docs/'.$this->session->userdata('instituteID').'/student';
-			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['allowed_types'] = '*';
 			$config['file_name'] = date('Y-m-d-H-i-s').random_string('alpha',15);
 			$config['overwrite'] = true;
 
@@ -262,7 +260,7 @@ class Student extends MY_Controller {
 			if(count($explode) >= 2) {
 				$new_file = $file_name_rename.'.'.end($explode);
 				$config['upload_path'] = "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student';
-				$config['allowed_types'] = "gif|jpg|png|jpeg";
+				$config['allowed_types'] = "*";
 				$config['file_name'] = date('Y-m-d-H-i-s').$new_file;
 				$this->load->library('upload', $config);
 				if(!$this->upload->do_upload("photo")) {
@@ -288,10 +286,12 @@ class Student extends MY_Controller {
 	}
 
 	function add() {
+
 		if($_POST) {
 			$rules = $this->rulesAdd();
 			$this->form_validation->set_rules($rules);
 			if($this->form_validation->run() == FALSE) {
+				echo validation_errors();
 				 
 				 if($_FILES["photo"]['name'] !="") {
 				 	$path =  "./main_asset/school_docs/".$this->session->userdata('instituteID').'/student/'.$this->upload_data['file']['file_name'];
@@ -332,7 +332,6 @@ class Student extends MY_Controller {
 					'mother_phone'=>$this->input->post('mother_phone'),
 					'mother_job'=>$this->input->post('mother_job'),
 					'mother_aadhar'=>$this->input->post('mother_aadhar'),
-					'reg_no'=>$registration_no,
 					'roll_no'=>$this->input->post('roll_no'),
 					'sectionID'=>base64_decode($this->input->post('sectionID')),
 					'classesID'=>base64_decode($this->input->post('classesID')),
@@ -342,7 +341,6 @@ class Student extends MY_Controller {
 					'slug'=>$password
 				);
 				$array['photo'] = $this->upload_data['file']['file_name'];
-				//echo $this->upload();
 				#preparing documents
 				$doc_name = $this->input->post('doc_name');
 				$documents = array();
@@ -357,10 +355,15 @@ class Student extends MY_Controller {
 				}
 				//print_r($array);die();
 				
-				$this->student_m->insertStudent($array);
-				$reg = array('registration_no'=>$registration_no+1);
-				$this->institute_m->updateInstitute($reg, $instituteID);
-				redirect('student');
+				$id = $this->student_m->insertStudent($array);
+				$update = array(
+					'reg_no'=>$id+1000,
+					'username'=>$id+1000
+				);
+				// $reg = array('registration_no'=>$registration_no+1);
+				// $this->institute_m->updateInstitute($reg, $instituteID);
+				$this->student_m->updateStudent($update, $id);
+				redirect('student/view/'.base64_encode($id*786786));
 
 			}
 		}
@@ -389,6 +392,7 @@ class Student extends MY_Controller {
 
 
 	function gSt() {
+
 		$classesID = base64_decode($this->input->post('y'));
 		$sectionID = base64_decode($this->input->post('z'));
 		$result = "";
@@ -424,6 +428,11 @@ class Student extends MY_Controller {
                     <td>".$this->mylibrary->getClassName($student->classesID)."</td>
                     <td>".$this->mylibrary->getSectionName($student->sectionID)."</td>
                     <td class='text-center td-actions'>
+                    	<a href='".base_url()."student/view/".base64_encode($student->studentID*786786)."'>
+                            <button type='button' class='btn btn-success'>
+                            <i class='material-icons'>open_in_new</i>
+                            </button>
+                        </a>
                         <a href='".base_url()."student/edit/".$student->studentID."'>
                             <button type='button' rel='tooltip' class='btn btn-info'>
                             <i class='material-icons'>edit</i>
@@ -476,7 +485,7 @@ class Student extends MY_Controller {
                     <td>".$student->roll_no."</td>
                     <td>".$student->reg_no."</td>
                     <td class='text-center td-actions'>
-                        <a href='".base_url()."student/view/".$student->studentID."'>
+                        <a href='".base_url()."marks/view/".base64_encode($student->studentID*786786)."'>
                             <button type='button' rel='tooltip' class='btn btn-success'>
                             	<i class='material-icons'>open_in_new</i>
                             </button>
@@ -487,10 +496,20 @@ class Student extends MY_Controller {
 		
 		 }
 		 echo $result;
-
-		
 	}
 
+	public function student_list() {
 
+
+		$classesID = base64_decode($this->input->post('class'));
+		$sectionID = base64_decode($this->input->post('section'));
+		if((int)$classesID && (int)$sectionID) {
+			$target = base_url("marks/add_marks/$classesID/$sectionID");
+			echo $target;
+		}
+		else {
+			redirect(base_url('add_marks'));
+		}
+	}
 
 }

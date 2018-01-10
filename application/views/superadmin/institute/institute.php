@@ -9,9 +9,7 @@
                     <div class="card-content">
                         <h4 class="card-title my-title">Institutes</h4>
                         <div class="toolbar">
-                            <!--Here you can write extra buttons/actions for the toolbar  -->
-                           
-
+                            
                         </div>
                         <div class="material-datatables">
                             <table n="teachers" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -21,6 +19,7 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Students</th>
+                                        <th>Active</th>                                        
                                         <th class="disabled-sorting text-center ">Actions</th>
                                     </tr>
                                 </thead>
@@ -30,6 +29,7 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Students</th>
+                                        <th>Active</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </tfoot>
@@ -53,28 +53,28 @@
                                         <td><?=$institute->phone?></td>
                                         <td><?=$institute->email?></td>
                                         <td><?=$institute->students?></td>
+                                        <td>
+                                            <div style="float: left;margin-top:-18px">
+                                                <div class="togglebutton">
+                                                    <label>
+                                                        <input class='institute_active' hash='<?=base64_encode($institute->instituteID)?>' type="checkbox" <?=$institute->active ? 'checked' : '' ?> >
+                                                    </label>
+                                                </div>
+                                            </div>       
+                                        </td>
                                         <td class="text-center td-actions">
-                                            <a href="<?= base_url(); ?>superinstitute/view/<?=base64_encode($institute->instituteID*786786) ?>">
-                                                <button type="button" rel="tooltip" class="btn btn-success">
-                                                <i class="material-icons">launch</i>
-                                                </button>
-                                            </a>
+                                                                                         
+                                            <div>
+                                                <a href="<?= base_url(); ?>superinstitute/view/<?=base64_encode($institute->instituteID*786786) ?>">
+                                                    <button type="button" rel="tooltip" class="btn btn-success">
+                                                    <i class="material-icons">launch</i>
+                                                    </button>
+                                                </a>
 
-                                            <!-- <a href="<?= base_url(); ?> institute/edit/<?=$institute->instituteID ?>">
-                                                <button type="button" rel="tooltip" class="btn btn-info">
-                                                <i class="material-icons">edit</i>
-                                                </button>
-                                            </a> -->
-
-                                            <button id="<?= $institute->instituteID ?>" onclick="del(this.id)" type="button" rel="tooltip" class="btn btn-danger">
-                                                <i class="material-icons">close</i>
-                                            </button>
-                                            
+                                            </div>
                                         </td>
                                     </tr>
-
                                     <?php endforeach; ?>
-                                    
                                 </tbody>
                             </table>
                         </div>
