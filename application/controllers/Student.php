@@ -12,7 +12,6 @@ class Student extends MY_Controller {
 	}
 
 	function view($sid) {
-
 		$studentID = base64_decode($sid)/786786;
 		$instituteID = $this->session->userdata('instituteID');
 
@@ -163,7 +162,6 @@ class Student extends MY_Controller {
 				return false;
 			}
 		}
-		
 	}
 
 	function index() {
@@ -199,7 +197,6 @@ class Student extends MY_Controller {
 	}
 
 	function dest($id=NULL) {
-
 		$studentID = $this->input->post('param');
 		$instituteID = $this->session->userdata('instituteID');
 		$where = array(
@@ -220,7 +217,6 @@ class Student extends MY_Controller {
 				}
 			}
 		}
-
 		$this->student_m->delete($studentID);
 	}
 

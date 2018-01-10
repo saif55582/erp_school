@@ -147,6 +147,7 @@ class Administrator extends MY_Controller {
 				'password'    => md5($this->input->post('pwd'))
 			);
 			$this->admin_m->insert_admin($array);
+			redirect('administrator/systemadmin');
 		}
 
 		$this->data['admin']      = $this->admin_m->get_all_admin(array('instituteID'=>$this->session->userdata('instituteID')));

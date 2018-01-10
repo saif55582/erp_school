@@ -135,7 +135,7 @@
 
                             <div class="tab-pane" id="add_admin">
 
-                                <form method="post" action="<?=base_url()?>administrator/systemadmin">
+                                <form method="post" action="<?=base_url()?>administrator/systemadmin" enctype="form-data/multipart">
                                     <div class="row">
 
                                         <div class="row">    
