@@ -148,9 +148,9 @@ class Marks extends MY_Controller {
 		$this->data['subview'] = 'marks/marks_add';
 		$this->data['script'] = 'marks/marks_js';
 		$this->data['app_script'] = 'general.js';
-		$this->data['li1'] = 'marks';
-		$this->data['a1'] = 'marks';
-		$this->data['div1'] = 'marks';
+		$this->data['li1'] = 'exam';
+		$this->data['a1'] = 'exam';
+		$this->data['div1'] = 'exam';
 		$this->data['li2'] = 'mark';
 		$this->load->view('main_layout', $this->data);
 	}

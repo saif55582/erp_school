@@ -28,7 +28,7 @@
                         <i class="material-icons">perm_identity</i>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title"><strong>teacher Profile</strong></h4>
+                        <h4 class="card-title"><strong>Teacher Profile</strong></h4>
                         <div class="row">
                             <div class="col-md-12 col-sm-12"><h4><strong>Personal Information</strong></h4></div>
                             <div class="col-md-6 col-sm-6">

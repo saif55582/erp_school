@@ -7,7 +7,8 @@
                         <i class="material-icons">perm_identity</i>
                     </div>
                     <div class="card-content">
-                        <h4 class="card-title">Add Student
+                        <h4 class="card-title">
+                            Add Student
                         </h4>
                     <div class="controls">
                         <?= form_open_multipart(NULL,array('class'=>'form-horizontal'))?>

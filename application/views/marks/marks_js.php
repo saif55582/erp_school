@@ -28,6 +28,7 @@
 			m.push(sm);
 			st.push(s);
 		});
+		 
 		var data = 'a='+ei+'&b='+ci+'&c='+si+'&d='+subi+'&e='+st+'&f='+m;
 		$.ajax({
 			type: 'post',

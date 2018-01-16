@@ -1,78 +1,102 @@
 <?php
+
     $_li1 = array(
-        'dashboard'=>($li1 == 'dashboard' ) ? "class='active'" : "class=' '",
-        'student'=>($li1 == 'student' ) ? "class='active'" : "class=' '",
-        'teacher'=>($li1 == 'teacher' ) ? "class='active'" : "class=' '",
-        'academics'=>($li1 == 'academics' ) ? "class='active'" : "class=' '",
-        'attendance'=>($li1 == 'attendance' ) ? "class='active'" : "class=' '",
-        'finance'=>($li1 == 'finance' ) ? "class='active'" : "class=' '",
-        'administrator'=>($li1 == 'administrator' ) ? "class='active'" : "class=' '",
-        'exam'=>($li1 == 'exam' ) ? "class='active'" : "class=' '",
-        'marks'=>($li1 == 'marks' ) ? "class='active'" : "class=' '"
+
+        'dashboard'     => ( $li1 == 'dashboard'     ) ? "class='active'" : "class=' '",
+        'student'       => ( $li1 == 'student'       ) ? "class='active'" : "class=' '",
+        'teacher'       => ( $li1 == 'teacher'       ) ? "class='active'" : "class=' '",
+        'academics'     => ( $li1 == 'academics'     ) ? "class='active'" : "class=' '",
+        'attendance'    => ( $li1 == 'attendance'    ) ? "class='active'" : "class=' '",
+        'finance'       => ( $li1 == 'finance'       ) ? "class='active'" : "class=' '",
+        'administrator' => ( $li1 == 'administrator' ) ? "class='active'" : "class=' '",
+        'exam'          => ( $li1 == 'exam'          ) ? "class='active'" : "class=' '",
+        'setting'       => ( $li1 == 'setting'       ) ? "class='active'" : "class=' '",
+        'marks'         => ( $li1 == 'marks'         ) ? "class='active'" : "class=' '"
+
     );
+
     $_a1 = array(
-         'academics'=>($a1 == 'academics' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
-         'attendance'=>($a1 == 'attendance' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
-         'finance'=>($a1 == 'finance' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
-         'administrator'=>($a1 == 'administrator' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
-         'exam'=>($a1 == 'exam' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
-         'marks'=>($a1 == 'marks' ) ? "aria-expanded='true' " : "aria-expanded='false' "
+
+        'academics'     => ( $a1 == 'academics'     ) ? "aria-expanded='true' " : "aria-expanded='false' ",
+        'attendance'    => ( $a1 == 'attendance'    ) ? "aria-expanded='true' " : "aria-expanded='false' ",
+        'finance'       => ( $a1 == 'finance'       ) ? "aria-expanded='true' " : "aria-expanded='false' ",
+        'administrator' => ( $a1 == 'administrator' ) ? "aria-expanded='true' " : "aria-expanded='false' ",
+        'exam'          => ( $a1 == 'exam'          ) ? "aria-expanded='true' " : "aria-expanded='false' ",
+        'setting'       => ( $a1 == 'setting'       ) ? "aria-expanded='true' " : "aria-expanded='false' ",
+        'marks'         => ( $a1 == 'marks'         ) ? "aria-expanded='true' " : "aria-expanded='false' "
+
     );
 
     $_div1 = array(
-        'academics'=>($div1 == 'academics') ? "class='collapse in'" : "class='collapse'",
-        'attendance'=>($div1 == 'attendance') ? "class='collapse in'" : "class='collapse'",
-        'finance'=>($div1 == 'finance') ? "class='collapse in'" : "class='collapse'",
-        'administrator'=>($div1 == 'administrator') ? "class='collapse in'" : "class='collapse'",
-        'exam'=>($div1 == 'exam') ? "class='collapse in'" : "class='collapse'",
-        'marks'=>($div1 == 'marks') ? "class='collapse in'" : "class='collapse'"
+
+        'academics'     => ( $div1 == 'academics'     ) ? "class='collapse in'" : "class='collapse'",
+        'attendance'    => ( $div1 == 'attendance'    ) ? "class='collapse in'" : "class='collapse'",
+        'finance'       => ( $div1 == 'finance'       ) ? "class='collapse in'" : "class='collapse'",
+        'administrator' => ( $div1 == 'administrator' ) ? "class='collapse in'" : "class='collapse'",
+        'exam'          => ( $div1 == 'exam'          ) ? "class='collapse in'" : "class='collapse'",
+        'setting'       => ( $div1 == 'setting'       ) ? "class='collapse in'" : "class='collapse'",
+        'marks'         => ( $div1 == 'marks'         ) ? "class='collapse in'" : "class='collapse'"
+
     );
 
 
     $_li2 = array(
-        'class'=>($li2 == 'class' ) ? "class='active'" : "class=' '",
-        'section'=>($li2 == 'section' ) ? "class='active'" : "class=' '",
-        'subject'=>($li2 == 'subject' ) ? "class='active'" : "class=' '",
-        'syllabus'=>($li2 == 'syllabus' ) ? "class='active'" : "class=' '",
-        'assignment'=>($li2 == 'assignment' ) ? "class='active'" : "class=' '",
-        'student'=>($li2 == 'student' ) ? "class='active'" : "class=' '",
-        'teacher'=>($li2 == 'teacher' ) ? "class='active'" : "class=' '",
-        'fee'=>($li2 == 'fee' ) ? "class='active'" : "class=' '",
-        'academic_year'=>($li2 == 'academic_year' ) ? "class='active'" : "class=' '",
-        'permission'=>($li2 == 'permission' ) ? "class='active'" : "class=' '",
-        'attendance_report'=>($li2 == 'attendance_report' ) ? "class='active'" : "class=' '",
-        'exam_name'=>($li2 == 'exam_name' ) ? "class='active'" : "class=' '",
-        'exam_report'=>($li2 == 'exam_report' ) ? "class='active'" : "class=' '",
-        'exam_schedule'=>($li2 == 'exam_schedule' ) ? "class='active'" : "class=' '",
-        'mark'=>($li2 == 'mark' ) ? "class='active'" : "class=' '",
-        'percentage'=>($li2 == 'percentage' ) ? "class='active'" : "class=' '",
-        'promotion'=>($li2 == 'promotion' ) ? "class='active'" : "class=' '"
+
+        'class'             => ( $li2 == 'class'             ) ? "class='active'" : "class=' '",
+        'section'           => ( $li2 == 'section'           ) ? "class='active'" : "class=' '",
+        'subject'           => ( $li2 == 'subject'           ) ? "class='active'" : "class=' '",
+        'syllabus'          => ( $li2 == 'syllabus'          ) ? "class='active'" : "class=' '",
+        'assignment'        => ( $li2 == 'assignment'        ) ? "class='active'" : "class=' '",
+        'student'           => ( $li2 == 'student'           ) ? "class='active'" : "class=' '",
+        'teacher'           => ( $li2 == 'teacher'           ) ? "class='active'" : "class=' '",
+        'fee'               => ( $li2 == 'fee'               ) ? "class='active'" : "class=' '",
+        'academic_year'     => ( $li2 == 'academic_year'     ) ? "class='active'" : "class=' '",
+        'permission'        => ( $li2 == 'permission'        ) ? "class='active'" : "class=' '",
+        'attendance_report' => ( $li2 == 'attendance_report' ) ? "class='active'" : "class=' '",
+        'exam_name'         => ( $li2 == 'exam_name'         ) ? "class='active'" : "class=' '",
+        'exam_report'       => ( $li2 == 'exam_report'       ) ? "class='active'" : "class=' '",
+        'exam_schedule'     => ( $li2 == 'exam_schedule'     ) ? "class='active'" : "class=' '",
+        'mark'              => ( $li2 == 'mark'              ) ? "class='active'" : "class=' '",
+        'percentage'        => ( $li2 == 'percentage'        ) ? "class='active'" : "class=' '",
+        'promotion'         => ( $li2 == 'promotion'         ) ? "class='active'" : "class=' '",
+        'systemadmin'       => ( $li2 == 'systemadmin'       ) ? "class='active'" : "class=' '",
+        'general'           => ( $li2 == 'general'           ) ? "class='active'" : "class=' '",
+        'payment'           => ( $li2 == 'payment'           ) ? "class='active'" : "class=' '",
+        'sms'               => ( $li2 == 'sms'               ) ? "class='active'" : "class=' '",
+        'resetpwd'          => ( $li2 == 'resetpwd'          ) ? "class='active'" : "class=' '"
+
 
     );
 
     $_a2 = array(
-         'fee'=>($a2 == 'fee' ) ? "aria-expanded='true' " : "aria-expanded='false'",
-         'attendance_report'=>($a2 == 'attendance_report' ) ? "aria-expanded='true' " : "aria-expanded='false'"
+
+        'fee'               => ( $a2 == 'fee'               ) ? "aria-expanded='true' " : "aria-expanded='false'",
+        'attendance_report' => ( $a2 == 'attendance_report' ) ? "aria-expanded='true' " : "aria-expanded='false'"
+
     );
 
     $_div2 = array(
-        'fee'=>($div2 == 'fee') ? "class='collapse in'" : "class='collapse'",
-        'attendance_report'=>($div2 == 'attendance_report') ? "class='collapse in'" : "class='collapse'"
+
+        'fee'               => ( $div2 == 'fee'               ) ? "class='collapse in'" : "class='collapse'",
+        'attendance_report' => ( $div2 == 'attendance_report' ) ? "class='collapse in'" : "class='collapse'"
+
     );
 
     $_li3 = array(
-        'fee-category'=>($li3 == 'fee-category' ) ? "class='active'" : "class=' '",
-        'fee-category-fine'=>($li3 == 'fee-category-fine' ) ? "class='active'" : "class=' '",
-        'fee-allocation'=>($li3 == 'fee-allocation' ) ? "class='active'" : "class=' '",
-        'quick-payment'=>($li3 == 'quick-payment' ) ? "class='active'" : "class=' '",
-        'fee-collection'=>($li3 == 'fee-collection' ) ? "class='active'" : "class=' '",
-        'attendance_rep_student'=>($li3 == 'attendance_rep_student' ) ? "class='active'" : "class=' '",
-        'attendance_rep_teacher'=>($li3 == 'attendance_rep_teacher' ) ? "class='active'" : "class=' '",
-        'fee_type'=>($li3 == 'fee_type' ) ? "class='active'" : "class=' '",
-        'fee_balance'=>($li3 == 'fee_balance' ) ? "class='active'" : "class=' '",
-        'fee_invoice'=>($li3 == 'fee_invoice' ) ? "class='active'" : "class=' '",
-        'fine_type'=>($li3 == 'fine_type' ) ? "class='active'" : "class=' '",
-        'paymenthistory'=>($li3 == 'paymenthistory' ) ? "class='active'" : "class=' '"
+
+        'fee-category'           => ( $li3 == 'fee-category'           ) ? "class='active'" : "class=' '",
+        'fee-category-fine'      => ( $li3 == 'fee-category-fine'      ) ? "class='active'" : "class=' '",
+        'fee-allocation'         => ( $li3 == 'fee-allocation'         ) ? "class='active'" : "class=' '",
+        'quick-payment'          => ( $li3 == 'quick-payment'          ) ? "class='active'" : "class=' '",
+        'fee-collection'         => ( $li3 == 'fee-collection'         ) ? "class='active'" : "class=' '",
+        'attendance_rep_student' => ( $li3 == 'attendance_rep_student' ) ? "class='active'" : "class=' '",
+        'attendance_rep_teacher' => ( $li3 == 'attendance_rep_teacher' ) ? "class='active'" : "class=' '",
+        'fee_type'               => ( $li3 == 'fee_type'               ) ? "class='active'" : "class=' '",
+        'fee_balance'            => ( $li3 == 'fee_balance'            ) ? "class='active'" : "class=' '",
+        'fee_invoice'            => ( $li3 == 'fee_invoice'            ) ? "class='active'" : "class=' '",
+        'fine_type'              => ( $li3 == 'fine_type'              ) ? "class='active'" : "class=' '",
+        'paymenthistory'         => ( $li3 == 'paymenthistory'         ) ? "class='active'" : "class=' '"
+
     );
 
 ?>
@@ -282,44 +306,35 @@
                     <li <?=$_li2['academic_year']?>>
                         <a href="<?=base_url()?>administrator/academic_year">Academic Year</a>
                     </li>
-                    <li>
-                        <a href="pages/timeline.html">System Admin</a>
+                    <li <?=$_li2['systemadmin']?>>
+                        <a href="<?=base_url()?>administrator/systemadmin">System Admin</a>
                     </li>
-                    <li>
-                        <a href="pages/login.html">Reset Password</a>
+                    <li <?=$_li2['resetpwd']?>>
+                        <a href="<?=base_url()?>administrator/resetpwd">Reset Password</a>
                     </li>
                     <li>
                         <a href="pages/pricing.html">Import</a>
                     </li>
-                    <li>
-                        <a href="pages/pricing.html">Role</a>
-                    </li>
-                    <li <?=$_li2['permission']?>>
-                        <a href="<?=base_url()?>administrator/permission">Permission</a>
-                    </li>
-                    <li>
-                        <a href="pages/pricing.html">Update</a>
-                    </li>
                 </ul>
             </div>
         </li>  
-        <li>
-            <a data-toggle="collapse" href="#pagesExamples">
+        <li <?=$_li1['setting'];?>>
+            <a data-toggle="collapse" href="#pagesExamples" <?=$_a1['setting'];?>>
                 <i class="material-icons">settings</i>
                 <p>Setting
                     <b class="caret"></b>
                 </p>
             </a>
-            <div class="collapse" id="pagesExamples">
+            <div <?=$_div1['setting'];?> class="collapse" id="pagesExamples">
                 <ul class="nav">
-                    <li>
-                        <a href="pages/pricing.html">General Setting</a>
+                    <li <?=$_li2['general'];?>>
+                        <a href="<?=base_url('setting/general')?>">General Setting</a>
                     </li>
-                    <li>
-                        <a href="pages/timeline.html">Payment Setting</a>
+                    <li <?=$_li2['payment'];?>>
+                        <a href="<?=base_url('setting/payment')?>">Payment Setting</a>
                     </li>
-                    <li>
-                        <a href="pages/login.html">SMS Setting</a>
+                    <li <?=$_li2['sms'];?>>
+                        <a href="<?=base_url('setting/sms')?>">SMS Setting</a>
                     </li>
                 </ul>
             </div>

@@ -32,7 +32,6 @@ class Admin extends MY_Controller {
 			else {
 				$this->data['form_validation'] = '';
 				if($_POST) {
-
 					$rules = $this->rules();
 					$this->form_validation->set_rules($rules);
 					if($this->form_validation->run() == FALSE) {

@@ -61,6 +61,7 @@ class Exam extends MY_Controller {
 		$where_classes = array(
 			'instituteID'=>$this->session->userdata('instituteID')
 		);
+		
 		$where_exam = array(
 			'instituteID'=>$this->session->userdata('instituteID'),
 			'academic_yearID'=>$academic_yearID
@@ -80,28 +81,82 @@ class Exam extends MY_Controller {
 	}
 
 	//add exam schedule
-	function add_schedule() {
+	function add_schedule($examID=null, $classesID=null) {
+
+		$this->data['subjects'] = '';
+		$this->data['examID'] = '';
+		$this->data['classesID'] = '';
+		$this->data['exam_schedule'] = array();
+
+		$instituteID 		= $this->session->userdata('instituteID');
+		$institute 			= $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
+		$academic_yearID 	= $institute->academic_yearID;
 
 		if($_POST) {
-			$instituteID = $this->session->userdata('instituteID');
-			$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
-			$academic_yearID = $institute->academic_yearID;
-			$array = array(
-				'instituteID'=>$this->session->userdata('instituteID'),
-				'academic_yearID'=>$academic_yearID,
-				'examID'=>base64_decode($this->input->post('examID')),
-				'classesID'=>base64_decode($this->input->post('classesID')),
-				'sectionID'=>base64_decode($this->input->post('sectionID')),
-				'subjectID'=>base64_decode($this->input->post('subjectID')),
-				'date'=>$this->input->post('exam_date'),
-				'time_from'=>$this->input->post('time_from'),
-				'time_to'=>$this->input->post('time_to'),
-				'room'=>$this->input->post('room')
+			$exam_scheduleID = base64_decode($this->input->post('esi'));
+			$exam_date 	= explode(',', $_POST['exam_date']);
+			$time_from 	= explode(',', $_POST['time_from']);
+			$time_to 	= explode(',', $_POST['time_to']);
+			$room		= explode(',', $_POST['room']);
+
+			for($i=0;$i<count($exam_date);$i++) {
+				$array = array(
+				 	'instituteID'=>$instituteID,
+				 	'academic_yearID'=>$academic_yearID,
+				 	'examID'=>($examID),
+				 	'classesID'=>($classesID),
+				 	'subjectID'=>base64_decode($subjectID[$i]),
+				 	'date'=>$exam_date[$i],
+				 	'time_from'=>$time_from[$i],
+				 	'time_to'=>$time_to[$i],
+				 	'room'=>$room[$i]
+				 );
+				$this->exam_schedule_m->editExamSchedule($array, $exam_scheduleID);
+			}
+			
+			exit();
+		}
+
+		if($examID && $classesID) {
+			
+			$examID = base64_decode($examID);
+			$classesID = base64_decode($classesID);
+
+			$where = array(
+				'instituteID'	=>	$this->session->userdata('instituteID'),
+				'classesID'		=>	$classesID
 			);
 
-			$this->exam_schedule_m->insertExamSchedule($array);
-			$this->session->set_flashdata('exam_schedule_add','success');
-			redirect('exam/add_schedule');
+			$where2 = array(
+				'instituteID'		=>	$this->session->userdata('instituteID'),
+				'academic_yearID'	=>	$academic_yearID,
+				'examID'			=>	$examID,
+				'classesID'			=>	$classesID
+			);
+
+			$exam_schedule = $this->exam_schedule_m->get_exam_schedule_single($where2);
+			$subjects = $this->subject_m->get_order_by_subject($where);
+			if($exam_schedule) {
+				$this->data['exam_schedule'] = $exam_schedule;
+			}
+			else {
+				foreach($subjects as $subject) {
+					$array = array(
+					 	'instituteID'=>$instituteID,
+					 	'academic_yearID'=>$academic_yearID,
+					 	'examID'=>($examID),
+					 	'classesID'=>($classesID),
+					 	'subjectID'=>$subject->subjectID
+					 );
+
+					$exam_scheduleID = $this->exam_schedule_m->insertExamSchedule($array);
+					$this->data['exam_schedule'][] = $this->exam_schedule_m->get_exam_schedule_by_id($exam_scheduleID);
+				}
+			}
+
+			
+			$this->data['examID'] = $examID;
+			$this->data['classesID'] = $classesID;
 		}
 
 		$instituteID = $this->session->userdata('instituteID');
@@ -117,6 +172,7 @@ class Exam extends MY_Controller {
 			'academic_yearID'=>$academic_yearID
 		);
 
+
 		$this->data['classes'] = $this->classes_m->get_order_by_classes($where_classes);
 		$this->data['exams'] = $this->exam_m->get_order_by_exam($where_exam);
 		$this->data['title'] = 'Add Exam Schedule';
@@ -128,7 +184,6 @@ class Exam extends MY_Controller {
 		$this->data['div1'] = 'exam';
 		$this->data['li2'] = 'exam_schedule';
 		$this->load->view('main_layout', $this->data);
-
 	}
 
 	//add exam
