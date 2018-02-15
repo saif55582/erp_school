@@ -14,7 +14,7 @@ class Exam_schedule_m extends MY_Model {
 
 	function insertExamSchedule ($array) {
 		$id = parent::insert($array);
-		return true;
+		return $id;
 	}
 
 	function get_order_by_exam_schedule($array=NULL) {
@@ -33,7 +33,7 @@ class Exam_schedule_m extends MY_Model {
 	}
 
 	function editExamSchedule($array=NULL,$id=null) {
-		parent::update($array,$id);
+		return parent::update($array,$id);
 	}
 
 	function delete($id=NULL) {

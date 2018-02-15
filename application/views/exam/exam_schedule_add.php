@@ -69,8 +69,7 @@
 		            </div>
 		        </div>
 
-				<?php print_r($exam_schedule); ?>
-				<?php  if($subjects): ?>
+				<?php  if($exam_schedule): ?>
 		        <div class="card">
 
                     <div class="card-header card-header-icon" data-background-color="rose">
@@ -78,31 +77,36 @@
                     </div>
                     <div class="card-content">
                         <h4 class="card-title my-title">Add Exam Schedule</h4>
+                        <input type="hidden" value="<?=base64_encode($exam_schedule->exam_scheduleID)?>" id="hash" class="form-control  exam_date">
                             <table class="table">
                                 <thead class="text-primary">
                                     <th>Subject</th>
                                     <th>Date</th>
                                     <th>Time From</th>
                                     <th>Time To</th>
-                                    <th>Room <?=count($exam_schedule)?></th>
+                                    <th>Room</th>
                                 </thead>
                                 <tbody id="tbody">
                                 <?php 
 
-                            		foreach($exam_schedule as $schedule): ?>								
+                            		foreach(unserialize($exam_schedule->data) as $data): ?>								
 									<tr>
-										<td><?=$schedule->subjectID?></td>
 										<td>
-		                                    <input type="text" value="" id="exam_date" class="form-control datepicker exam_date" required > 
-		                                    <input type="hidden" id="hash" value="<?=base64_encode($schedule->scheduleID)?>">   
+											<?=$this->mylibrary->getSubjectParam($data['subjectID'], 'subject_name')?>		
+											<input type="hidden" value="<?=$data['subjectID']?>" id="subject" class="form-control  exam_date">									
 										</td>
 										<td>
-											<input type="text" value="" id="time_from" class="form-control timepicker time_from" required>
+		                                    <input type="text" value="<?=$data['date']?>" id="exam_date" class="form-control datepicker exam_date"> 
 										</td>
 										<td>
-											<input type="text" value="" id="time_to" class="form-control timepicker time_to" required>
+											<input type="text" value="<?=$data['time_from']?>" id="time_from" class="form-control timepicker time_from">
 										</td>
-										<td><input type="text" value="" id="room" class="form-control room"> </td>
+										<td>
+											<input type="text" value="<?=$data['time_to']?>" id="time_to" class="form-control timepicker time_to">
+										</td>
+										<td>
+											<input type="text" value="<?=$data['room']?>" id="room" class="form-control room">
+										</td>
 									</tr>
                            		<?php endforeach; ?>
                                 </tbody>

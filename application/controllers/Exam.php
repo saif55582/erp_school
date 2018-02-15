@@ -52,11 +52,35 @@ class Exam extends MY_Controller {
 		$this->load->view('main_layout', $this->data);
 	}
 
-	function schedule() {
+	function schedule($examID=null, $classesID=null) {
+
+		$this->data['examID'] = '';
+		$this->data['classesID'] = '';
+		$this->data['exam_schedule'] = '';
 
 		$instituteID = $this->session->userdata('instituteID');
 		$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 		$academic_yearID = $institute->academic_yearID;
+
+		if($examID && $classesID) {
+
+			$examID 	= base64_decode($examID);
+			$classesID 	= base64_decode($classesID);
+			$this->data['examID'] = $examID;
+			$this->data['classesID'] = $classesID;
+
+
+			$where2 = array(
+				'instituteID'		=>	$this->session->userdata('instituteID'),
+				'academic_yearID'	=>	$academic_yearID,
+				'examID'			=>	$examID,
+				'classesID'			=>	$classesID
+			);
+
+			$schedules = $this->exam_schedule_m->get_exam_schedule_single($where2);
+			$this->data['exam_schedule'] = $schedules ? $schedules : '';
+
+		}
 
 		$where_classes = array(
 			'instituteID'=>$this->session->userdata('instituteID')
@@ -68,6 +92,7 @@ class Exam extends MY_Controller {
 		);
 
 		$this->data['classes'] = $this->classes_m->get_order_by_classes($where_classes);
+		$this->data['exams']	= $this->exam_m->get_order_by_exam($where_classes);
 		$this->data['exam_schedules'] = $this->exam_schedule_m->get_order_by_exam_schedule($where_exam);
 		$this->data['title'] = 'Exam Schedule';
 		$this->data['subview'] = 'exam/exam_schedule';
@@ -86,7 +111,7 @@ class Exam extends MY_Controller {
 		$this->data['subjects'] = '';
 		$this->data['examID'] = '';
 		$this->data['classesID'] = '';
-		$this->data['exam_schedule'] = array();
+		$this->data['exam_schedule'] = '';
 
 		$instituteID 		= $this->session->userdata('instituteID');
 		$institute 			= $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
@@ -94,25 +119,29 @@ class Exam extends MY_Controller {
 
 		if($_POST) {
 			$exam_scheduleID = base64_decode($this->input->post('esi'));
+			$subjectID	= explode(',', $_POST['subject']);
 			$exam_date 	= explode(',', $_POST['exam_date']);
 			$time_from 	= explode(',', $_POST['time_from']);
 			$time_to 	= explode(',', $_POST['time_to']);
 			$room		= explode(',', $_POST['room']);
-
+			$data = array();
 			for($i=0;$i<count($exam_date);$i++) {
 				$array = array(
-				 	'instituteID'=>$instituteID,
-				 	'academic_yearID'=>$academic_yearID,
-				 	'examID'=>($examID),
-				 	'classesID'=>($classesID),
-				 	'subjectID'=>base64_decode($subjectID[$i]),
+					'subjectID'	=>	$subjectID[$i],
 				 	'date'=>$exam_date[$i],
 				 	'time_from'=>$time_from[$i],
 				 	'time_to'=>$time_to[$i],
 				 	'room'=>$room[$i]
 				 );
-				$this->exam_schedule_m->editExamSchedule($array, $exam_scheduleID);
+
+				array_push($data, $array);
+				
 			}
+
+				$update = (array('data'=>serialize($data)));
+				//print_r($update);
+				echo $this->exam_schedule_m->editExamSchedule($update, $exam_scheduleID);
+
 			
 			exit();
 		}
@@ -137,24 +166,37 @@ class Exam extends MY_Controller {
 			$exam_schedule = $this->exam_schedule_m->get_exam_schedule_single($where2);
 			$subjects = $this->subject_m->get_order_by_subject($where);
 			if($exam_schedule) {
-				$this->data['exam_schedule'] = $exam_schedule;
+				$this->data['exam_schedule']	=	$exam_schedule;
 			}
 			else {
-				foreach($subjects as $subject) {
-					$array = array(
+
+				$array = array(
 					 	'instituteID'=>$instituteID,
 					 	'academic_yearID'=>$academic_yearID,
 					 	'examID'=>($examID),
-					 	'classesID'=>($classesID),
-					 	'subjectID'=>$subject->subjectID
+					 	'classesID'=>($classesID)
 					 );
+				$data = array();
 
-					$exam_scheduleID = $this->exam_schedule_m->insertExamSchedule($array);
-					$this->data['exam_schedule'][] = $this->exam_schedule_m->get_exam_schedule_by_id($exam_scheduleID);
+				foreach($subjects as $subject) {
+					
+					$subject = array(
+						'subjectID'	=>	$subject->subjectID,
+						'date'		=>	'',
+						'time_from'	=>	'',
+						'time_to'	=>	'',
+						'room'		=> 	''
+					);
+
+					array_push($data, $subject);
 				}
+
+				$array = array_merge($array, array('data'	=> serialize($data)));
+				$exam_scheduleID = $this->exam_schedule_m->insertExamSchedule($array);
+				$this->data['exam_schedule'] = $this->exam_schedule_m->get_exam_schedule_by_id($exam_scheduleID, true);
 			}
 
-			
+
 			$this->data['examID'] = $examID;
 			$this->data['classesID'] = $classesID;
 		}

@@ -9,7 +9,6 @@ class Marks_m extends MY_Model {
 	protected $_order_by = '';
 
 	function __constuct() {
-
 		parent::__constuct();
 	}
 
@@ -40,5 +39,4 @@ class Marks_m extends MY_Model {
 	function delete($id=NULL) {
 		parent::delete($id);
 	}
-
 }

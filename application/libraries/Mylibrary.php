@@ -7,7 +7,7 @@ class Mylibrary {
 	protected $CI;
 
 	public function __construct() {
-
+        
 		$this->CI = & get_instance();
 		$this->CI->load->library('session');
 		$this->CI->load->model('classes_m');
@@ -19,17 +19,14 @@ class Mylibrary {
 	}
 
 	public function isLoggedIn() {
-
 		return (bool) $this->CI->session->userdata('loggedin');
 	}
 
     public function isLoggedInSuper() {
-
         return (bool) $this->CI->session->userdata('loggedInSuper');
     }
 
 	public function getClassName($classesID) {
-
         $where = array(
             'instituteID'=>$this->CI->session->userdata('instituteID'),
             'classesID'=>$classesID
@@ -144,6 +141,11 @@ class Mylibrary {
             return '--';
         }
 
+    }
+
+    function getParam($model, $id, $col) {
+        $query = $this->CI->$model->get($id, true);
+        return $query->$col;
     }
 
 	

@@ -17,7 +17,7 @@
                             ?>
                         </div>
                         <div class="material-datatables">
-                            <table n="teachers" id="datatables" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table n="teachers" id="datatables" class="mytable table table-striped table-no-bordered table-hover export" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
                                     <tr>    
                                         <th>Photo</th>
