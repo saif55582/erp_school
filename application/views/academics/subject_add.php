@@ -15,7 +15,7 @@
                         		<div class="row">
 	                                <div class="col-md-4">
 	                                    <div onclick="setFocus()" class="form-group label-floating is-empty">
-	                                        <select name="classesID"  id="teacherID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class" required>
+	                                        <select name="classesID" id="teacherID"  data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class" required>
 	                                            <?php
 	                                            foreach ($classes as $class) {
 	                                                $classesID = (set_value('classesID'));
@@ -25,7 +25,6 @@
 	                                                else {
 	                                                    echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
 	                                                }
-	                                                
 	                                            }
 	                                            ?>
 	                                        </select>

@@ -21,8 +21,8 @@ class Student extends MY_Controller {
 		$academic_yearID = $institute->academic_yearID;
 		$where = array(
 			'instituteID'=>$instituteID, 
-			'studentID'=>$studentID,
-			'academic_yearID'=>$academic_yearID
+			'studentID'=>$studentID
+			// 'academic_yearID'=>$academic_yearID
 		);
 
 		$this->data['student'] = $this->student_m->get_single_student($array);
@@ -426,12 +426,12 @@ class Student extends MY_Controller {
                     <td class='text-center td-actions'>
                     	<a href='".base_url()."student/view/".base64_encode($student->studentID*786786)."'>
                             <button type='button' class='btn btn-success'>
-                            <i class='material-icons'>open_in_new</i>
+                            	<i class='material-icons'>open_in_new</i>
                             </button>
                         </a>
                         <a href='".base_url()."student/edit/".$student->studentID."'>
                             <button type='button' rel='tooltip' class='btn btn-info'>
-                            <i class='material-icons'>edit</i>
+                            	<i class='material-icons'>edit</i>
                             </button>
                         </a>
                         <button id='".$student->studentID."' base='".base_url()."' cm='student/dest' type='button' 
@@ -448,6 +448,7 @@ class Student extends MY_Controller {
 	}
 
 	function gStM() {
+		
 		$classesID = base64_decode($this->input->post('y'));
 		$sectionID = base64_decode($this->input->post('z'));
 		$result = "";
@@ -495,7 +496,6 @@ class Student extends MY_Controller {
 	}
 
 	public function student_list() {
-
 
 		$classesID = base64_decode($this->input->post('class'));
 		$sectionID = base64_decode($this->input->post('section'));

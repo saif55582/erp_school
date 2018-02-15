@@ -9,6 +9,13 @@
     footers: false
   });
 
+  TableExport.prototype.defaultButton = "btn btn-blue btn-xs";
+  var liveTableData = $('.export_all').tableExport({
+    filename: $('.export_all').attr('n'),
+    ignoreCols: [lastIndex],
+    footers: false
+  });
+
   //student view attendance
   TableExport.prototype.defaultButton = "btn btn-blue btn-sm";
   var student_attendance = $('#datatable').tableExport({
@@ -37,6 +44,28 @@ $(document).ready(function() {
     $('.card .material-datatables label').addClass('form-group');
     demo.initFormExtendedDatetimepickers();
     $('.myscroll').perfectScrollbar();
+    
+});
+
+$(document).ready(function() {
+    $('.datatables').DataTable({
+       
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records",
+        }
+
+    });
+
+    var table = $('.datatables').DataTable();
+    $('.card .material-datatables label').addClass('form-group');
+    demo.initFormExtendedDatetimepickers();
     
 });
 

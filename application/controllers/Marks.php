@@ -15,7 +15,37 @@ class Marks extends MY_Controller {
 	function index() {
 		$where = array('instituteID'=>$this->session->userdata('instituteID'));
 		$this->data['classes'] = $this->classes_m->get_order_by_classes($where);
-		$this->data['students'] = $this->student_m->get_order_by_student($where);
+		$this->data['students'] = '';
+		$this->data['title'] = 'Marks';
+		$this->data['subview'] = 'marks/mark';
+		$this->data['script'] = 'marks/marks_js';
+		$this->data['app_script'] = 'general.js';
+		$this->data['li1'] = 'exam';
+		$this->data['a1'] = 'exam';
+		$this->data['div1'] = 'exam';
+		$this->data['li2'] = 'mark';
+		$this->load->view('main_layout', $this->data);
+	}
+
+	function class($ci = null) {
+
+		$where_class = array(
+			'instituteID'	=> $this->session->userdata('instituteID')
+		);
+		$where = array(
+			'instituteID'	=> $this->session->userdata('instituteID'),
+			'classesID'		=> base64_decode($ci)
+		);
+
+		$this->data['classesID'] = '';
+		$this->data['section'] = '';
+		$this->data['classes'] = $this->classes_m->get_order_by_classes($where_class);
+		if($ci) {
+			$this->data['students'] = $this->student_m->get_order_by_student($where);
+			$this->data['clas'] = (string) base64_decode($ci);
+			$this->session->set_flashdata('class', $ci);
+		}
+
 		$this->data['title'] = 'Marks';
 		$this->data['subview'] = 'marks/mark';
 		$this->data['script'] = 'marks/marks_js';
@@ -28,35 +58,88 @@ class Marks extends MY_Controller {
 	}
 
 
-
-	function view($sid) {
-
+	function view($sid, $cid) {
 		$studentID = base64_decode($sid)/786786;
+		$classesID = base64_decode($cid);
 		$instituteID = $this->session->userdata('instituteID');
-
-		$array = array('instituteID'=>$instituteID, 'studentID'=>$studentID );
-		
 		$institute = $this->institute_m->get_institute_single(array('instituteID'=>$instituteID));
 		$academic_yearID = $institute->academic_yearID;
+
+		$where = array(
+			'instituteID'		=> $instituteID,
+			'academic_yearID'	=> $academic_yearID,
+			'studentID'			=> $studentID,
+			'classesID'			=> $classesID
+		);
+
+		$marks_list = $this->marks_list_m->get_marks_list_single($where);
+		if($marks_list)
+			$marks_listID = $marks_list->marks_listID;
+		else
+			$marks_listID = 0;
+
+		$where_marks = array(
+			'marks_listID'	=> $marks_listID
+		);
+		$marks = $this->marks_m->get_order_by_marks($where_marks);
+
+		$array = array('instituteID'=>$instituteID, 'studentID'=>$studentID );
 		$where = array(
 			'instituteID'=>$instituteID, 
 			'studentID'=>$studentID,
 			'academic_yearID'=>$academic_yearID
 		);
-
+		$where_exam = array(
+			'instituteID'	=> $instituteID
+		);
+		$this->data['studentID'] = $studentID;
+		$this->data['classesID'] = $classesID;
+		$this->data['marks_listID'] = $marks_listID;
+		$this->data['exams'] = $this->exam_m->get_order_by_exam($where_exam);
 		$this->data['student'] = $this->student_m->get_single_student($array);
 		$this->data['attendances'] = $this->attendance_stud_m->get_attendance_stud_where($where);
-		$this->data['title'] = 'View Student marks';
+		$this->data['title'] = 'View Marks';
 		$this->data['subview'] = 'marks/marks_view';
 		$this->data['script'] = 'marks/marks_js';
 		$this->data['app_script'] = 'general.js';
-		$this->data['li1'] = 'mark';
+		$this->data['li1'] = 'exam';
+		$this->data['a1'] = 'exam';
+		$this->data['div1'] = 'exam';
+		$this->data['li2'] = 'mark';
 		$this->load->view('main_layout', $this->data);
+	}
 
+	function getMarks() {
+		$examID = base64_decode($this->input->post('ei'));
+		$marks_listID = $this->input->post('mli');
+		$where = array(
+			'marks_listID'	=> $marks_listID,
+			'examID'		=> $examID,
+		);
+		$marks = $this->marks_m->get_order_by_marks($where);
+		if(!$marks) {
+			echo "
+					<tr>
+						<td></td>
+						<td class='text-center td-actions'><center><p class='text-danger'> Marks Not found</p></center></td>
+						<td></td>
+					</tr>
+				";
+		}
+		$result = '';
+		foreach ($marks as $mark) {
+			$result .= "
+				<tr>
+					<td>".$mark->subjectID."</td>
+					<td>".$this->mylibrary->getParam('subject_m', $mark->subjectID, 'subject_name')."</td>
+					<td class='text-center td-actions'>".$mark->mark."</td>
+				</tr>
+			";
+		}
+		echo $result;
 	}
 
 	// Add marks page render
-
 	function add_marks($classesID=null, $sectionID=null, $examID=null, $subjectID=null) {
 
 		$this->data['students'] = '';
@@ -148,9 +231,9 @@ class Marks extends MY_Controller {
 		$this->data['subview'] = 'marks/marks_add';
 		$this->data['script'] = 'marks/marks_js';
 		$this->data['app_script'] = 'general.js';
-		$this->data['li1'] = 'marks';
-		$this->data['a1'] = 'marks';
-		$this->data['div1'] = 'marks';
+		$this->data['li1'] = 'exam';
+		$this->data['a1'] = 'exam';
+		$this->data['div1'] = 'exam';
 		$this->data['li2'] = 'mark';
 		$this->load->view('main_layout', $this->data);
 	}

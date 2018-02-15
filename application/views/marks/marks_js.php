@@ -1,5 +1,12 @@
 <script>
 
+
+	function getMarksByClass(ci) {
+		var target = "<?=base_url('marks/class/')?>"+ci;
+		window.location.href = target;
+		
+	}
+
 	$('#form_add_marks').on('click', '#proceed' , function() {
 		var ei = $('#exam_sel').val();
 		var ci = $('#class').val();
@@ -7,6 +14,25 @@
 		var subi = $('#sub').val();
 		var target = "<?=base_url('marks/add_marks/')?>"+ci+'/'+si+'/'+ei+'/'+subi;
 		window.location.href = target;
+		
+	});
+
+	$('#form_get_marks').on('click', '#proceed' , function() {
+		var ei = $('#exam_sel').val();
+		var mli = $('#marks_list').val();
+		if(ei=='') {
+			demo.showNotification('top','center', 'error',4, 'Exam must be selected');
+			return false;
+		}
+		var data = 'ei='+ei+'&mli='+mli;
+		$.ajax({
+			type: 'post',
+			data: data,
+			url: '<?=base_url('marks/getMarks')?>',
+			success: function(data) {
+				$('tbody').html(data);
+			}
+		});
 		
 	});
 
@@ -28,6 +54,7 @@
 			m.push(sm);
 			st.push(s);
 		});
+		 
 		var data = 'a='+ei+'&b='+ci+'&c='+si+'&d='+subi+'&e='+st+'&f='+m;
 		$.ajax({
 			type: 'post',
@@ -68,7 +95,7 @@
 			$subject 	= $this->session->flashdata('subject');
 			$base = base_url();
 
-			?>
+	?>
 			getSubjectOptions('<?=$classesID?>','<?=$base?>','<?=$subject?>');
 			getSection('<?=$classesID?>','<?=$base?>','<?=$sectionID?>');
 <?php	} ?>

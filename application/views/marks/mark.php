@@ -20,15 +20,16 @@
                                 ?>
                             </div>
 
-
                             <div onclick="setFocus();" class="col-md-3 mytargetchange" style="float:right;">
-                                <select name="classesID" id="class" onchange="getSection(this.value,'<?=base_url()?>',null);getStudentForMarks(this.value,null,'<?=base_url()?>');" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
+                                <select name="classesID" id="class" onchange="getSection(this.value,'<?=base_url()?>',null);
+                                getMarksByClass(this.value);" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Class">
                                     <?php
-                                    
                                         foreach($classes as $class):
-                                                echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
+                                                if($clas == $class->classesID) 
+                                                    echo "<option selected value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
+                                                else
+                                                    echo "<option value='".base64_encode($class->classesID)."'>".strtoupper($class->class_name)."</option>";
                                         endforeach;
-
                                     ?>
                                 </select>
                             </div>
@@ -55,40 +56,33 @@
                                     </tr>
                                 </tfoot>
                                 <tbody id="tbody">
-                         <!--  <?php foreach ($students as $student) : ?>
-                                        <tr id="<?= $student->studentID;?>">
-                                        <td>
-                                            <?php
+                    <?php if($students): ?>
+                        <?php foreach ($students as $student) : ?>
+                                    <tr id="<?= $student->studentID;?>">
+                                    <td>
+                                        <?php
 
-                                                if($student->photo == 'default.png') {
-                                                    echo "<img src='".base_url()."/main_asset/assets/img/default.png' alt='' class='img img-' style='width:50px'>";
-                                                }
-                                                else {
-                                                    echo "<img src='".base_url()."/main_asset/school_docs/".$this->session->userdata('instituteID')."/student/".$student->photo."' alt='' class='img' style='width:60px'>";
-                                                }
-                                            ?>                                                
-                                        </td>
-                                        <td><?= strtoupper($student->f_name.' '.$student->l_name) ?></td>
-                                        <td><?=$student->roll_no?></td>
-                                        <td><?=$student->reg_no?></td>
-                                        <td class="text-center td-actions">
-                                            <a href="<?= base_url(); ?>student/view/<?=base64_encode($student->studentID*786786)?>">
-                                                <button type="button" rel="tooltip" class="btn btn-success">
-                                                <i class="material-icons">visibility</i>
-                                                </button>
-                                            </a>
-                                            <a href="<?= base_url(); ?>student/edit/<?=$student->studentID?>">
-                                                <button type="button" rel="tooltip" class="btn btn-info">
-                                                <i class="material-icons">edit</i>
-                                                </button>
-                                            </a>
-                                            <button id="<?= $student->studentID ?>" onclick="pop(this.id,'<?=base_url()?>','student/dest')" type="button" rel="tooltip" class="btn btn-danger">
-                                                <i class="material-icons">close</i>
+                                            if($student->photo == 'default.png') {
+                                                echo "<img src='".base_url()."/main_asset/assets/img/default.png' alt='' class='img img-' style='width:50px'>";
+                                            }
+                                            else {
+                                                echo "<img src='".base_url()."/main_asset/school_docs/".$this->session->userdata('instituteID')."/student/".$student->photo."' alt='' class='img' style='width:60px'>";
+                                            }
+                                        ?>                                                
+                                    </td>
+                                    <td><?= strtoupper($student->f_name.' '.$student->l_name) ?></td>
+                                    <td><?=$student->roll_no?></td>
+                                    <td><?=$student->reg_no?></td>
+                                    <td class="text-center td-actions">
+                                        <a href="<?= base_url(); ?>marks/view/<?=base64_encode($student->studentID*786786)?>/<?=base64_encode($clas)?>">
+                                            <button type="button" rel="tooltip" class="btn btn-success">
+                                                <i class='material-icons'>open_in_new</i>
                                             </button>
-                                            
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?> -->
+                                        </a>
+                                    </td>
+                                </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

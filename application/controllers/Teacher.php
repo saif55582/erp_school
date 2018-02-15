@@ -137,6 +137,7 @@ class Teacher extends MY_Controller {
 	}
 
 	function index() {
+		//$this->output->cache(1);
 		$instituteID = $this->session->userdata('instituteID');
 		$this->data['teachers'] = $this->teacher_m->get_order_by_teacher(array('instituteID'=>$instituteID));
 		$this->data['title'] = 'Teacher';

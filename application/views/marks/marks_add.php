@@ -9,13 +9,10 @@
                     <div class="card-content">
                         <h4 class="card-title my-title">Add Marks</h4>
                         <div class="toolbar">
-                            <!--Here you can write extra buttons/actions for the toolbar              -->
-
+                            <!--Here you can write extra buttons/actions for the toolbar-->
                             <div class="col-md-12" style="background-color: #eee; border-radius: 5px; border: solid 1px #b11919;">
                                 <div class="row">
-                                    
                                     <div id="form_add_marks">
-
                                         <div onclick="setFocus()" class="col-sm-3 mytargetchange">
                                            <select name="examID" id="exam_sel" data-live-search="true" class="selectpicker" data-style="select-with-transition" title="Select Exam" required>
                                                 <?php
@@ -65,41 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <?php
-                            if($students) { ?>
-                            <div class="col-md-12" >
-                                <div class="row">
-                                    <div id="exam_subject">
-                                        <div class="col-md-3"></div>
-                                        <div onclick="setFocus()" class="col-sm-3 mytargetchange">
-                                           <select name="examID" id="exam" data-live-search="true" class="selectpicker exam_sel" data-style="select-with-transition" title="Select Exam" required>
-                                                <?php
-
-                                                    foreach($exams as $exam):
-                                                        if($examID == $exam->examID)
-                                                            echo "<option selected value='".base64_encode($exam->examID)."'>".strtoupper($exam->name)."</option>";
-                                                        else
-                                                            echo "<option value='".base64_encode($exam->examID)."'>".strtoupper($exam->name)."</option>";
-                                                    endforeach;
-                                                ?>
-                                            </select>
-                                        </div> 
-                                        <div onclick="setFocus();" class="col-md-3 mytargetchange">
-                                            <select name="subjectID" onchange="getMarks(this.value)" id="subject" class="selectpicker subject_sel" data-style="select-with-transition" title="Select Subject" required>
-                                                   <?php
-                                                   foreach ($subjects as $subject) {
-                                                       echo "<option value='".base64_encode($subject->subjectID)."'>".$subject->subject_name."</option>";
-                                                   }
-                                                   ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                            } 
-                            ?> -->
+                        
                         <div class="material-datatables">
                             <table n="students" id="" class="mytable table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead class="text-rose">
@@ -117,7 +80,8 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td><button style="margin-left:100px !important;" id='set_marks' class='btn btn-wd btn-success btn-sm'>Save</button></td>
+                                        <td><button style="display:<?= $students ? 'block' : 'none'; ?>;margin-left:100px !important;" id='set_marks' class='btn btn-wd btn-success btn-sm'>Save</button></td>
+
                                     </tr>
                                 </tfoot>
                                 <form method='get' id='marks_submit'>
